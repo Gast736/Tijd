@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+.jumbotron {
+	margin-bottom: 5%;
+}
+
+.tile {
+	height: 100px;
+	margin: 10px 10px 10px 10px;
+	background-color: gray;
+}	
+
+.registratie {
+}
+
+.rapportage {
+	background-color: orange;
+}
+
+.beheer {
+		background-color: red;
+}

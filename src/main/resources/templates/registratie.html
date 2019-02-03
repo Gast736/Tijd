@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Urenregistratie voor tijdschrijven</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="css/tijdschrijven.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script
+	src="js/tijdschrijven.js"></script>
+	
+</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-expand-sm bg-light">
+
+			<!-- Links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link "
+					href="bureaublad.html">Bureaublad</a></li>
+				<li class="nav-item"><a class="nav-link " href="registratie.html">Tijdschrijven</a></li>
+				<li class="nav-item"><a class="nav-link " href="medewerkers.html">Medewerkers</a></li>
+				<li class="nav-item"><a class="nav-link " href="projecten.html">Projecten</a></li>
+				<li class="nav-item"><a class="nav-link " href="rapportage.html">Projecten</a></li>
+				<li class="nav-item"><a class="nav-link " href="index.html">Uitloggen</a></li>
+			</ul>
+
+		</nav>
+
+		<div class="jumbotron text-center">
+			<h1>Tijdschrijfapplicatie gemeente Groningen</h1>
+			<p>Urenregistratie</p>
+		</div>
+
+		<div class="row">
+			<div class="col">Project</div>
+			<div class="col">Maandag</div>
+			<div class="col">Dinsdag</div>
+			<div class="col">Woensdag</div>
+			<div class="col">Donderdag</div>
+			<div class="col">Vrijdag</div>
+			<div class="col">Zaterdag</div>
+			<div class="col">Zondag</div>
+		</div>
+
+		<form action="">
+			<div class="row">
+				<div class="col">
+					<select name="projecten" class="form-control" id="projectselectie">
+						<option>Verlof</option>
+						<option>ADV</option>
+						<option>eSuite Klachtenregistratie</option>
+						<option>DaFinci</option>
+						<option>DMO Indicatiewaarden</option>
+						<option>Etcetera...</option>
+					</select>
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input  class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+				<div class="col">
+					<input class="form-control" type="number" pattern="^\d{0,2}(\.\d{1})?$" max="9" value="0.0">
+				</div>
+			</div>
+
+			<div class="row"></div>
+		</form>
+
+<footer>
+		<div class="row">
+			<div class="col">Totalen</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+			<div class="col">#</div>
+		</div>
+</footer>
+	</div>
+</body>
+</html>

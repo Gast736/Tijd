@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<title>Loginpagina voor tijdschrijven</title>
+<title>Bureaublad voor tijdschrijven</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -38,52 +38,47 @@
 
 		<div class="jumbotron text-center">
 			<h1>Tijdschrijfapplicatie gemeente Groningen</h1>
-			<p>Inloggen</p>
+			<p>Bureaublad</p>
 		</div>
 
-		<form action="">
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="gebruikersnaam">Gebruikersnaam</label> <input
-						type="text" class="form-control" id="gebruikersnaam"
-						placeholder="Vul je gebruikersnaam in" name="gebruikersnaam">
-				</div>
-				<div class="col-md-4"></div>
-			</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-2 tile registratie" id="registratie">Registreren</div>
+			<div class="col-md-2 tile rapportage" id="rapportage">Rapportage</div>
+			<div class="col-md-4"></div>
+		</div>
 
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="wachtwoord">Wachtwoord</label> <input type="password"
-						class="form-control" id="wachtwoord"
-						placeholder="Vul je wachtwoord in" name="wachtwoord">
-				</div>
-				<div class="col-md-4"></div>
-			</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-2 tile beheer" id="medewerkers">Beheer
+				medewerkers</div>
+			<div class="col-md-2 tile beheer" id="projecten">Beheer
+				projecten</div>
+			<div class="col-md-4"></div>
+		</div>
 
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="button"></label>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
+		<script type="text/javascript">
+			$('.tile').click(function(id_clicked) {
+				alert("Je klikte op: " & id_clicked);
+				var new_url = "#";
+				switch (this.id) {
+				case "registratie":
+					new_url = "registratie.html";
+					break;
+				case "rapportage":
+					new_url = "rapportage.html";
+					break;
+				case "medewerkers":
+					new_url = "medewerkers.html";
+					break;
+				case "projecten":
+					new_url = "projecten.html";
+					break;
+				}
+				location.replace(new_url);
 
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<button type="submit" class="btn btn-primary">Inloggen</button>
-					<script type="text/javascript">
-						$('.btn').click(function() {
-							alert("Maak hier een AJAX-call naar de inlogcontroller...");
-						});
-					</script>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-		</form>
-
+			});
+		</script>
 	</div>
 </body>
 </html>

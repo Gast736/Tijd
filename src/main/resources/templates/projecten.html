@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Projectenbeheer voor tijdschrijven</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="css/tijdschrijven.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script
+	src="js/tijdschrijven.js"></script>
+	
+</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-expand-sm bg-light">
+
+			<!-- Links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link "
+					href="bureaublad.html">Bureaublad</a></li>
+				<li class="nav-item"><a class="nav-link " href="registratie.html">Tijdschrijven</a></li>
+				<li class="nav-item"><a class="nav-link " href="medewerkers.html">Medewerkers</a></li>
+				<li class="nav-item"><a class="nav-link " href="projecten.html">Projecten</a></li>
+				<li class="nav-item"><a class="nav-link " href="rapportage.html">Projecten</a></li>
+				<li class="nav-item"><a class="nav-link " href="index.html">Uitloggen</a></li>
+			</ul>
+
+		</nav>
+
+		<div class="jumbotron text-center">
+			<h1>Tijdschrijfapplicatie gemeente Groningen</h1>
+			<p>Projectenbeheer</p>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">Projectnaam</div>
+			<div class="col-md-2">Categorie</div>
+			<div class="col-md-2">Opdrachtgever</div>
+			<div class="col-md-2">Directie</div>
+			<div class="col">Begindatum</div>
+			<div class="col">Einddatum</div>
+		</div>
+
+		<form action="">
+			<div class="row">
+				<div class="col-md-2">
+					<select name="projecten" class="form-control" id="projectselectie">
+						<option>Verlof</option>
+						<option>ADV</option>
+						<option>eSuite Klachtenregistratie</option>
+						<option>DaFinci</option>
+						<option>DMO Indicatiewaarden</option>
+						<option>Etcetera...</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<select name="projecten" class="form-control" id="projectselectie">
+						<option>Overhead</option>
+						<option>Project</option>
+						<option>Afwezigheid</option>
+						<option>Etcetera...</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<input class="form-control" type="text">
+				</div>
+				<div class="col-md-2">
+					<input class="form-control" type="text">
+				</div>
+				<div class="col">
+					<input class="form-control" type="date">
+				</div>
+				<div class="col">
+					<input class="form-control" type="date">
+				</div>
+			</div>
+
+			<div class="row"></div>
+		</form>
+
+	</div>
+</body>
+</html>
