@@ -7,34 +7,30 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>Tijdschrijfapplicatie</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link href="css/signin.css" rel="stylesheet">
 
 <script>
+	$(document).ready(function() {
+		$.ajax('http://localhost:8080/medewerkers', {
+			'method' : 'GET'
+		}).done(function(data) {
+			$.each(data, function(idx, el) {
+				let h = `<option>${el.naam}</option>`
+				$("#inputName").html($("#inputName").html() + h)
+			})
+		}).fail(function(e) {
+			console.log(e)
+		})
 
-$(document).ready( function() {
-  $.ajax('http://localhost:8080/medewerkers', {'method':'GET'})
-   .done( function(data) { 
-     $.each(data, function(idx, el) { 
-       let h = `<option>${el.naam}</option>`
-       $("#inputName").html($("#inputName").html() + h) 
-     })
-   })
-   .fail( function(e) { console.log(e)} )
- 
-})
-
+	})
 </script>
 </head>
 

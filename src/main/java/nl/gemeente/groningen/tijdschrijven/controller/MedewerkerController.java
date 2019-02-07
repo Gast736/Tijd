@@ -52,7 +52,7 @@ public class MedewerkerController {
     }
     @GetMapping("/medewerkers") 
     public ArrayList<Medewerker> getAllMedewerkers() throws SQLException {
-	ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
+	ArrayList<Medewerker> medewerkers = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerker")) {
 
 	    ResultSet result = sql.executeQuery();
@@ -79,4 +79,6 @@ public class MedewerkerController {
 	return null;
 
     }
+    
+    
 }
