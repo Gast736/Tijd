@@ -1,0 +1,22 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+#selYear, #selWeek {
+    width: 100px;
+    float: left;
+}
+
+#regform {
+    float: left;
+}
+
+h1 {
+    text-align: center
+}
+
+svg, img, #calendar {
+    stroke: red;
+}
