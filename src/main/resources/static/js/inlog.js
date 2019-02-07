@@ -13,14 +13,13 @@ function toonMedewerkers(jsonrecordset) {
 /* Deze functie toont alle medewerkers:
 - doorloopt het json object
 - pakt daaruit de namen
-- en plaatst deze in het element inputName. */    
+- en plaatst deze in het element inputName.*/    
     var s = "";
     for (var i = 0; i < jsonrecordset.length; i++) {
-// Onderstaand stukje is wat tricky. Ik plaats nu alleen de opties in het select object. Ik weet eigenlijk niet of dat gaat werken.
-// Zo niet, dan moet ik het volledig select-object opbouwen in deze lus.
         s = s + "<option>" + jsonrecordset[i].naam + "</option>";
 
     }
+    s='<select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>' + s + "</select>";
     document.getElementById("inputName").innerHTML = s;
     return false;
 }
