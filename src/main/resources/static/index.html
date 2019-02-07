@@ -1,87 +1,59 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-<meta charset="utf-8">
-<title>Loginpagina voor tijdschrijven</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/webjars/bootstrap/4.2.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/tijdschrijven.css">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<script src="/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
-<script src="/webjars/popper.js/1.14.3/popper.js"></script>
-<script src="/js/tijdschrijven.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+    <style>
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+    <title>Tijdschrijfapplicatie</title>
 </head>
+
 <body>
 
-	<div class="container-fluid">
-		<nav class="navbar navbar-expand-sm bg-light">
-
-			<!-- Links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link "
-					href="bureaublad.html">Bureaublad</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="registratie.html">Tijdschrijven</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="medewerkers.html">Medewerkers</a></li>
-				<li class="nav-item"><a class="nav-link " href="projecten.html">Projecten</a></li>
-				<li class="nav-item"><a class="nav-link " href="rapportage.html">Rapportage</a></li>
-				<li class="nav-item"><a class="nav-link " href="index.html">Uitloggen</a></li>
-			</ul>
-
-		</nav>
-
-		<div class="jumbotron text-center">
-			<h1>Tijdschrijfapplicatie gemeente Groningen</h1>
-			<p>Inloggen</p>
-		</div>
-
-		<form action="">
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="gebruikersnaam">Gebruikersnaam</label> <input
-						type="text" class="form-control" id="gebruikersnaam"
-						placeholder="Vul je gebruikersnaam in" name="gebruikersnaam">
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="wachtwoord">Wachtwoord</label> <input type="password"
-						class="form-control" id="wachtwoord"
-						placeholder="Vul je wachtwoord in" name="wachtwoord">
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<label for="button"></label>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<button type="submit" class="btn btn-primary">Inloggen</button>
-					<script type="text/javascript">
-						$('.btn').click(function() {
-							alert("Maak hier een AJAX-call naar de inlogcontroller...");
-						});
-					</script>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
-		</form>
-
-	</div>
-</body>
+    <body class="text-center">
+        <form class="form-signin">
+            <img class="mb-4" src="img/calendar.svg" alt="" width="72" height="72">
+            <img class="mb-4" src="img/clock.svg" alt="" width="72" height="72">
+            <img class="mb-4" src="img/file-text.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Meld je aan</h1>
+            <label for="inputName" class="sr-only">Naam medewerker</label>
+            <select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>
+                <option> Medewerker A</option>
+                <option> Medewerker B</option>
+                <option> Medewerker C</option>
+                <option> Medewerker D</option>
+            </select>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Wachtwoord" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="Remember"> Herinner mij
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Inloggen</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+        </form>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </body>
 </html>
