@@ -18,35 +18,35 @@ public class Medewerker {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="idmedewerker")
-    private int idMedewerker;
+    public int idmedewerker;
     
     @Column(length=45)
-    private String naam;
+    public String naam;
     
     @Column(length=10)
-    private String wachtwoord;
+    public String wachtwoord;
     
     @Column(length=45)
-    private String team;
+    public String team;
     
     @Column(length=45)
-    private String rol;
+    public String rol;
     
     @Column(scale=4, precision=2)
-    private double contracturen;
+    public double contracturen;
     
     @Temporal(TemporalType.DATE)
-    private Date startdatum;
+    public Date startdatum;
 
     @Temporal(TemporalType.DATE)
-    private Date einddatum;
+    public Date einddatum;
 
     public int getIdMedewerker() {
-        return idMedewerker;
+        return idmedewerker;
     }
 
-    public void setIdMedewerker(int idMedewerker) {
-        this.idMedewerker = idMedewerker;
+    public void setIdMedewerker(int idmedewerker) {
+        this.idmedewerker = idmedewerker;
     }
 
     public String getNaam() {
@@ -107,7 +107,7 @@ public class Medewerker {
 
     @Override
     public String toString() {
-	return "Medewerker [idMedewerker=" + idMedewerker + ", naam=" + naam + ", wachtwoord=" + wachtwoord + ", team="
+	return "Medewerker [idmedewerker=" + idmedewerker + ", naam=" + naam + ", wachtwoord=" + wachtwoord + ", team="
 		+ team + ", rol=" + rol + ", contracturen=" + contracturen + ", startdatum=" + startdatum
 		+ ", einddatum=" + einddatum + "]";
     }
