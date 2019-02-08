@@ -51,7 +51,7 @@ function getData(surl, callback) {
 
 
 // De code die bij het gereed zijn van de pagina wordt uitgevoerd. Maakt gebruik van de twee hierboven gedefinieerde functies
-$(document).ready(function () {
+window.onload(function () {
 
 
 
@@ -60,13 +60,13 @@ $(document).ready(function () {
     console.log("document is ready");
 });
 
-$('#submitBtn').click(function() {
+$('#submitBtn').click(function () {
     $.ajax('/medewerker/wachtwoord', {
-    	data: {
-    		naam: $('#inputName').val(),
-    		wachtwoord: $('#inputPassword').val()
-    	}
-    }).done(function(data) {
-    	$('#submitResult')= text(data);
-    });		
+        data: {
+            naam: $('#inputName').val(),
+            wachtwoord: $('#inputPassword').val()
+        }
+    }).done(function (data) {
+        $('#submitResult') = text(data);
+    });
 });
