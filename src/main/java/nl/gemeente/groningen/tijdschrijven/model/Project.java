@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven;
+package nl.gemeente.groningen.tijdschrijven.model;
 
 import java.util.ArrayList;
 import java.util.Date;

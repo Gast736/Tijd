@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven;
+package nl.gemeente.groningen.tijdschrijven.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,56 +19,56 @@ import javax.persistence.TemporalType;
 @Table(name="tblregistratie")
 @Embeddable
 public class Registratie implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @ManyToOne
     @JoinColumn(name="idmedewerker")
     private Medewerker medewerker;
-    
+
     @Id
     @ManyToOne
     @JoinColumn(name="idproject")
     private Project project;
-    
+
     @Id
     @Temporal(TemporalType.DATE)
     private Date startdatum;
-    
+
     @Column(scale=4, precision=2)
     private double uren;
 
     public Medewerker getMedewerker() {
-        return medewerker;
+	return medewerker;
     }
 
     public void setMedewerker(Medewerker medewerker) {
-        this.medewerker = medewerker;
+	this.medewerker = medewerker;
     }
 
     public Project getProject() {
-        return project;
+	return project;
     }
 
     public void setProject(Project project) {
-        this.project = project;
+	this.project = project;
     }
 
     public Date getStartdatum() {
-        return startdatum;
+	return startdatum;
     }
 
     public void setStartdatum(Date startdatum) {
-        this.startdatum = startdatum;
+	this.startdatum = startdatum;
     }
 
     public double getUren() {
-        return uren;
+	return uren;
     }
 
     public void setUren(double uren) {
-        this.uren = uren;
+	this.uren = uren;
     }
 
     @Override
@@ -76,6 +76,5 @@ public class Registratie implements Serializable {
 	return "Registratie [medewerker=" + medewerker + ", project=" + project + ", startdatum=" + startdatum
 		+ ", uren=" + uren + "]";
     }
-    
 
 }
