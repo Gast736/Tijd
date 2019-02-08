@@ -13,14 +13,14 @@ function toonMedewerkers(jsonrecordset) {
 /* Deze functie toont alle medewerkers:
 - doorloopt het json object
 - pakt daaruit de namen
-- en plaatst deze in het element inputName.*/    
+- en plaatst deze in het div-element ophalenMdw.*/    
     var s = "";
     for (var i = 0; i < jsonrecordset.length; i++) {
         s = s + "<option>" + jsonrecordset[i].naam + "</option>";
 
     }
     s='<select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>' + s + "</select>";
-    document.getElementById("inputName").innerHTML = s;
+    document.getElementById("ophalenMdw").innerHTML = s;
     return false;
 }
 
@@ -47,8 +47,7 @@ Deze functie begeleidt de aanroep van de restcontroller. Er moet nog wel wat aan
 
 
 // De code die bij het gereed zijn van de pagina wordt uitgevoerd. Maakt gebruik van de twee hierboven gedefinieerde functies
-$(document).ready(function () {
-
+    $(document).ready(function(){
 
     getData("http://localhost:8080/medewerkers", toonMedewerkers);
 
