@@ -16,7 +16,7 @@ function toonMedewerkers(jsonrecordset) {
     - en plaatst deze in het div-element ophalenMdw.*/
     var s = "";
     // LOGGING AAN
-    console.log("Het JSON object met " + jsonrecordset.length + " records, is ontvangen.");
+    console.log("Het JSON object met " + jsonrecordset.length + "records, is ontvangen.");
 
     for (var i = 0; i < jsonrecordset.length; i++) {
         s = s + "<option>" + jsonrecordset[i].naam + "</option>";
@@ -53,31 +53,20 @@ function getData(surl, callback) {
 // De code die bij het gereed zijn van de pagina wordt uitgevoerd. Maakt gebruik van de twee hierboven gedefinieerde functies
 $(document).ready(function () {
 
+
+
     getData("http://localhost:8080/medewerkers/all", toonMedewerkers);
 
-    console.log("Het document is geladen. (document.ready)");
+    console.log("document is ready");
 });
 
-/*
-Checken of het ingevoerde wachtwoord overeenkomt. We sturen de combinatie gebruiker en wachtwoord naar de controller en verwachten
-als resultaat een TRUE or FALSE terug.
-*/
-
-$('#submitBtn').click(function () {
-    // LOGGING AAN
-    console.log("We sturen het volgende wachtwoord naar de controller: " + $('#inputPassword').val());
-    console.log("We sturen de volgende medewerker naar de controller: " + $('#inputName').val());
-
+$('#submitBtn').click(function() {
     $.ajax('/medewerker/wachtwoord', {
-        data: {
-            medewerker: $('#inputName').val(),
-            wachtwoord: $('#inputPassword').val()
-
-        }
-    }).done(function (data) {
-        // LOGGING AAN
-        console.log("We krijgen het volgende resultaat terug van de controller: " + data)
-        $('#submitResult') = text(data);
-        // Bij TRUE moeten we hier nog toevoegen dat je verder gaat naar registratie.html
-    });
+    	data: {
+    		naam: $('#inputName').val(),
+    		wachtwoord: $('#inputPassword').val()
+    	}
+    }).done(function(data) {
+    	$('#submitResult')= text(data);
+    });		
 });
