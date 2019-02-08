@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven.controller;
+package nl.gemeente.groningen.tijdschrijven;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
-
 @RestController
 public class MedewerkerController {
 
@@ -26,7 +24,7 @@ public class MedewerkerController {
 	return dataSource.getConnection();
     }
 
-    @GetMapping("/medewerker") 
+    @GetMapping("/medewerker/{naam}") 
     public Medewerker getMedewerkerByNaam(@RequestParam(name="naam") String naam) throws SQLException {
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerkers where naam = ?")) {
 	    sql.setString(1, naam);
@@ -50,7 +48,7 @@ public class MedewerkerController {
 	return null;
 
     }
-    @GetMapping("/medewerkers") 
+    @GetMapping("/medewerkers/all") 
     public ArrayList<Medewerker> getAllMedewerkers() throws SQLException {
 	ArrayList<Medewerker> medewerkers = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerker")) {

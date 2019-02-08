@@ -30,6 +30,8 @@ public class TijdController {
                 	m.einddatum = rs.getDate("einddatum");
                 	mdw.add(m);
                 }
+    	} catch (SQLException e) {
+    	    System.out.println(e.getErrorCode() + ": " + e.getMessage());
     	}
     	return mdw;
     }

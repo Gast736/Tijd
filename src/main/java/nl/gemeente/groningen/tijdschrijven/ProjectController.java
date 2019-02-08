@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven.controller;
+package nl.gemeente.groningen.tijdschrijven;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
-import nl.gemeente.groningen.tijdschrijven.model.Project;
 
 @RestController
 public class ProjectController {
