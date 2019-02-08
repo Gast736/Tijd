@@ -41,6 +41,22 @@ public class Medewerker {
     @Temporal(TemporalType.DATE)
     public Date einddatum;
 
+    public Medewerker(int idmedewerker,String naam, String wachtwoord, String team, String rol, 
+    		double contracturen, Date startdatum, Date einddatum) {
+    		this.idmedewerker=idmedewerker;
+    		this.naam=naam;
+    		this.wachtwoord=wachtwoord;
+    		this.team=team;
+    		this.rol=rol;
+    		this.contracturen=contracturen;
+    		this.startdatum=startdatum;
+    		this.einddatum=einddatum;
+    }
+    
+    public Medewerker() {
+    	
+    }
+    
     public int getIdMedewerker() {
         return idmedewerker;
     }
