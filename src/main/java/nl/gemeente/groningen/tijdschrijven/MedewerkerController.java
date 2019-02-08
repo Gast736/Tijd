@@ -55,18 +55,18 @@ public class MedewerkerController {
 
 	    while (result.next()) {
 
-	    Medewerker medewerker = new Medewerker();
-	    medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-	    medewerker.setNaam(result.getString("naam"));
-	    medewerker.setWachtwoord(result.getString("wachtwoord"));
-	    medewerker.setTeam(result.getString("team"));
-	    medewerker.setRol(result.getString("rol"));
-	    medewerker.setContracturen(result.getDouble("contracturen"));
-	    medewerker.setStartdatum(result.getDate("startdatum"));
-	    medewerker.setEinddatum(result.getDate("einddatum"));
-	    
-	    medewerkers.add(medewerker);
-	    
+		Medewerker medewerker = new Medewerker();
+		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
+		medewerker.setNaam(result.getString("naam"));
+		medewerker.setWachtwoord(result.getString("wachtwoord"));
+		medewerker.setTeam(result.getString("team"));
+		medewerker.setRol(result.getString("rol"));
+		medewerker.setContracturen(result.getDouble("contracturen"));
+		medewerker.setStartdatum(result.getDate("startdatum"));
+		medewerker.setEinddatum(result.getDate("einddatum"));
+
+		medewerkers.add(medewerker);
+
 	    }
 	    return medewerkers;
 	} catch (SQLException e) {
@@ -75,6 +75,31 @@ public class MedewerkerController {
 	return null;
 
     }
-    
-    
+
+    @GetMapping("/medewerker/wachtwoord")
+    public boolean isWachtwoordCorrect(@RequestParam(name="naam") String naam, @RequestParam(name="wachtwoord") String wachtwoord) {
+	try (PreparedStatement sql = getConnection().prepareStatement("select naam, wachtwoord from tblmedewerker where naam = ?")) {
+	    sql.setString(1, naam);
+
+	    ResultSet result = sql.executeQuery();
+
+	    result.next();
+
+	    Medewerker medewerker = new Medewerker();
+	    medewerker.setWachtwoord(result.getString("wachtwoord"));
+
+	    String wachtwoordCheck = medewerker.getWachtwoord();
+
+	    if (wachtwoordCheck.equals(wachtwoord)) {
+		return true;
+	    } else {
+		return false;
+	    }
+	} catch (Exception e) {
+	    System.out.println(e.getMessage());
+	    return false;
+
+	}
+
+    }
 }
