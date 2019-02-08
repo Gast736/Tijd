@@ -15,9 +15,12 @@ function toonMedewerkers(jsonrecordset) {
 - pakt daaruit de namen
 - en plaatst deze in het div-element ophalenMdw.*/    
     var s = "";
+    // LOGGING AAN
+    console.log("Het JSON object met " + jsonrecordset.length + "records, is ontvangen.");
     for (var i = 0; i < jsonrecordset.length; i++) {
         s = s + "<option>" + jsonrecordset[i].naam + "</option>";
-
+        // LOGGING AAN
+        console.log("Medewerker: " + jsonrecordset[i].naam + " toegevoegd.");
     }
     s='<select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>' + s + "</select>";
     document.getElementById("ophalenMdw").innerHTML = s;
