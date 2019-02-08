@@ -22,7 +22,7 @@ public class MedewerkerController {
 	return dataSource.getConnection();
     }
 
-    @GetMapping("/medewerker/{naam}") 
+    @GetMapping("/medewerker") 
     public Medewerker getMedewerkerByNaam(@RequestParam(name="naam") String naam) throws SQLException {
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerkers where naam = ?")) {
 	    sql.setString(1, naam);
@@ -46,7 +46,7 @@ public class MedewerkerController {
 	return null;
 
     }
-    @GetMapping("/medewerkers/all") 
+    @GetMapping("/medewerkers") 
     public ArrayList<Medewerker> getAllMedewerkers() throws SQLException {
 	ArrayList<Medewerker> medewerkers = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerker")) {

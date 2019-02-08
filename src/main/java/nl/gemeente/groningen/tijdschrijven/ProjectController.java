@@ -50,7 +50,7 @@ public class ProjectController {
 	}
     }
 
-    @GetMapping("/project/{idproject}")
+    @GetMapping("/project")
     public Project getProjectByNaam(@RequestParam(name="naam") String naam) {
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblproject where naam = ?")) {
 

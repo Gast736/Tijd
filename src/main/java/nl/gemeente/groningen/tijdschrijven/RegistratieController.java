@@ -63,7 +63,7 @@ public class RegistratieController {
 	}
     }
 
-    @GetMapping("/registraties/{idmedewerker}")
+    @GetMapping("/registraties/permedewerker")
     public ArrayList<Registratie> getAlleRegistratiesByMedewerker(@RequestParam(name="idmedewerker") int idMedewerker) {
 	ArrayList<Registratie> registraties = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblregistratie join tblmedewerker using(idmedewerker) join tblproject using(idproject) where idmedewerker = ?")) {
@@ -219,7 +219,7 @@ public class RegistratieController {
 	return dataSource.getConnection();
     }
 
-    @GetMapping("/registraties/{idproject}")
+    @GetMapping("/registraties/perproject")
     public ArrayList<Registratie> getRegistratiesByProject(@RequestParam(name = "project") Project project) {
 	ArrayList<Registratie> registraties = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblregistratie join tblmedewerker using(idmedewerker) join tblproject using(idproject) where idproject = ?")) {
