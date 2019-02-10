@@ -12,86 +12,86 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="tblproject")
+@Table(name = "tblproject")
 public class Project {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="idproject")
-    private int idProject;
-
-    @Column(length=45)
-    private String naam;
-
-    @Column(length=45)
+    @Column(length = 45)
     private String categorie;
 
-    @Column(length=45)
-    private String opdrachtgever;
-
-    @Column(length=45)
+    @Column(length = 45)
     private String directie;
-
-    @Temporal(TemporalType.DATE)
-    private Date startdatum;
 
     @Temporal(TemporalType.DATE)
     private Date einddatum;
 
-    public int getIdProject() {
-        return idProject;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idproject")
+    private int idProject;
 
-    public void setIdProject(int idProject) {
-        this.idProject = idProject;
-    }
+    @Column(length = 45)
+    private String naam;
 
-    public String getNaam() {
-        return naam;
-    }
+    @Column(length = 45)
+    private String opdrachtgever;
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+    @Temporal(TemporalType.DATE)
+    private Date startdatum;
 
     public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
-
-    public String getOpdrachtgever() {
-        return opdrachtgever;
-    }
-
-    public void setOpdrachtgever(String opdrachtgever) {
-        this.opdrachtgever = opdrachtgever;
+	return categorie;
     }
 
     public String getDirectie() {
-        return directie;
-    }
-
-    public void setDirectie(String directie) {
-        this.directie = directie;
-    }
-
-    public Date getStartdatum() {
-        return startdatum;
-    }
-
-    public void setStartdatum(Date startdatum) {
-        this.startdatum = startdatum;
+	return directie;
     }
 
     public Date getEinddatum() {
-        return einddatum;
+	return einddatum;
+    }
+
+    public int getIdProject() {
+	return idProject;
+    }
+
+    public String getNaam() {
+	return naam;
+    }
+
+    public String getOpdrachtgever() {
+	return opdrachtgever;
+    }
+
+    public Date getStartdatum() {
+	return startdatum;
+    }
+
+    public void setCategorie(String categorie) {
+	this.categorie = categorie;
+    }
+
+    public void setDirectie(String directie) {
+	this.directie = directie;
     }
 
     public void setEinddatum(Date einddatum) {
-        this.einddatum = einddatum;
+	this.einddatum = einddatum;
+    }
+
+    public void setIdProject(int idProject) {
+	this.idProject = idProject;
+    }
+
+    public void setNaam(String naam) {
+	this.naam = naam;
+    }
+
+    public void setOpdrachtgever(String opdrachtgever) {
+	this.opdrachtgever = opdrachtgever;
+    }
+
+    public void setStartdatum(Date startdatum) {
+	this.startdatum = startdatum;
     }
 
     @Override

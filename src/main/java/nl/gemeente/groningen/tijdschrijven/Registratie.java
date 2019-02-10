@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="tblregistratie")
+@Table(name = "tblregistratie")
 @Embeddable
 public class Registratie implements Serializable {
 
@@ -22,47 +22,47 @@ public class Registratie implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name="idmedewerker")
+    @JoinColumn(name = "idmedewerker")
     private Medewerker medewerker;
 
     @Id
     @ManyToOne
-    @JoinColumn(name="idproject")
+    @JoinColumn(name = "idproject")
     private Project project;
 
     @Id
     @Temporal(TemporalType.DATE)
     private Date startdatum;
 
-    @Column(scale=4, precision=2)
+    @Column(scale = 4, precision = 2)
     private double uren;
 
     public Medewerker getMedewerker() {
 	return medewerker;
     }
 
-    public void setMedewerker(Medewerker medewerker) {
-	this.medewerker = medewerker;
-    }
-
     public Project getProject() {
 	return project;
-    }
-
-    public void setProject(Project project) {
-	this.project = project;
     }
 
     public Date getStartdatum() {
 	return startdatum;
     }
 
-    public void setStartdatum(Date startdatum) {
-	this.startdatum = startdatum;
-    }
-
     public double getUren() {
 	return uren;
+    }
+
+    public void setMedewerker(Medewerker medewerker) {
+	this.medewerker = medewerker;
+    }
+
+    public void setProject(Project project) {
+	this.project = project;
+    }
+
+    public void setStartdatum(Date startdatum) {
+	this.startdatum = startdatum;
     }
 
     public void setUren(double uren) {
