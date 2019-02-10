@@ -19,10 +19,6 @@ public class ProjectController {
     @Autowired
     private DataSource dataSource;
 
-    private Connection getConnection() throws SQLException {
-	return dataSource.getConnection();
-    }
-
     @GetMapping("/projecten")
     public ArrayList<Project> getAlleProjecten() {
 	ArrayList<Project> projecten = new ArrayList<>();
@@ -50,8 +46,12 @@ public class ProjectController {
 	}
     }
 
+    private Connection getConnection() throws SQLException {
+	return dataSource.getConnection();
+    }
+
     @GetMapping("/project")
-    public Project getProjectByNaam(@RequestParam(name="naam") String naam) {
+    public Project getProjectByNaam(@RequestParam(name = "naam") String naam) {
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblproject where naam = ?")) {
 
 	    sql.setString(1, naam);

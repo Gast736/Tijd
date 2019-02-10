@@ -12,113 +12,113 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="tblmedewerker")
+@Table(name = "tblmedewerker")
 public class Medewerker {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="idmedewerker")
-    public int idmedewerker;
-    
-    @Column(length=45)
-    public String naam;
-    
-    @Column(length=10)
-    public String wachtwoord;
-    
-    @Column(length=45)
-    public String team;
-    
-    @Column(length=45)
-    public String rol;
-    
-    @Column(scale=4, precision=2)
+
+    @Column(scale = 4, precision = 2)
     public double contracturen;
-    
-    @Temporal(TemporalType.DATE)
-    public Date startdatum;
 
     @Temporal(TemporalType.DATE)
     public Date einddatum;
 
-    public Medewerker(int idmedewerker,String naam, String wachtwoord, String team, String rol, 
-    		double contracturen, Date startdatum, Date einddatum) {
-    		this.idmedewerker=idmedewerker;
-    		this.naam=naam;
-    		this.wachtwoord=wachtwoord;
-    		this.team=team;
-    		this.rol=rol;
-    		this.contracturen=contracturen;
-    		this.startdatum=startdatum;
-    		this.einddatum=einddatum;
-    }
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idmedewerker")
+    public int idmedewerker;
+
+    @Column(length = 45)
+    public String naam;
+
+    @Column(length = 45)
+    public String rol;
+
+    @Temporal(TemporalType.DATE)
+    public Date startdatum;
+
+    @Column(length = 45)
+    public String team;
+
+    @Column(length = 10)
+    public String wachtwoord;
+
     public Medewerker() {
-    	
-    }
-    
-    public int getIdMedewerker() {
-        return idmedewerker;
+
     }
 
-    public void setIdMedewerker(int idmedewerker) {
-        this.idmedewerker = idmedewerker;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getWachtwoord() {
-        return wachtwoord;
-    }
-
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public void setTeam(String team1) {
-        team = team1;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
+    public Medewerker(int idmedewerker, String naam, String wachtwoord, String team, String rol, double contracturen,
+	    Date startdatum, Date einddatum) {
+	this.idmedewerker = idmedewerker;
+	this.naam = naam;
+	this.wachtwoord = wachtwoord;
+	this.team = team;
+	this.rol = rol;
+	this.contracturen = contracturen;
+	this.startdatum = startdatum;
+	this.einddatum = einddatum;
     }
 
     public double getContracturen() {
-        return contracturen;
-    }
-
-    public void setContracturen(double contracturen) {
-        this.contracturen = contracturen;
-    }
-
-    public Date getStartdatum() {
-        return startdatum;
-    }
-
-    public void setStartdatum(Date startdatum) {
-        this.startdatum = startdatum;
+	return contracturen;
     }
 
     public Date getEinddatum() {
-        return einddatum;
+	return einddatum;
+    }
+
+    public int getIdMedewerker() {
+	return idmedewerker;
+    }
+
+    public String getNaam() {
+	return naam;
+    }
+
+    public String getRol() {
+	return rol;
+    }
+
+    public Date getStartdatum() {
+	return startdatum;
+    }
+
+    public String getTeam() {
+	return team;
+    }
+
+    public String getWachtwoord() {
+	return wachtwoord;
+    }
+
+    public void setContracturen(double contracturen) {
+	this.contracturen = contracturen;
     }
 
     public void setEinddatum(Date einddatum) {
-        this.einddatum = einddatum;
+	this.einddatum = einddatum;
+    }
+
+    public void setIdMedewerker(int idmedewerker) {
+	this.idmedewerker = idmedewerker;
+    }
+
+    public void setNaam(String naam) {
+	this.naam = naam;
+    }
+
+    public void setRol(String rol) {
+	this.rol = rol;
+    }
+
+    public void setStartdatum(Date startdatum) {
+	this.startdatum = startdatum;
+    }
+
+    public void setTeam(String team1) {
+	team = team1;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+	this.wachtwoord = wachtwoord;
     }
 
     @Override
@@ -127,6 +127,5 @@ public class Medewerker {
 		+ team + ", rol=" + rol + ", contracturen=" + contracturen + ", startdatum=" + startdatum
 		+ ", einddatum=" + einddatum + "]";
     }
-
 
 }

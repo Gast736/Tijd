@@ -18,35 +18,7 @@ public class MedewerkerController {
     @Autowired
     private DataSource dataSource;
 
-    private Connection getConnection() throws SQLException {
-	return dataSource.getConnection();
-    }
-
-    @GetMapping("/medewerker") 
-    public Medewerker getMedewerkerByNaam(@RequestParam(name="naam") String naam) throws SQLException {
-	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerkers where naam = ?")) {
-	    sql.setString(1, naam);
-
-	    ResultSet result = sql.executeQuery();
-
-	    result.next();
-
-	    Medewerker medewerker = new Medewerker();
-	    medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-	    medewerker.setNaam(result.getString("naam"));
-	    medewerker.setWachtwoord(result.getString("wachtwoord"));
-	    medewerker.setTeam(result.getString("team"));
-	    medewerker.setRol(result.getString("rol"));
-	    medewerker.setContracturen(result.getDouble("contracturen"));
-	    medewerker.setStartdatum(result.getDate("startdatum"));
-	    medewerker.setEinddatum(result.getDate("einddatum"));
-	} catch (SQLException e) {
-	    System.out.println(e.getErrorCode() + ": " + e.getMessage());
-	}
-	return null;
-
-    }
-    @GetMapping("/medewerkers") 
+    @GetMapping("/medewerkers")
     public ArrayList<Medewerker> getAllMedewerkers() throws SQLException {
 	ArrayList<Medewerker> medewerkers = new ArrayList<>();
 	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerker")) {
@@ -76,9 +48,40 @@ public class MedewerkerController {
 
     }
 
+    private Connection getConnection() throws SQLException {
+	return dataSource.getConnection();
+    }
+
+    @GetMapping("/medewerker")
+    public Medewerker getMedewerkerByNaam(@RequestParam(name = "naam") String naam) throws SQLException {
+	try (PreparedStatement sql = getConnection().prepareStatement("select * from tblmedewerkers where naam = ?")) {
+	    sql.setString(1, naam);
+
+	    ResultSet result = sql.executeQuery();
+
+	    result.next();
+
+	    Medewerker medewerker = new Medewerker();
+	    medewerker.setIdMedewerker(result.getInt("idmedewerker"));
+	    medewerker.setNaam(result.getString("naam"));
+	    medewerker.setWachtwoord(result.getString("wachtwoord"));
+	    medewerker.setTeam(result.getString("team"));
+	    medewerker.setRol(result.getString("rol"));
+	    medewerker.setContracturen(result.getDouble("contracturen"));
+	    medewerker.setStartdatum(result.getDate("startdatum"));
+	    medewerker.setEinddatum(result.getDate("einddatum"));
+	} catch (SQLException e) {
+	    System.out.println(e.getErrorCode() + ": " + e.getMessage());
+	}
+	return null;
+
+    }
+
     @GetMapping("/medewerker/wachtwoord")
-    public boolean isWachtwoordCorrect(@RequestParam(name="naam") String naam, @RequestParam(name="wachtwoord") String wachtwoord) {
-	try (PreparedStatement sql = getConnection().prepareStatement("select naam, wachtwoord from tblmedewerker where naam = ?")) {
+    public boolean isWachtwoordCorrect(@RequestParam(name = "naam") String naam,
+	    @RequestParam(name = "wachtwoord") String wachtwoord) {
+	try (PreparedStatement sql = getConnection()
+		.prepareStatement("select naam, wachtwoord from tblmedewerker where naam = ?")) {
 	    sql.setString(1, naam);
 
 	    ResultSet result = sql.executeQuery();
