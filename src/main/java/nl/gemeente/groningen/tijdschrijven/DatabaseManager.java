@@ -127,10 +127,10 @@ public class DatabaseManager {
 		+ "where idmedewerker = ?";
 	List<Registratie> registraties = new ArrayList<>();
 	try (PreparedStatement stmt = getConnection().prepareStatement(
-		sql);
-		ResultSet result = stmt.executeQuery();) {
+		sql);) {
 
 	    stmt.setInt(1, idMedewerker);
+	    ResultSet result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -176,11 +176,11 @@ public class DatabaseManager {
 		+ "where r.idmedewerker = ? " 
 		+ "and date_format(r.startdatum, '%Y%m') = date_format(?, '%Y%m')";
 	List<Registratie> registraties = new ArrayList<>();
-	try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+	try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 
 	    stmt.setInt(1, idMedewerker);
 	    stmt.setDate(2, datum);
+	    ResultSet result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -226,14 +226,14 @@ public class DatabaseManager {
 		+ "and r.startdatum between date_add(?, interval -(weekday(?)) day) "
 		+ "and date_add(?, interval 6-(weekday(?)) day)";
 	List<Registratie> registraties = new ArrayList<>();
-	try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+	try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 
 	    stmt.setInt(1, idMedewerker);
 	    stmt.setDate(2, datum);
 	    stmt.setDate(3, datum);
 	    stmt.setDate(4, datum);
 	    stmt.setDate(5, datum);
+	    ResultSet result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -274,9 +274,9 @@ public class DatabaseManager {
 	String sql = "select * "
 		+ "from tblmedewerkers "
 		+ "where naam = ?";
-	try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+	try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 	    stmt.setString(1, naam);
+	    ResultSet result = stmt.executeQuery();
 
 	    result.next();
 
@@ -302,10 +302,10 @@ public class DatabaseManager {
 	String sql = "select * "
 		+ "from tblproject "
 		+ "where naam = ?";
-	try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+	try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 
 	    stmt.setString(1, naam);
+	    ResultSet result = stmt.executeQuery();
 
 	    result.next();
 	    Project project = new Project();
@@ -332,10 +332,10 @@ public class DatabaseManager {
 		+ "join tblproject using(idproject) "
 		+ "where idproject = ?";
 	List<Registratie> registraties = new ArrayList<>();
-	try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+	try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
 
 	    stmt.setObject(1, project);
+	    ResultSet result = stmt.executeQuery();
 
 	    while (result.next()) {
 		Registratie registratie = new Registratie();
@@ -361,9 +361,10 @@ public class DatabaseManager {
 		+ "from tblmedewerker "
 		+ "where naam = ?";
 	try (PreparedStatement stmt = getConnection()
-		.prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();) {
+		.prepareStatement(sql);) {
+
 	    stmt.setString(1, naam);
+	    ResultSet result = stmt.executeQuery();
 
 	    result.next();
 
