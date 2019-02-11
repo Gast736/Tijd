@@ -13,15 +13,15 @@ BLOK BEREKENING START- EN EINDDATUM (WERKT NOG NIET.... MORGEN NIEUWE RONDE NIEU
 
 $('.periodSelect').click(function () {
     var begindatum = new Date();
-    var begindatum = getDateOfISOWeek($('#selWeek').val,$('#selYear').val);
+    var begindatum = getDateOfISOWeek($('#selWeek').val, $('#selYear').val);
     console.log(begindatum);
-    
-var einddatum = new Date();
-    einddatum.setDate(begindatum.getDate()+8);
+
+    var einddatum = new Date();
+    einddatum.setDate(begindatum.getDate() + 8);
     console.log(einddatum);
-var returnString = "Van " + begindatum.getDate() + "-" + (begindatum.getMonth()+1) + "-" + begindatum.getFullYear() + " tot en met " + einddatum.getDate() + "-" + (einddatum.getMonth()+1) + "-" + einddatum.getFullYear();
+    var returnString = "Van " + begindatum.getDate() + "-" + (begindatum.getMonth() + 1) + "-" + begindatum.getFullYear() + " tot en met " + einddatum.getDate() + "-" + (einddatum.getMonth() + 1) + "-" + einddatum.getFullYear();
     console.log(returnString);
-$('#fromUntil').val(returnString);
+    $('#fromUntil').val(returnString);
 })
 
 function getDateOfISOWeek(w, y) {
@@ -42,7 +42,7 @@ BLOK BEREKENING VAN KOLOMTOTALEN
 // Bereken totaal voor maandag
 $('.monday').keyup(function () {
     var sum = 0;
-    $('.monday').each(function() {
+    $('.monday').each(function () {
         sum += Number($(this).val());
     });
     $('#totMonday').val(sum);
@@ -51,7 +51,7 @@ $('.monday').keyup(function () {
 // Bereken totaal voor dinsdag
 $('.tuesday').keyup(function () {
     var sum = 0;
-    $('.tuesday').each(function() {
+    $('.tuesday').each(function () {
         sum += Number($(this).val());
     });
     $('#totTuesday').val(sum);
@@ -60,7 +60,7 @@ $('.tuesday').keyup(function () {
 // Bereken totaal voor woensdag
 $('.wednesday').keyup(function () {
     var sum = 0;
-    $('.wednesday').each(function() {
+    $('.wednesday').each(function () {
         sum += Number($(this).val());
     });
     $('#totWednesday').val(sum);
@@ -69,7 +69,7 @@ $('.wednesday').keyup(function () {
 // Bereken totaal voor donderdag
 $('.thursday').keyup(function () {
     var sum = 0;
-    $('.thursday').each(function() {
+    $('.thursday').each(function () {
         sum += Number($(this).val());
     });
     $('#totThursday').val(sum);
@@ -78,7 +78,7 @@ $('.thursday').keyup(function () {
 // Bereken totaal voor vrijdag
 $('.friday').keyup(function () {
     var sum = 0;
-    $('.friday').each(function() {
+    $('.friday').each(function () {
         sum += Number($(this).val());
     });
     $('#totFriday').val(sum);
@@ -91,7 +91,7 @@ BLOK BEREKENING VAN RIJTOTALEN
 // Bereken totaal voor rij1
 $('.row1').keyup(function () {
     var sum = 0;
-    $('.row1').each(function() {
+    $('.row1').each(function () {
         sum += Number($(this).val());
     });
     $('#r1total').val(sum);
@@ -100,7 +100,7 @@ $('.row1').keyup(function () {
 // Bereken totaal voor rij2
 $('.row2').keyup(function () {
     var sum = 0;
-    $('.row2').each(function() {
+    $('.row2').each(function () {
         sum += Number($(this).val());
     });
     $('#r2total').val(sum);
@@ -109,7 +109,7 @@ $('.row2').keyup(function () {
 // Bereken totaal voor rij3
 $('.row3').keyup(function () {
     var sum = 0;
-    $('.row3').each(function() {
+    $('.row3').each(function () {
         sum += Number($(this).val());
     });
     $('#r3total').val(sum);
@@ -118,7 +118,7 @@ $('.row3').keyup(function () {
 // Bereken totaal voor rij4
 $('.row4').keyup(function () {
     var sum = 0;
-    $('.row4').each(function() {
+    $('.row4').each(function () {
         sum += Number($(this).val());
     });
     $('#r4total').val(sum);
@@ -127,7 +127,7 @@ $('.row4').keyup(function () {
 // Bereken totaal voor rij5
 $('.row5').keyup(function () {
     var sum = 0;
-    $('.row5').each(function() {
+    $('.row5').each(function () {
         sum += Number($(this).val());
     });
     $('#r5total').val(sum);
@@ -136,7 +136,7 @@ $('.row5').keyup(function () {
 // Bereken totaal voor totalen
 $('.form-control').keyup(function () {
     var sum = 0;
-    $('.rowtotals').each(function() {
+    $('.rowtotals').each(function () {
         sum += Number($(this).val());
     });
     $('#totTotal').val(sum);
@@ -144,33 +144,34 @@ $('.form-control').keyup(function () {
 
 
 function getCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+    return "";
 }
 
 function checkCookie() {
-  var user = getCookie("user");
-  if (user != "") {
-    $('#employeeName').text(user);
-  } else {
-    alert("No username found");
+    var user = getCookie("user");
+    if (user != "") {
+        $('#employeeName').text(user);
+    } else {
+        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+        window.location.href = "index.html"
     }
-  }
+}
 
 $(document).ready(function () {
 
     checkCookie();
 
     console.log("document is ready");
-    
+
 });

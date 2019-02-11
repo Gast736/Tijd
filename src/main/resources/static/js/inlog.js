@@ -27,10 +27,10 @@ function toonMedewerkers(jsonrecordset) {
 }
 /* Deze functie zorgt dat er een cookie geplaatst*/
 function setCookie(cname, cvalue) {
-  var d = new Date();
-  d.setTime(d.getTime() + (60*60*1000)); //  cookie verloopt na één uur
-  var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    var d = new Date();
+    d.setTime(d.getTime() + (60 * 60 * 1000)); //  cookie verloopt na één uur
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 
@@ -80,28 +80,34 @@ $('#submitBtn').click(function (e) {
 */
 
 $('#submitBtn').click(function (e) {
-            console.log("Er is geklikt op de Submit button");
-            console.log("We checken medewerker: " + $('#inputName').val() +" met wachtwoord: " + $('#inputPassword').val());
-            e.preventDefault();
+    console.log("Er is geklikt op de Submit button");
+    console.log("We checken medewerker: " + $('#inputName').val() + " met wachtwoord: " + $('#inputPassword').val());
+    e.preventDefault();
     // We roepen met AJAX de restcontroller aan en geven naam en wachtwoord mee. De controller checkt of het wachtwoord juist is
     // en antwoord met TRUE of FALSE. Op basis hiervan wordt actie ondernomen (succes:)
-            $.ajax({
-                url: "/medewerker/wachtwoord",
-                data: {
-                    naam: $('#inputName').val(),
-                    wachtwoord: $('#inputPassword').val()
-                },
-                method: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    if (data) {setCookie("user",$('#inputName').val());
-                               window.location.href="registratie.html";
-                              } else {alert("Wachtwoord is fout");}},
-                error: function (requestObject, error, errorThrown) {
+    $.ajax({
+        url: "/medewerker/wachtwoord",
+        data: {
+            naam: $('#inputName').val(),
+            wachtwoord: $('#inputPassword').val()
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data) {
+                setCookie("user", $('#inputName').val());
+                window.location.href = "registratie.html";
+            } else {
+                $('#submitResult').addClass("alert alert-danger");
+                $('#submitResult').attr("role", "alert");
+                $('#submitResult').text("Het ingevoerde wachtwoord was onjuist");
+            }
+        },
+        error: function (requestObject, error, errorThrown) {
 
-                    console.log("error thrown, add handler to exit gracefully");
-                },
-                timeout: 3000 //to do: research and develop further in combination with error handling
-            });
-            return false;
-        });
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+});
