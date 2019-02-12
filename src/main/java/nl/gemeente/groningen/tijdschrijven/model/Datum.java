@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven;
+package nl.gemeente.groningen.tijdschrijven.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

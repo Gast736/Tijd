@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven;
+package nl.gemeente.groningen.tijdschrijven.controllers;
 
 import java.util.List;
 
@@ -7,18 +7,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import nl.gemeente.groningen.tijdschrijven.model.Project;
+import nl.gemeente.groningen.tijdschrijven.repositories.ProjectRepository;
+
 @RestController
 public class ProjectController {
     private static final Logger logger = Logger.getLogger(ProjectController.class);
 
     @GetMapping("/projecten")
     public List<Project> getAlleProjecten() {
-	return DatabaseManager.getAlleProjecten();
+	return ProjectRepository.getAlleProjecten();
     }
 
     @GetMapping("/project")
     public Project getProjectByNaam(@RequestParam(name = "naam") String naam) {
-		    return DatabaseManager.getProjectByNaam(naam);
-	}
+	return ProjectRepository.getProjectByNaam(naam);
+    }
 
 }

@@ -1,4 +1,4 @@
-package nl.gemeente.groningen.tijdschrijven;
+package nl.gemeente.groningen.tijdschrijven.controllers;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,24 +7,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
+import nl.gemeente.groningen.tijdschrijven.repositories.MedewerkerRepository;
+
 @RestController
 public class MedewerkerController {
 
     @GetMapping("/medewerkers")
     public List<Medewerker> getAllMedewerkers() throws SQLException {
-	return DatabaseManager.getAlleMedewerkers();
+	return MedewerkerRepository.getAlleMedewerkers();
 
     }
 
     @GetMapping("/medewerker")
     public Medewerker getMedewerkerByNaam(@RequestParam(name = "naam") String naam) throws SQLException {
-	return DatabaseManager.getMedewerkerByNaam(naam);
+	return MedewerkerRepository.getMedewerkerByNaam(naam);
 
     }
 
     @GetMapping("/medewerker/wachtwoord")
     public boolean isWachtwoordCorrect(@RequestParam(name = "naam") String naam,
 	    @RequestParam(name = "wachtwoord") String wachtwoord) {
-	return  DatabaseManager.isWachtwoordCorrect(naam, wachtwoord);
+	return MedewerkerRepository.isWachtwoordCorrect(naam, wachtwoord);
     }
 }

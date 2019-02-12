@@ -2,68 +2,82 @@
 <html lang="nl">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
 
-    <style>
-        .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-      }
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
-    <title>Tijdschrijfapplicatie</title>
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+<!-- Custom styles for this template -->
+<link href="css/signin.css" rel="stylesheet">
+<title>Tijdschrijfapplicatie</title>
 </head>
 
 
 <body class="text-center">
-    <form class="form-signin">
-        <img class="mb-4" src="img/calendar.svg" alt="" width="72" height="72">
-        <img class="mb-4" src="img/clock.svg" alt="" width="72" height="72">
-        <img class="mb-4" src="img/file-text.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Meld je aan</h1>
-        <label for="inputName" class="sr-only">Naam medewerker</label>
-        <div id="ophalenMdw">
-            <!-- Deze code wordt door JavaScript geplaatst
+	<form class="form-signin">
+		<img class="mb-4" src="img/calendar.svg" alt="" width="72" height="72">
+		<img class="mb-4" src="img/clock.svg" alt="" width="72" height="72">
+		<img class="mb-4" src="img/file-text.svg" alt="" width="72"
+			height="72">
+		<h1 class="h3 mb-3 font-weight-normal">Meld je aan</h1>
+		<label for="inputName" class="sr-only">Naam medewerker</label>
+		<div id="ophalenMdw">
+			<!-- Deze code wordt door JavaScript geplaatst
                 <select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>
                 <option> Medewerker A</option>
                 <option> Medewerker B</option>
                 <option> Medewerker C</option>
                 <option> Medewerker D</option>
                 </select>-->
-        </div>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Wachtwoord" required>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="Remember"> Herinner mij
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" id="submitBtn">Inloggen</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
-    <div id="submitResult"></div>
-    </form>
-    
-    
-    <!-- Optional JavaScript -->
-    
-    <!-- jQuery first, then Popper.js, then Bootstrap JS 
+		</div>
+		<label for="inputPassword" class="sr-only">Password</label> <input
+			type="password" id="inputPassword" class="form-control"
+			placeholder="Wachtwoord" required>
+		<div class="checkbox mb-3">
+			<label> <input type="checkbox" value="Remember">
+				Herinner mij
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" id="submitBtn">Inloggen</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+		<div id="submitResult"></div>
+	</form>
+
+
+	<!-- Optional JavaScript -->
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS 
     Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="js/inlog.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+	<script src="js/inlog.js"></script>
 </body>
 
 </html>
