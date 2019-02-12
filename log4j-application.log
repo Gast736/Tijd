@@ -12,3 +12,19 @@
 2019-02-12 06:11:03 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
 2019-02-12 06:14:58 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
 2019-02-12 06:14:58 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:02:14 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:02:14 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:07:04 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:07:04 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:09:14 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:09:14 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:12:46 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:12:46 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:29:58 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:29:58 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:39:49 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:39:49 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:42:40 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:42:40 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
+2019-02-12 22:49:30 INFO  DatabaseManager:375 - We vergelijken het ingevoerde wachtwoord: welkom, met het wachtwoord in de database: welkom
+2019-02-12 22:49:30 INFO  DatabaseManager:378 - Het wachtwoord komt overeen, returnvalue is true
