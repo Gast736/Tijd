@@ -196,7 +196,9 @@ function haalProjecten() {
     });
     return false;
 };
-
+/*
+Onderstaand script bouwt een editable table op op basis van de projectenquery
+*/
 function bouwTabelOp() {
     var s = "<table><tr><th>Project</th><th>Maandag</th><th>Dinsdag</th><th>Woensdag</th><th>Donderdag</th><th>Vrijdag</th></tr>";
     for (var i = 0; i < projecten.length; i++) {
@@ -207,10 +209,94 @@ function bouwTabelOp() {
     document.getElementById("tabelruimte").innerHTML = s;
 }
 
+/*
+Onderstaand script bouwt een formulier op op basis van de projectenquery
+*/
+function bouwFormulierOp() {
+    var s = `            <div id="formheaders" class="row">
+                <div class="col-sm-3">
+                    <strong>Project</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Maandag</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Dinsdag</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Woensdag</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Donderdag</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Vrijdag</strong>
+                </div>
+                <div class="col-sm">
+                    <strong>Totaal</strong>
+                </div>
+            </div>`;
+    for (var i = 0; i < projecten.length; i++) {
+        // per project een rij aanmaken d.m.v. lus
+        j=i+1
+        s = s + `<div id="row1" class="row">
+                <div class="col-sm-3">
+                    <strong>`+projecten[i]+`</strong>
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control row`+j+` monday" id="r`+j+`monday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control row`+j+` tuesday" id="r`+j+`tuesday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control row`+j+` wednesday" id="r`+j+`wednesday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control row`+j+` thursday" id="r`+j+`thursday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control row`+j+` friday" id="r`+j+`friday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control rowtotals" id="r`+j+`total" placeholder="0">
+                </div>
+            </div>`;
+        
+    }
+    // totaalrij toevoegen
+    s = s + `<div id="coltotals" class="row">
+                <div class="col-sm-3">
+                    <strong>Totaal</strong>
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totMonday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totTuesday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totWednesday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totThursday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totFriday" placeholder="0">
+                </div>
+                <div class="col-sm">
+                    <input type="number" class="form-control" id="totTotal" placeholder="0">
+                </div>
+            </div>`;
+    console.log(s);
+    document.getElementById("regform1").innerHTML = s;
+}
+
 
 $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     haalProjecten();
-    setTimeout(bouwTabelOp,3000);
+    setTimeout(bouwTabelOp, 3000);
+    setTimeout(bouwFormulierOp, 3000);
 });
