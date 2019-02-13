@@ -200,7 +200,7 @@ function haalProjecten() {
 Onderstaand script bouwt een editable table op op basis van de projectenquery
 */
 function bouwTabelOp() {
-    var s = "<table><tr><th>Project</th><th>Maandag</th><th>Dinsdag</th><th>Woensdag</th><th>Donderdag</th><th>Vrijdag</th></tr>";
+    var s = "<table id=test><tr><th>Project</th><th>Maandag</th><th>Dinsdag</th><th>Woensdag</th><th>Donderdag</th><th>Vrijdag</th></tr>";
     for (var i = 0; i < projecten.length; i++) {
         s = s + "<tr><td>" + projecten[i] + "</td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td></tr>";
     }
@@ -208,6 +208,18 @@ function bouwTabelOp() {
     console.log(s);
     document.getElementById("tabelruimte").innerHTML = s;
 }
+
+/*
+Een probeersel om de tabel met gevulde waarden om te zetten in JSON formaat. Gaat hier nu even  
+via de invoeg toepassing: jquery.tabeltojson.min.js >> kan uiteraard ook anders. Ook afhankelijk
+van keuze op welke wijze invoer formulier wordt opgebouwd (ErRe 13-2-2019, 20:16).
+*/
+$('#run').click( function() {
+  var table = $('#test').tableToJSON();
+  console.log(table);
+  alert(JSON.stringify(table)); 
+});
+
 
 /*
 Onderstaand script bouwt een formulier op op basis van de projectenquery
