@@ -19,45 +19,30 @@ public class Medewerker implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(scale = 4, precision = 2)
-    public double contracturen;
+    private double contracturen;
 
     @Temporal(TemporalType.DATE)
-    public Date einddatum;
+    private Date einddatum;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idmedewerker")
-    public int idmedewerker;
+    private int idmedewerker;
 
     @Column(length = 45)
-    public String naam;
+    private String naam;
 
     @Column(length = 45)
-    public String rol;
+    private String rol;
 
     @Temporal(TemporalType.DATE)
-    public Date startdatum;
+    private Date startdatum;
 
     @Column(length = 45)
-    public String team;
+    private String team;
 
     @Column(length = 10)
-    public String wachtwoord;
-
-    public Medewerker() {
-
-    }
-
-    public Medewerker(String naam, String wachtwoord, String team, String rol, double contracturen, Date startdatum) {
-	this.idmedewerker = idmedewerker;
-	this.naam = naam;
-	this.wachtwoord = wachtwoord;
-	this.team = team;
-	this.rol = rol;
-	this.contracturen = contracturen;
-	this.startdatum = startdatum;
-	this.einddatum = einddatum;
-    }
+    private String wachtwoord;
 
     public double getContracturen() {
 	return contracturen;
@@ -121,13 +106,6 @@ public class Medewerker implements Serializable {
 
     public void setWachtwoord(String wachtwoord) {
 	this.wachtwoord = wachtwoord;
-    }
-
-    @Override
-    public String toString() {
-	return "Medewerker [idmedewerker=" + idmedewerker + ", naam=" + naam + ", wachtwoord=" + wachtwoord + ", team="
-		+ team + ", rol=" + rol + ", contracturen=" + contracturen + ", startdatum=" + startdatum
-		+ ", einddatum=" + einddatum + "]";
     }
 
 }

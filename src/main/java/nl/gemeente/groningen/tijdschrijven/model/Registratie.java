@@ -69,10 +69,4 @@ public class Registratie implements Serializable {
 	this.uren = uren;
     }
 
-    @Override
-    public String toString() {
-	return "Registratie [medewerker=" + medewerker + ", project=" + project + ", startdatum=" + startdatum
-		+ ", uren=" + uren + "]";
-    }
-
 }

@@ -1,5 +1,6 @@
 package nl.gemeente.groningen.tijdschrijven.repositories;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
+import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
 
 public class ProjectRepository {
@@ -69,7 +71,46 @@ public class ProjectRepository {
 	return project;
     }
 
-    private ProjectRepository() {
+    public static boolean insertProject(Project project) throws SQLException {
+	String sql = "insert into tblProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) "
+		+ "values(?, ?, ?, ?, ?, ?)";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, project.getNaam());
+	    stmt.setString(2, project.getCategorie());
+	    stmt.setString(3, project.getOpdrachtgever());
+	    stmt.setString(4, project.getDirectie());
+	    stmt.setDate(5, (Date) project.getStartdatum());
+	    stmt.setDate(6, (Date) project.getEinddatum());
+	    
+	    stmt.executeQuery();
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	}
+	return false;
     }
+
+    public static boolean updateProject(Project project) throws SQLException {
+	String sql = "update tblProject "
+		+ "set naam = ?"
+		+ ", categorie = ?"
+		+ ", opdrachtgever = ?"
+		+ ", directie = "
+		+ ", startdatum = ?"
+		+ ", einddatum = ?";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, project.getNaam());
+	    stmt.setString(2, project.getCategorie());
+	    stmt.setString(3, project.getOpdrachtgever());
+	    stmt.setString(4, project.getDirectie());
+	    stmt.setDate(5, (Date) project.getStartdatum());
+	    stmt.setDate(6, (Date) project.getEinddatum());
+	    
+	    stmt.executeQuery();
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	}
+	return false;
+    }
+    private ProjectRepository() {}
 
 }
