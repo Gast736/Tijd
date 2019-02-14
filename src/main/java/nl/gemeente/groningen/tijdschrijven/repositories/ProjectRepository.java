@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
-import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
 
 public class ProjectRepository {
@@ -81,7 +80,7 @@ public class ProjectRepository {
 	    stmt.setString(4, project.getDirectie());
 	    stmt.setDate(5, (Date) project.getStartdatum());
 	    stmt.setDate(6, (Date) project.getEinddatum());
-	    
+
 	    stmt.executeQuery();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
@@ -90,13 +89,8 @@ public class ProjectRepository {
     }
 
     public static boolean updateProject(Project project) throws SQLException {
-	String sql = "update tblProject "
-		+ "set naam = ?"
-		+ ", categorie = ?"
-		+ ", opdrachtgever = ?"
-		+ ", directie = "
-		+ ", startdatum = ?"
-		+ ", einddatum = ?";
+	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?" + ", directie = "
+		+ ", startdatum = ?" + ", einddatum = ?";
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, project.getNaam());
 	    stmt.setString(2, project.getCategorie());
@@ -104,13 +98,15 @@ public class ProjectRepository {
 	    stmt.setString(4, project.getDirectie());
 	    stmt.setDate(5, (Date) project.getStartdatum());
 	    stmt.setDate(6, (Date) project.getEinddatum());
-	    
+
 	    stmt.executeQuery();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
 	return false;
     }
-    private ProjectRepository() {}
+
+    private ProjectRepository() {
+    }
 
 }
