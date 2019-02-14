@@ -1,5 +1,6 @@
 package nl.gemeente.groningen.tijdschrijven.repositories;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,7 +76,7 @@ public class MedewerkerRepository {
     }
 
     public static boolean isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
-	String sql = "select naam" + ", wachtwoord " + "from tblmedewerker " + "where naam = ?";
+	String sql = "select naam, wachtwoord from tblmedewerker where naam = ?";
 	ResultSet result = null;
 
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
@@ -91,13 +92,13 @@ public class MedewerkerRepository {
 	    result.close();
 
 	    String wachtwoordCheck = medewerker.getWachtwoord();
-	    logger.info("We vergelijken het ingevoerde wachtwoord: " + wachtwoord
-		    + ", met het wachtwoord in de database: " + wachtwoordCheck);
+//	    logger.info("We vergelijken het ingevoerde wachtwoord: " + wachtwoord
+//		    + ", met het wachtwoord in de database: " + wachtwoordCheck);
 	    if (wachtwoordCheck.equals(wachtwoord)) {
-		logger.info("Het wachtwoord komt overeen, returnvalue is true");
+//		logger.info("Het wachtwoord komt overeen, returnvalue is true");
 		return true;
 	    } else {
-		logger.info("Het wachtwoord komt niet overeen, returnvalue is false");
+//		logger.info("Het wachtwoord komt niet overeen, returnvalue is false");
 		return false;
 	    }
 	} catch (Exception e) {
@@ -106,6 +107,46 @@ public class MedewerkerRepository {
 	    if (result != null) {
 		result.close();
 	    }
+	}
+	return false;
+    }
+    
+    public static boolean insertMedewerker(Medewerker medewerker) throws SQLException {
+	String sql = "insert into tblMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) "
+		+ "values(?, ?, ?, ?, ?, ?, ?,)";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, medewerker.naam);
+	    stmt.setString(2, medewerker.wachtwoord);
+	    stmt.setString(3, medewerker.team);
+	    stmt.setString(4, medewerker.rol);
+	    stmt.setDouble(5, medewerker.contracturen);
+	    stmt.setDate(6, (Date) medewerker.startdatum);
+	    stmt.setDate(7, (Date) medewerker.einddatum);
+	    
+	    stmt.executeQuery();
+	}
+	return false;
+    }
+
+    public static boolean updateMedewerker(Medewerker medewerker) throws SQLException {
+	String sql = "update tblMedewerker "
+		+ "set naam = ?"
+		+ ", wachtwoord = ?"
+		+ ", team = ?"
+		+ ", rol = "
+		+ ", contracturen = ?"
+		+ ", startdatum = ?"
+		+ ", einddatum = ?";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, medewerker.naam);
+	    stmt.setString(2, medewerker.wachtwoord);
+	    stmt.setString(3, medewerker.team);
+	    stmt.setString(4, medewerker.rol);
+	    stmt.setDouble(5, medewerker.contracturen);
+	    stmt.setDate(6, (Date) medewerker.startdatum);
+	    stmt.setDate(7, (Date) medewerker.einddatum);
+	    
+	    stmt.executeQuery();
 	}
 	return false;
     }
