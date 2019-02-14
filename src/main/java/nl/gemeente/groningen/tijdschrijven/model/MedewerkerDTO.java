@@ -1,44 +1,19 @@
 package nl.gemeente.groningen.tijdschrijven.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class MedewerkerDTO implements Serializable {
 
-@Entity
-@Table(name = "tblmedewerker")
-public class Medewerker {
+    private static final long serialVersionUID = 1L;
 
-    @Column(scale = 4, precision = 2)
     private double contracturen;
-
-    @Temporal(TemporalType.DATE)
     private Date einddatum;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idmedewerker")
     private int idmedewerker;
-
-    @Column(length = 45)
     private String naam;
-
-    @Column(length = 45)
     private String rol;
-
-    @Temporal(TemporalType.DATE)
     private Date startdatum;
-
-    @Column(length = 45)
     private String team;
-
-    @Column(length = 10)
     private String wachtwoord;
 
     public double getContracturen() {

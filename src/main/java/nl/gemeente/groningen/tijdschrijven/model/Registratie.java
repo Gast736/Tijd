@@ -1,6 +1,5 @@
 package nl.gemeente.groningen.tijdschrijven.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,9 +15,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tblregistratie")
 @Embeddable
-public class Registratie implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Registratie {
 
     @Id
     @ManyToOne

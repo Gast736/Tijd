@@ -12,11 +12,25 @@ import org.apache.log4j.Logger;
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
 import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
+import nl.gemeente.groningen.tijdschrijven.model.ProjectDTO;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
 
 public class RegistratieRepository {
 
     private static final Logger logger = Logger.getLogger(RegistratieRepository.class);
+    private static final String CATEGORIE = "categorie";
+    private static final String CONTRACTUREN = "contracturen";
+    private static final String DIRECTIE = "directie";
+    private static final String EINDDATUM = "einddatum";
+    private static final String IDMEDEWERKER = "idmedewerker";
+    private static final String IDPROJECT = "idproject";
+    private static final String NAAM = "naam";
+    private static final String OPDRACHTGEVER = "opdrachtgever";
+    private static final String ROL = "rol";
+    private static final String STARTDATUM = "startdatum";
+    private static final String TEAM = "team";
+    private static final String UREN = "uren";
+    private static final String WACHTWOORD = "wachtwoord";
 
     public static List<Registratie> getAlleRegistraties() {
 	String sql = "select * " + "from tblregistratie " + "join tblmedewerker using(idmedewerker) "
@@ -28,28 +42,28 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-		medewerker.setNaam(result.getString("naam"));
-		medewerker.setWachtwoord(result.getString("wachtwoord"));
-		medewerker.setTeam(result.getString("team"));
-		medewerker.setRol(result.getString("rol"));
-		medewerker.setContracturen(result.getDouble("contracturen"));
-		medewerker.setStartdatum(result.getDate("startdatum"));
-		medewerker.setEinddatum(result.getDate("einddatum"));
+		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setNaam(result.getString(NAAM));
+		medewerker.setWachtwoord(result.getString(WACHTWOORD));
+		medewerker.setTeam(result.getString(TEAM));
+		medewerker.setRol(result.getString(ROL));
+		medewerker.setContracturen(result.getDouble(CONTRACTUREN));
+		medewerker.setStartdatum(result.getDate(STARTDATUM));
+		medewerker.setEinddatum(result.getDate(EINDDATUM));
 
 		Project project = new Project();
-		project.setNaam(result.getString("naam"));
-		project.setCategorie(result.getString("categorie"));
-		project.setOpdrachtgever(result.getString("opdrachtgever"));
-		project.setDirectie(result.getString("directie"));
-		project.setStartdatum(result.getDate("startdatum"));
-		project.setEinddatum(result.getDate("einddatum"));
+		project.setNaam(result.getString(NAAM));
+		project.setCategorie(result.getString(CATEGORIE));
+		project.setOpdrachtgever(result.getString(OPDRACHTGEVER));
+		project.setDirectie(result.getString(DIRECTIE));
+		project.setStartdatum(result.getDate(STARTDATUM));
+		project.setEinddatum(result.getDate(EINDDATUM));
 
 		Registratie registratie = new Registratie();
 		registratie.setMedewerker(medewerker);
 		registratie.setProject(project);
-		registratie.setStartdatum(result.getDate("startdatum"));
-		registratie.setUren(result.getLong("uren"));
+		registratie.setStartdatum(result.getDate(STARTDATUM));
+		registratie.setUren(result.getLong(UREN));
 
 		registraties.add(registratie);
 
@@ -73,28 +87,28 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-		medewerker.setNaam(result.getString("naam"));
-		medewerker.setWachtwoord(result.getString("wachtwoord"));
-		medewerker.setTeam(result.getString("team"));
-		medewerker.setRol(result.getString("rol"));
-		medewerker.setContracturen(result.getDouble("contracturen"));
-		medewerker.setStartdatum(result.getDate("startdatum"));
-		medewerker.setEinddatum(result.getDate("einddatum"));
+		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setNaam(result.getString(NAAM));
+		medewerker.setWachtwoord(result.getString(WACHTWOORD));
+		medewerker.setTeam(result.getString(TEAM));
+		medewerker.setRol(result.getString(ROL));
+		medewerker.setContracturen(result.getDouble(CONTRACTUREN));
+		medewerker.setStartdatum(result.getDate(STARTDATUM));
+		medewerker.setEinddatum(result.getDate(EINDDATUM));
 
 		Project project = new Project();
-		project.setNaam(result.getString("naam"));
-		project.setCategorie(result.getString("categorie"));
-		project.setOpdrachtgever(result.getString("opdrachtgever"));
-		project.setDirectie(result.getString("directie"));
-		project.setStartdatum(result.getDate("startdatum"));
-		project.setEinddatum(result.getDate("einddatum"));
+		project.setNaam(result.getString(NAAM));
+		project.setCategorie(result.getString(CATEGORIE));
+		project.setOpdrachtgever(result.getString(OPDRACHTGEVER));
+		project.setDirectie(result.getString(DIRECTIE));
+		project.setStartdatum(result.getDate(STARTDATUM));
+		project.setEinddatum(result.getDate(EINDDATUM));
 
 		Registratie registratie = new Registratie();
 		registratie.setMedewerker(medewerker);
 		registratie.setProject(project);
-		registratie.setStartdatum(result.getDate("startdatum"));
-		registratie.setUren(result.getLong("uren"));
+		registratie.setStartdatum(result.getDate(STARTDATUM));
+		registratie.setUren(result.getLong(UREN));
 
 		registraties.add(registratie);
 
@@ -126,29 +140,29 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-		medewerker.setNaam(result.getString("naam"));
-		medewerker.setWachtwoord(result.getString("wachtwoord"));
-		medewerker.setTeam(result.getString("team"));
-		medewerker.setRol(result.getString("rol"));
-		medewerker.setContracturen(result.getDouble("contracturen"));
-		medewerker.setStartdatum(result.getDate("startdatum"));
-		medewerker.setEinddatum(result.getDate("einddatum"));
+		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setNaam(result.getString(NAAM));
+		medewerker.setWachtwoord(result.getString(WACHTWOORD));
+		medewerker.setTeam(result.getString(TEAM));
+		medewerker.setRol(result.getString(ROL));
+		medewerker.setContracturen(result.getDouble(CONTRACTUREN));
+		medewerker.setStartdatum(result.getDate(STARTDATUM));
+		medewerker.setEinddatum(result.getDate(EINDDATUM));
 
 		Project project = new Project();
-		project.setNaam(result.getString("naam"));
-		project.setCategorie(result.getString("categorie"));
-		project.setOpdrachtgever(result.getString("opdrachtgever"));
-		project.setDirectie(result.getString("directie"));
-		project.setStartdatum(result.getDate("startdatum"));
-		project.setEinddatum(result.getDate("einddatum"));
+		project.setNaam(result.getString(NAAM));
+		project.setCategorie(result.getString(CATEGORIE));
+		project.setOpdrachtgever(result.getString(OPDRACHTGEVER));
+		project.setDirectie(result.getString(DIRECTIE));
+		project.setStartdatum(result.getDate(STARTDATUM));
+		project.setEinddatum(result.getDate(EINDDATUM));
 		result.close();
 
 		Registratie registratie = new Registratie();
 		registratie.setMedewerker(medewerker);
 		registratie.setProject(project);
-		registratie.setStartdatum(result.getDate("startdatum"));
-		registratie.setUren(result.getLong("uren"));
+		registratie.setStartdatum(result.getDate(STARTDATUM));
+		registratie.setUren(result.getLong(UREN));
 
 		registraties.add(registratie);
 
@@ -183,28 +197,28 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
-		medewerker.setNaam(result.getString("naam"));
-		medewerker.setWachtwoord(result.getString("wachtwoord"));
-		medewerker.setTeam(result.getString("team"));
-		medewerker.setRol(result.getString("rol"));
-		medewerker.setContracturen(result.getDouble("contracturen"));
-		medewerker.setStartdatum(result.getDate("startdatum"));
-		medewerker.setEinddatum(result.getDate("einddatum"));
+		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setNaam(result.getString(NAAM));
+		medewerker.setWachtwoord(result.getString(WACHTWOORD));
+		medewerker.setTeam(result.getString(TEAM));
+		medewerker.setRol(result.getString(ROL));
+		medewerker.setContracturen(result.getDouble(CONTRACTUREN));
+		medewerker.setStartdatum(result.getDate(STARTDATUM));
+		medewerker.setEinddatum(result.getDate(EINDDATUM));
 
 		Project project = new Project();
-		project.setNaam(result.getString("naam"));
-		project.setCategorie(result.getString("categorie"));
-		project.setOpdrachtgever(result.getString("opdrachtgever"));
-		project.setDirectie(result.getString("directie"));
-		project.setStartdatum(result.getDate("startdatum"));
-		project.setEinddatum(result.getDate("einddatum"));
+		project.setNaam(result.getString(NAAM));
+		project.setCategorie(result.getString(CATEGORIE));
+		project.setOpdrachtgever(result.getString(OPDRACHTGEVER));
+		project.setDirectie(result.getString(DIRECTIE));
+		project.setStartdatum(result.getDate(STARTDATUM));
+		project.setEinddatum(result.getDate(EINDDATUM));
 
 		Registratie registratie = new Registratie();
 		registratie.setMedewerker(medewerker);
 		registratie.setProject(project);
-		registratie.setStartdatum(result.getDate("startdatum"));
-		registratie.setUren(result.getLong("uren"));
+		registratie.setStartdatum(result.getDate(STARTDATUM));
+		registratie.setUren(result.getLong(UREN));
 
 		registraties.add(registratie);
 
@@ -219,7 +233,7 @@ public class RegistratieRepository {
 	return registraties;
     }
 
-    public static List<Registratie> getRegistratiesByProject(Project project) throws SQLException {
+    public static List<Registratie> getRegistratiesByProject(ProjectDTO project) throws SQLException {
 	String sql = "select * " + "from tblregistratie " + "join tblmedewerker using(idmedewerker) "
 		+ "join tblproject using(idproject) " + "where idproject = ?";
 	List<Registratie> registraties = new ArrayList<>();
@@ -232,10 +246,10 @@ public class RegistratieRepository {
 	    while (result.next()) {
 		Registratie registratie = new Registratie();
 
-		registratie.setMedewerker((Medewerker) result.getObject("idmedewerker"));
-		registratie.setProject((Project) result.getObject("idproject"));
-		registratie.setStartdatum(result.getDate("startdatum"));
-		registratie.setUren(result.getLong("uren"));
+		registratie.setMedewerker((Medewerker) result.getObject(IDMEDEWERKER));
+		registratie.setProject((Project) result.getObject(IDPROJECT));
+		registratie.setStartdatum(result.getDate(STARTDATUM));
+		registratie.setUren(result.getLong(UREN));
 
 		registraties.add(registratie);
 
