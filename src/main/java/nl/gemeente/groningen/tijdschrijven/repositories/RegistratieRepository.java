@@ -60,14 +60,15 @@ public class RegistratieRepository {
 	return registraties;
     }
 
-    public static List<Registratie> getAlleRegistratiesByMedewerker(int idMedewerker) {
+    public static List<Registratie> getAlleRegistratiesByMedewerker(int idMedewerker) throws SQLException {
 	String sql = "select * " + "from tblregistratie " + "join tblmedewerker using(idmedewerker) "
 		+ "join tblproject using(idproject) " + "where idmedewerker = ?";
 	List<Registratie> registraties = new ArrayList<>();
+	ResultSet result = null;
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setInt(1, idMedewerker);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -98,23 +99,29 @@ public class RegistratieRepository {
 		registraties.add(registratie);
 
 	    }
-	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return registraties;
     }
 
-    public static List<Registratie> getAlleRegistratiesByMedewerkerByMaand(int idMedewerker, Date datum) {
+    public static List<Registratie> getAlleRegistratiesByMedewerkerByMaand(int idMedewerker, Date datum)
+	    throws SQLException {
 	String sql = "select * " + "from tblregistratie r " + "join tblmedewerker m using(idmedewerker) "
 		+ "join tblproject p using(idproject) " + "where r.idmedewerker = ? "
 		+ "and date_format(r.startdatum, '%Y%m') = date_format(?, '%Y%m')";
 	List<Registratie> registraties = new ArrayList<>();
+	ResultSet result = null;
+
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setInt(1, idMedewerker);
 	    stmt.setDate(2, datum);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -135,6 +142,7 @@ public class RegistratieRepository {
 		project.setDirectie(result.getString("directie"));
 		project.setStartdatum(result.getDate("startdatum"));
 		project.setEinddatum(result.getDate("einddatum"));
+		result.close();
 
 		Registratie registratie = new Registratie();
 		registratie.setMedewerker(medewerker);
@@ -145,19 +153,24 @@ public class RegistratieRepository {
 		registraties.add(registratie);
 
 	    }
-	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return registraties;
     }
 
-    public static List<Registratie> getAlleRegistratiesByMedewerkerByWeek(int idMedewerker, Date datum) {
+    public static List<Registratie> getAlleRegistratiesByMedewerkerByWeek(int idMedewerker, Date datum)
+	    throws SQLException {
 	String sql = "select * " + "from tblregistratie r " + "join tblmedewerker m using(idmedewerker) "
 		+ "join tblproject p using(idproject) " + "where r.idmedewerker = ? "
 		+ "and r.startdatum between date_add(?, interval -(weekday(?)) day) "
 		+ "and date_add(?, interval 6-(weekday(?)) day)";
 	List<Registratie> registraties = new ArrayList<>();
+	ResultSet result = null;
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setInt(1, idMedewerker);
@@ -165,7 +178,7 @@ public class RegistratieRepository {
 	    stmt.setDate(3, datum);
 	    stmt.setDate(4, datum);
 	    stmt.setDate(5, datum);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    while (result.next()) {
 
@@ -196,21 +209,25 @@ public class RegistratieRepository {
 		registraties.add(registratie);
 
 	    }
-	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return registraties;
     }
 
-    public static List<Registratie> getRegistratiesByProject(Project project) {
+    public static List<Registratie> getRegistratiesByProject(Project project) throws SQLException {
 	String sql = "select * " + "from tblregistratie " + "join tblmedewerker using(idmedewerker) "
 		+ "join tblproject using(idproject) " + "where idproject = ?";
 	List<Registratie> registraties = new ArrayList<>();
+	ResultSet result = null;
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setObject(1, project);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    while (result.next()) {
 		Registratie registratie = new Registratie();
@@ -227,6 +244,10 @@ public class RegistratieRepository {
 	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return registraties;
     }

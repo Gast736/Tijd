@@ -47,9 +47,10 @@ public class MedewerkerRepository {
     public static Medewerker getMedewerkerByNaam(String naam) throws SQLException {
 	String sql = "select * " + "from tblmedewerker " + "where naam = ?";
 	Medewerker medewerker = new Medewerker();
+	ResultSet result = null;
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 	    stmt.setString(1, naam);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    result.next();
 
@@ -65,16 +66,22 @@ public class MedewerkerRepository {
 	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return medewerker;
     }
 
-    public static boolean isWachtwoordCorrect(String naam, String wachtwoord) {
+    public static boolean isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
 	String sql = "select naam" + ", wachtwoord " + "from tblmedewerker " + "where naam = ?";
+	ResultSet result = null;
+
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setString(1, naam);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    result.next();
 
@@ -95,6 +102,10 @@ public class MedewerkerRepository {
 	    }
 	} catch (Exception e) {
 	    logger.error(e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return false;
     }

@@ -48,8 +48,7 @@ public class Medewerker implements Serializable {
 
     }
 
-    public Medewerker(int idmedewerker, String naam, String wachtwoord, String team, String rol, double contracturen,
-	    Date startdatum, Date einddatum) {
+    public Medewerker(String naam, String wachtwoord, String team, String rol, double contracturen, Date startdatum) {
 	this.idmedewerker = idmedewerker;
 	this.naam = naam;
 	this.wachtwoord = wachtwoord;

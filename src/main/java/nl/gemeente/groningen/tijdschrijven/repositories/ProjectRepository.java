@@ -15,7 +15,7 @@ public class ProjectRepository {
 
     private static final Logger logger = Logger.getLogger(ProjectRepository.class);
 
-    public static List<Project> getAlleProjecten() {
+    public static List<Project> getAlleProjecten() throws SQLException {
 	String sql = "select * " + "from tblproject";
 	List<Project> projecten = new ArrayList<>();
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);
@@ -40,13 +40,14 @@ public class ProjectRepository {
 	return projecten;
     }
 
-    public static Project getProjectByNaam(String naam) {
+    public static Project getProjectByNaam(String naam) throws SQLException {
 	String sql = "select * " + "from tblproject " + "where naam = ?";
+	ResultSet result = null;
 	Project project = new Project();
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
 	    stmt.setString(1, naam);
-	    ResultSet result = stmt.executeQuery();
+	    result = stmt.executeQuery();
 
 	    result.next();
 
@@ -60,6 +61,10 @@ public class ProjectRepository {
 	    result.close();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
 	}
 	return project;
     }
