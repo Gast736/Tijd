@@ -1,6 +1,5 @@
 package nl.gemeente.groningen.tijdschrijven.controllers;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,19 +29,10 @@ public class ProjectController {
     		@RequestParam(name="categorie") String categorie,
     		@RequestParam(name="opdrachtgever") String opdrachtgever,
     		@RequestParam(name="directie") String directie,
-    		@RequestParam(name="startdatum") Date startdatum,
-    		@RequestParam(name="einddatum") Date einddatum) throws SQLException {
-    	
-    	Project p = new Project();
-    	
-    	p.setNaam(naam);
-    	p.setCategorie(categorie);
-    	p.setOpdrachtgever(opdrachtgever);
-    	p.setDirectie(directie);
-    	p.setStartdatum(startdatum);
-    	p.setEinddatum(einddatum);
-    	
-    	return ProjectRepository.insertProject(p);
+    		@RequestParam(name="startdatum") String startdatum,
+    		@RequestParam(name="einddatum") String einddatum) throws SQLException {
+    	   	
+    	return ProjectRepository.insertProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum);
     }
     
 }

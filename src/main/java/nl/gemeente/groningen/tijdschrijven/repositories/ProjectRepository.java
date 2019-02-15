@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 
@@ -74,16 +77,19 @@ public class ProjectRepository {
 	return project;
     }
 
-    public static int insertProject(Project project) throws SQLException {
+    public static int insertProject(String naam, String categorie, String opdrachtgever, String directie, String startdatum, String einddatum) throws SQLException {
 	String sql = "insert into tblProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) "
 		+ "values(?, ?, ?, ?, ?, ?)";
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-	    stmt.setString(1, project.getNaam());
-	    stmt.setString(2, project.getCategorie());
-	    stmt.setString(3, project.getOpdrachtgever());
-	    stmt.setString(4, project.getDirectie());
-	    stmt.setDate(5, (Date) project.getStartdatum());
-	    stmt.setDate(6, (Date) project.getEinddatum());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN);
+		LocalDate start = LocalDate.parse(startdatum, formatter);
+		LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "31-12-9999" : einddatum), formatter);
+		stmt.setString(1, naam);
+	    stmt.setString(2, categorie);
+	    stmt.setString(3, opdrachtgever);
+	    stmt.setString(4, directie);
+	    stmt.setDate(5, Date.valueOf(start));
+	    stmt.setDate(6, Date.valueOf(eind));
 
 	    stmt.executeUpdate();
 	    
