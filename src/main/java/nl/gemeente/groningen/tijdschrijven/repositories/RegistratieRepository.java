@@ -14,6 +14,7 @@ import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
 import nl.gemeente.groningen.tijdschrijven.model.ProjectDTO;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
+import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 
 public class RegistratieRepository {
 
@@ -269,4 +270,24 @@ public class RegistratieRepository {
     private RegistratieRepository() {
     }
 
+	public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
+		String sql = "insert into tblregistratie (idmedewerker, idproject, startdatum, uren) values (?, ?, ?, ?) ";
+
+		for (RegistratieJSON r: registraties) {
+			
+			try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+					
+				stmt.setInt(1, r.getidMedewerker());
+				stmt.setInt(2, r.getidProject());
+				stmt.setDate(3, (Date) r.getStartdatum());
+				stmt.setDouble(4, r.getUren());
+				stmt.execute();
+			}
+			catch (SQLException e) {
+			    logger.error(e.getErrorCode() + ": " + e.getMessage());
+			    return false;
+			}	 
+		}
+		return true;
+	}
 }
