@@ -9,36 +9,10 @@ Dit script bestaat nu uit 3 delen:
 // DECLARATIE GLOBALE VARIABELEN
 
 var projecten = [];
-
-/*
-BLOK BEREKENING START- EN EINDDATUM (WERKT NOG NIET.... MORGEN NIEUWE RONDE NIEUWE KANSEN)
-*/
-
-
-
-$('.periodSelect').click(function () {
-    var begindatum = new Date();
-    var begindatum = getDateOfISOWeek($('#selWeek').val, $('#selYear').val);
-    console.log(begindatum);
-
-    var einddatum = new Date();
-    einddatum.setDate(begindatum.getDate() + 8);
-    console.log(einddatum);
-    var returnString = "Van " + begindatum.getDate() + "-" + (begindatum.getMonth() + 1) + "-" + begindatum.getFullYear() + " tot en met " + einddatum.getDate() + "-" + (einddatum.getMonth() + 1) + "-" + einddatum.getFullYear();
-    console.log(returnString);
-    $('#fromUntil').val(returnString);
-})
-
-function getDateOfISOWeek(w, y) {
-    var datevar = new Date(y, 0, 1 + (w - 1) * 7);
-    var dow = datevar.getDay();
-    var ISOweekStart = datevar;
-    if (dow <= 4)
-        ISOweekStart.setDate(datevar.getDate() - datevar.getDay() + 1);
-    else
-        ISOweekStart.setDate(datevar.getDate() + 8 - datevar.getDay());
-    return ISOweekStart;
-}
+var begindatum;
+var einddatum;
+var weeknummer;
+var eerstedag;
 
 /*
 BLOK BEREKENING VAN KOLOMTOTALEN
@@ -55,16 +29,6 @@ $('#regform1').keyup(function () {
     });
     $('#totMonday').val(sum);
 })
-/*   
-$('.monday').keyup(function () {
-    console.log("activiteit op maandagveld gelezen");
-    var sum = 0;
-    $('.monday').each(function () {
-        sum += Number($(this).val());
-        console.log("Het totaal voor maandag is nu: "+sum);
-    });
-    $('#totMonday').val(sum);
-}) */
 
 // Bereken totaal voor dinsdag
 $('#regform1').keyup(function () {
@@ -176,6 +140,12 @@ function getCookie(cname) {
     return "";
 }
 
+/* Event voor wijzigen data na aanpassing jaar en/of datum
+*/
+$('.periodSelect').change(function () {
+    haalDatums();
+})
+
 function checkCookie() {
     var user = getCookie("user");
     if (user != "") {
@@ -186,7 +156,31 @@ function checkCookie() {
     }
 }
 
+function haalDatums() {
+    $.ajax({
+        url: "/datum",
+        method: 'GET',
+        data: {
+            week: $('#selWeek').val(),
+            jaar: $('#selYear').val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            begindatum = data.eersteDagVanDeWeek.substring(0,10);
+            einddatum = data.laatsteDagVanDeWeek.substring(0,10);
+            var d = "Van " + begindatum + " tot " + einddatum;
+            // LOGGING AAN
+            console.log(d);
+            $('#fromUntil').text(d);
+        },
+        error: function (requestObject, error, errorThrown) {
 
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+};
 
 function haalProjecten() {
     $.ajax({
@@ -321,6 +315,7 @@ function bouwFormulierOp() {
 $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
+    haalDatums();
     haalProjecten();
     setTimeout(bouwTabelOp, 3000);
     setTimeout(bouwFormulierOp, 3000);
