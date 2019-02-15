@@ -1,5 +1,6 @@
 package nl.gemeente.groningen.tijdschrijven.repositories;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,8 +75,27 @@ public class MedewerkerRepository {
 	return medewerker;
     }
 
+    public static boolean insertMedewerker(Medewerker medewerker) throws SQLException {
+	String sql = "insert into tblMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) "
+		+ "values(?, ?, ?, ?, ?, ?, ?,)";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, medewerker.getNaam());
+	    stmt.setString(2, medewerker.getWachtwoord());
+	    stmt.setString(3, medewerker.getTeam());
+	    stmt.setString(4, medewerker.getRol());
+	    stmt.setDouble(5, medewerker.getContracturen());
+	    stmt.setDate(6, (Date) medewerker.getStartdatum());
+	    stmt.setDate(7, (Date) medewerker.getEinddatum());
+
+	    stmt.executeQuery();
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	}
+	return false;
+    }
+
     public static boolean isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
-	String sql = "select naam" + ", wachtwoord " + "from tblmedewerker " + "where naam = ?";
+	String sql = "select naam, wachtwoord from tblmedewerker where naam = ?";
 	ResultSet result = null;
 
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
@@ -91,17 +111,13 @@ public class MedewerkerRepository {
 	    result.close();
 
 	    String wachtwoordCheck = medewerker.getWachtwoord();
-	    logger.info("We vergelijken het ingevoerde wachtwoord: " + wachtwoord
-		    + ", met het wachtwoord in de database: " + wachtwoordCheck);
 	    if (wachtwoordCheck.equals(wachtwoord)) {
-		logger.info("Het wachtwoord komt overeen, returnvalue is true");
 		return true;
 	    } else {
-		logger.info("Het wachtwoord komt niet overeen, returnvalue is false");
 		return false;
 	    }
-	} catch (Exception e) {
-	    logger.error(e.getMessage());
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	} finally {
 	    if (result != null) {
 		result.close();
@@ -110,7 +126,25 @@ public class MedewerkerRepository {
 	return false;
     }
 
-    private MedewerkerRepository() {
+    public static boolean updateMedewerker(Medewerker medewerker) throws SQLException {
+	String sql = "update tblMedewerker " + "set naam = ?" + ", wachtwoord = ?" + ", team = ?" + ", rol = "
+		+ ", contracturen = ?" + ", startdatum = ?" + ", einddatum = ?";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	    stmt.setString(1, medewerker.getNaam());
+	    stmt.setString(2, medewerker.getWachtwoord());
+	    stmt.setString(3, medewerker.getTeam());
+	    stmt.setString(4, medewerker.getRol());
+	    stmt.setDouble(5, medewerker.getContracturen());
+	    stmt.setDate(6, (Date) medewerker.getStartdatum());
+	    stmt.setDate(7, (Date) medewerker.getEinddatum());
+
+	    stmt.executeQuery();
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	}
+	return false;
     }
 
+    private MedewerkerRepository() {
+    }
 }

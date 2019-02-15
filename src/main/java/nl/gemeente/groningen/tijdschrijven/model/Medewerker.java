@@ -105,11 +105,4 @@ public class Medewerker {
 	this.wachtwoord = wachtwoord;
     }
 
-    @Override
-    public String toString() {
-	return "Medewerker [idmedewerker=" + idmedewerker + ", naam=" + naam + ", wachtwoord=" + wachtwoord + ", team="
-		+ team + ", rol=" + rol + ", contracturen=" + contracturen + ", startdatum=" + startdatum
-		+ ", einddatum=" + einddatum + "]";
-    }
-
 }

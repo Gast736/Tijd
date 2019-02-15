@@ -66,10 +66,4 @@ public class Registratie {
 	this.uren = uren;
     }
 
-    @Override
-    public String toString() {
-	return "Registratie [medewerker=" + medewerker + ", project=" + project + ", startdatum=" + startdatum
-		+ ", uren=" + uren + "]";
-    }
-
 }

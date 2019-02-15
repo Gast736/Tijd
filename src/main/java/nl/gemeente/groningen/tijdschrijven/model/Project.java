@@ -93,11 +93,4 @@ public class Project {
     public void setStartdatum(Date startdatum) {
 	this.startdatum = startdatum;
     }
-
-    @Override
-    public String toString() {
-	return "Project [idProject=" + idProject + ", naam=" + naam + ", categorie=" + categorie + ", opdrachtgever="
-		+ opdrachtgever + ", directie=" + directie + ", startdatum=" + startdatum + ", einddatum=" + einddatum
-		+ "]";
-    }
 }
