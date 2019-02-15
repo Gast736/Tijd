@@ -130,8 +130,8 @@ public class MedewerkerRepository {
 	return false;
     }
 
-    public static boolean isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
-	String sql = "select naam, wachtwoord from tblmedewerker where naam = ?";
+    public static int isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
+	String sql = "select idmedewerker, naam, wachtwoord from tblmedewerker where naam = ?";
 	ResultSet result = null;
 
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
@@ -143,14 +143,16 @@ public class MedewerkerRepository {
 
 	    Medewerker medewerker = new Medewerker();
 	    medewerker.setWachtwoord(result.getString("wachtwoord"));
+	    int id = result.getInt("idmedewerker");
 
 	    result.close();
 
 	    String wachtwoordCheck = medewerker.getWachtwoord();
 	    if (wachtwoordCheck.equals(wachtwoord)) {
-		return true;
+	    	System.out.println("wachtwoord is correct en het id dat teruggegeven wordt = "+id);
+	    	return id;
 	    } else {
-		return false;
+		return 0;
 	    }
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
@@ -159,7 +161,7 @@ public class MedewerkerRepository {
 		result.close();
 	    }
 	}
-	return false;
+	return 0;
     }
 
     public static boolean updateMedewerker(Medewerker medewerker) throws SQLException {

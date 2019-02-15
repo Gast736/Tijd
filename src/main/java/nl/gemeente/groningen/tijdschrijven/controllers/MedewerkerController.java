@@ -37,7 +37,7 @@ public class MedewerkerController {
     }
 
     @GetMapping("/medewerker/wachtwoord")
-    public boolean isWachtwoordCorrect(@RequestParam(name = "naam") String naam,
+    public int isWachtwoordCorrect(@RequestParam(name = "naam") String naam,
 	    @RequestParam(name = "wachtwoord") String wachtwoord) throws SQLException {
 	return MedewerkerRepository.isWachtwoordCorrect(naam, wachtwoord);
     }

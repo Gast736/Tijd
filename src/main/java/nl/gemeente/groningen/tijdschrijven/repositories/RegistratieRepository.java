@@ -14,6 +14,7 @@ import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
 import nl.gemeente.groningen.tijdschrijven.model.ProjectDTO;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
+import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 
 public class RegistratieRepository {
 
@@ -269,4 +270,44 @@ public class RegistratieRepository {
     private RegistratieRepository() {
     }
 
+    
+    /**Deze methode verwerkt de JSON input data van het urenregistratieformulier. De data moet  
+     * bestaan uit: idmedewerker, idproject, datum en uren. De data van een volledige week wordt
+     * geleverd. Om deze goed te verwerken wordt eventueel aanwezige data van die medewerker in
+     * week verwijderd en weer gevuld met de nieuwe data van de medewerker in die week. 
+    **/ 
+	public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
+		String sql_del = "delete from tblregistratie where (idmedewerker=? and startdatum=?)";
+		
+		for (RegistratieJSON d: registraties) {
+			try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql_del);) {
+				stmt.setInt(1, d.getidMedewerker());
+				stmt.setDate(2, (Date) d.getStartdatum());
+				stmt.execute();
+			}
+			catch (SQLException e) {
+			    logger.error(e.getErrorCode() + ": " + e.getMessage());
+			    return false;
+			}
+		}		
+		
+		String sql = "insert into tblregistratie (idmedewerker, idproject, startdatum, uren) values (?, ?, ?, ?) ";
+
+		for (RegistratieJSON r: registraties) {
+			
+			try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+					
+				stmt.setInt(1, r.getidMedewerker());
+				stmt.setInt(2, r.getidProject());
+				stmt.setDate(3, (Date) r.getStartdatum());
+				stmt.setDouble(4, r.getUren());
+				stmt.execute();
+			}
+			catch (SQLException e) {
+			    logger.error(e.getErrorCode() + ": " + e.getMessage());
+			    return false;
+			}	 
+		}
+		return true;
+	}
 }
