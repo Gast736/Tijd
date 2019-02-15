@@ -50,7 +50,7 @@ public class RegistratieController {
 	return RegistratieRepository.getRegistratiesByProject(project);
     }
     
-    @PostMapping("registratieUpdate")
+    @PostMapping("/registratieUpdate")
     public boolean registratieUpdate(@RequestBody ArrayList<RegistratieJSON> registraties) throws SQLException {
     	return RegistratieRepository.registratieUpdate(registraties);
 

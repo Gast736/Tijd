@@ -274,7 +274,7 @@ public class RegistratieRepository {
     /**Deze methode verwerkt de JSON input data van het urenregistratieformulier. De data moet  
      * bestaan uit: idmedewerker, idproject, datum en uren. De data van een volledige week wordt
      * geleverd. Om deze goed te verwerken wordt eventueel aanwezige data van die medewerker in
-     * week verwijderd. 
+     * week verwijderd en weer gevuld met de nieuwe data van de medewerker in die week. 
     **/ 
 	public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
 		String sql_del = "delete from tblregistratie where (idmedewerker=? and startdatum=?)";
