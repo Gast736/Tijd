@@ -4,12 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
 public class DatumRepository {
 
-    public static Map<String, Object> getDatums(@RequestParam(name = "datum") String datum) {
+    public static Map<String, Object> getDatums(String jaar, String week) {
 	Date eersteDagVanDeMaand;
 	Date eersteDagVanDeWeek;
 	Date eersteDagVanJaar;
@@ -23,7 +24,9 @@ public class DatumRepository {
 	int weekNummer;
 	Map<String, Object> datums = new HashMap<>();
 
-	Calendar cal = stringToDate(datum);
+	Calendar cal = Calendar.getInstance();
+	cal.set(Calendar.YEAR, Integer.valueOf(jaar));
+	cal.set(Calendar.WEEK_OF_YEAR, Integer.valueOf(week));
 
 	// WEEK
 	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);

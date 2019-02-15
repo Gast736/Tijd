@@ -24,8 +24,8 @@ public class DatumController {
     private int weekNummer;
 
     @GetMapping("/datum")
-    public Map<String, Object> getDatums(@RequestParam(name = "datum") String datum) {
-	return DatumRepository.getDatums(datum);
+    public Map<String, Object> getDatums(@RequestParam(name = "jaar") String jaar, @RequestParam(name = "week") String week) {
+	return DatumRepository.getDatums(jaar, week);
 
     }
 
