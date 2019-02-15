@@ -113,7 +113,8 @@ public class MedewerkerRepository {
 
 	    String wachtwoordCheck = medewerker.getWachtwoord();
 	    if (wachtwoordCheck.equals(wachtwoord)) {
-		return id;
+	    	System.out.println("wachtwoord is correct en het id dat teruggegeven wordt = "+id);
+	    	return id;
 	    } else {
 		return 0;
 	    }
