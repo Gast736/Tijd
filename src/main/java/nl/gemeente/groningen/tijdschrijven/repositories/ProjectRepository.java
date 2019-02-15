@@ -81,7 +81,7 @@ public class ProjectRepository {
 	    stmt.setDate(5, (Date) project.getStartdatum());
 	    stmt.setDate(6, (Date) project.getEinddatum());
 
-	    stmt.executeQuery();
+	    stmt.executeUpdate();
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
