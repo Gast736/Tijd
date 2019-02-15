@@ -270,7 +270,27 @@ public class RegistratieRepository {
     private RegistratieRepository() {
     }
 
+    
+    /**Deze methode verwerkt de JSON input data van het urenregistratieformulier. De data moet  
+     * bestaan uit: idmedewerker, idproject, datum en uren. De data van een volledige week wordt
+     * geleverd. Om deze goed te verwerken wordt eventueel aanwezige data van die medewerker in
+     * week verwijderd. 
+    **/ 
 	public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
+		String sql_del = "delete from tblregistratie where (idmedewerker=? and startdatum=?)";
+		
+		for (RegistratieJSON d: registraties) {
+			try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql_del);) {
+				stmt.setInt(1, d.getidMedewerker());
+				stmt.setDate(2, (Date) d.getStartdatum());
+				stmt.execute();
+			}
+			catch (SQLException e) {
+			    logger.error(e.getErrorCode() + ": " + e.getMessage());
+			    return false;
+			}
+		}		
+		
 		String sql = "insert into tblregistratie (idmedewerker, idproject, startdatum, uren) values (?, ?, ?, ?) ";
 
 		for (RegistratieJSON r: registraties) {

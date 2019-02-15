@@ -1,0 +1,15 @@
+[{"idmedewerker":"1", 
+  "idproject":"1", 
+  "startdatum":"2019-02-12", 
+  "uren":"3"},
+  
+  {"idmedewerker":"1", 
+  "idproject":"1", 
+  "startdatum":"2019-02-13", 
+  "uren":"3"},
+  
+  {"idmedewerker":"1", 
+  "idproject":"2", 
+  "startdatum":"2019-02-13", 
+  "uren":"4"}
+  ]
