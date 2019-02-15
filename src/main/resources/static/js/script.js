@@ -45,16 +45,29 @@ BLOK BEREKENING VAN KOLOMTOTALEN
 */
 
 // Bereken totaal voor maandag
-$('.monday').keyup(function () {
+//$('#regform1').on('keyup', '.monday', function() {
+$('#regform1').keyup(function () {
+    console.log("activiteit op maandagveld gelezen");
     var sum = 0;
     $('.monday').each(function () {
         sum += Number($(this).val());
+        console.log("Het totaal voor maandag is nu: "+sum);
     });
     $('#totMonday').val(sum);
 })
+/*   
+$('.monday').keyup(function () {
+    console.log("activiteit op maandagveld gelezen");
+    var sum = 0;
+    $('.monday').each(function () {
+        sum += Number($(this).val());
+        console.log("Het totaal voor maandag is nu: "+sum);
+    });
+    $('#totMonday').val(sum);
+}) */
 
 // Bereken totaal voor dinsdag
-$('.tuesday').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.tuesday').each(function () {
         sum += Number($(this).val());
@@ -63,7 +76,7 @@ $('.tuesday').keyup(function () {
 })
 
 // Bereken totaal voor woensdag
-$('.wednesday').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.wednesday').each(function () {
         sum += Number($(this).val());
@@ -72,7 +85,7 @@ $('.wednesday').keyup(function () {
 })
 
 // Bereken totaal voor donderdag
-$('.thursday').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.thursday').each(function () {
         sum += Number($(this).val());
@@ -81,7 +94,7 @@ $('.thursday').keyup(function () {
 })
 
 // Bereken totaal voor vrijdag
-$('.friday').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.friday').each(function () {
         sum += Number($(this).val());
@@ -94,7 +107,7 @@ BLOK BEREKENING VAN RIJTOTALEN
 */
 
 // Bereken totaal voor rij1
-$('.row1').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.row1').each(function () {
         sum += Number($(this).val());
@@ -103,7 +116,7 @@ $('.row1').keyup(function () {
 })
 
 // Bereken totaal voor rij2
-$('.row2').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.row2').each(function () {
         sum += Number($(this).val());
@@ -112,7 +125,7 @@ $('.row2').keyup(function () {
 })
 
 // Bereken totaal voor rij3
-$('.row3').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.row3').each(function () {
         sum += Number($(this).val());
@@ -121,7 +134,7 @@ $('.row3').keyup(function () {
 })
 
 // Bereken totaal voor rij4
-$('.row4').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.row4').each(function () {
         sum += Number($(this).val());
@@ -130,7 +143,7 @@ $('.row4').keyup(function () {
 })
 
 // Bereken totaal voor rij5
-$('.row5').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.row5').each(function () {
         sum += Number($(this).val());
@@ -139,7 +152,7 @@ $('.row5').keyup(function () {
 })
 
 // Bereken totaal voor totalen
-$('.form-control').keyup(function () {
+$('#regform1').keyup(function () {
     var sum = 0;
     $('.rowtotals').each(function () {
         sum += Number($(this).val());
