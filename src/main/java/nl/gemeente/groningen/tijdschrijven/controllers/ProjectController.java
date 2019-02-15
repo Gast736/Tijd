@@ -26,7 +26,7 @@ public class ProjectController {
     }
     
     @PostMapping("/nieuwProject")
-    public boolean nieuwProject(@RequestParam(name="naam") String naam, 
+    public int nieuwProject(@RequestParam(name="naam") String naam, 
     		@RequestParam(name="categorie") String categorie,
     		@RequestParam(name="opdrachtgever") String opdrachtgever,
     		@RequestParam(name="directie") String directie,
@@ -43,6 +43,6 @@ public class ProjectController {
     	p.setEinddatum(einddatum);
     	
     	return ProjectRepository.insertProject(p);
-    };
+    }
     
 }

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class ProjectRepository {
 	    while (result.next()) {
 
 		Project project = new Project();
+		
+		project.setIdProject(result.getInt("idproject"));
 		project.setNaam(result.getString("naam"));
 		project.setCategorie(result.getString("categorie"));
 		project.setOpdrachtgever(result.getString("opdrachtgever"));
@@ -52,6 +55,7 @@ public class ProjectRepository {
 
 	    result.next();
 
+	    project.setIdProject(result.getInt("idproject"));
 	    project.setNaam(result.getString("naam"));
 	    project.setCategorie(result.getString("categorie"));
 	    project.setOpdrachtgever(result.getString("opdrachtgever"));
@@ -70,10 +74,10 @@ public class ProjectRepository {
 	return project;
     }
 
-    public static boolean insertProject(Project project) throws SQLException {
+    public static int insertProject(Project project) throws SQLException {
 	String sql = "insert into tblProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) "
 		+ "values(?, ?, ?, ?, ?, ?)";
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 	    stmt.setString(1, project.getNaam());
 	    stmt.setString(2, project.getCategorie());
 	    stmt.setString(3, project.getOpdrachtgever());
@@ -82,10 +86,14 @@ public class ProjectRepository {
 	    stmt.setDate(6, (Date) project.getEinddatum());
 
 	    stmt.executeUpdate();
+	    
+	    ResultSet key = stmt.getGeneratedKeys();
+	    key.next();
+	    return key.getInt(1);
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
-	return false;
+	return -1;
     }
 
     public static boolean updateProject(Project project) throws SQLException {
