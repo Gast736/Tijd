@@ -94,4 +94,22 @@ public class DatumRepository {
 
     private DatumRepository() {
     }
+
+    public static Map<Integer, Object> getDaysInWeek(String jaar, String week) {
+	Map<Integer, Object> dagen = new HashMap<>();
+
+	Calendar cal = Calendar.getInstance();
+	cal.set(Calendar.YEAR, Integer.valueOf(jaar));
+	cal.set(Calendar.WEEK_OF_YEAR, Integer.valueOf(week));
+
+	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	
+	for (int i = 0; i < 5; i++) {
+	    dagen.put(i, cal.getTime());
+	    cal.roll(Calendar.DATE, 1);
+	}
+
+	return dagen;
+	
+    }
 }
