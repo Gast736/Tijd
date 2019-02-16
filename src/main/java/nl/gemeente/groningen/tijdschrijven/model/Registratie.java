@@ -36,7 +36,7 @@ public class Registratie implements Serializable {
 
     @Column(scale = 4, precision = 2)
     private double uren;
-    
+
     public Medewerker getMedewerker() {
 	return medewerker;
     }

@@ -24,12 +24,14 @@ public class DatumController {
     private int weekNummer;
 
     @GetMapping("/datum")
-    public Map<String, Object> getDatums(@RequestParam(name = "jaar") String jaar, @RequestParam(name = "week") String week) {
+    public Map<String, Object> getDatums(@RequestParam(name = "jaar") String jaar,
+	    @RequestParam(name = "week") String week) {
 	return DatumRepository.getDatums(jaar, week);
     }
 
     @GetMapping("/daysInWeek")
-    public Map<Integer, Object> getDaysInWeek(@RequestParam(name = "jaar") String jaar, @RequestParam(name = "week") String week) {
+    public Map<Integer, Object> getDaysInWeek(@RequestParam(name = "jaar") String jaar,
+	    @RequestParam(name = "week") String week) {
 	return DatumRepository.getDaysInWeek(jaar, week);
     }
 

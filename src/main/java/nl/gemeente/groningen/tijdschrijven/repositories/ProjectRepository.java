@@ -29,7 +29,7 @@ public class ProjectRepository {
 	    while (result.next()) {
 
 		Project project = new Project();
-		
+
 		project.setIdProject(result.getInt("idproject"));
 		project.setNaam(result.getString("naam"));
 		project.setCategorie(result.getString("categorie"));
@@ -77,14 +77,16 @@ public class ProjectRepository {
 	return project;
     }
 
-    public static int insertProject(String naam, String categorie, String opdrachtgever, String directie, String startdatum, String einddatum) throws SQLException {
+    public static int insertProject(String naam, String categorie, String opdrachtgever, String directie,
+	    String startdatum, String einddatum) throws SQLException {
 	String sql = "insert into tblProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) "
 		+ "values(?, ?, ?, ?, ?, ?)";
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN);
-		LocalDate start = LocalDate.parse(startdatum, formatter);
-		LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "31-12-9999" : einddatum), formatter);
-		stmt.setString(1, naam);
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
+		Statement.RETURN_GENERATED_KEYS)) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN);
+	    LocalDate start = LocalDate.parse(startdatum, formatter);
+	    LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "31-12-9999" : einddatum), formatter);
+	    stmt.setString(1, naam);
 	    stmt.setString(2, categorie);
 	    stmt.setString(3, opdrachtgever);
 	    stmt.setString(4, directie);
@@ -92,10 +94,12 @@ public class ProjectRepository {
 	    stmt.setDate(6, Date.valueOf(eind));
 
 	    stmt.executeUpdate();
-	    
-	    ResultSet key = stmt.getGeneratedKeys();
-	    key.next();
-	    return key.getInt(1);
+
+	    try (ResultSet key = stmt.getGeneratedKeys()) {
+		
+		key.next();
+		return key.getInt(1);
+	    }
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
@@ -103,7 +107,7 @@ public class ProjectRepository {
     }
 
     public static boolean updateProject(Project project) throws SQLException {
-	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?" + ", directie = "
+	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?" + ", directie = ?"
 		+ ", startdatum = ?" + ", einddatum = ?";
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, project.getNaam());

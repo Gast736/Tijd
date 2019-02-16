@@ -4,9 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
-
-import org.springframework.web.bind.annotation.RequestParam;
 
 public class DatumRepository {
 
@@ -79,19 +76,6 @@ public class DatumRepository {
 
     }
 
-    private static Calendar stringToDate(String datum) {
-	String[] datumdeel = datum.split("-");
-
-	Calendar cal = Calendar.getInstance();
-	cal.setFirstDayOfWeek(Calendar.MONDAY);
-	cal.setMinimalDaysInFirstWeek(4);
-	cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(datumdeel[0]));
-	cal.set(Calendar.MONTH, Integer.parseInt(datumdeel[1]) - 1);
-	cal.set(Calendar.YEAR, Integer.parseInt(datumdeel[2]));
-
-	return cal;
-    }
-
     private DatumRepository() {
     }
 
@@ -103,13 +87,13 @@ public class DatumRepository {
 	cal.set(Calendar.WEEK_OF_YEAR, Integer.valueOf(week));
 
 	cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-	
+
 	for (int i = 0; i < 5; i++) {
 	    dagen.put(i, cal.getTime());
 	    cal.roll(Calendar.DATE, 1);
 	}
 
 	return dagen;
-	
+
     }
 }

@@ -30,8 +30,7 @@ public class MedewerkerController {
     public int insertMedewerker(@RequestParam(name = "naam") String naam,
 	    @RequestParam(name = "wachtwoord") String wachtwoord, @RequestParam(name = "team") String team,
 	    @RequestParam(name = "rol") String rol, @RequestParam(name = "contracturen") double contracturen,
-	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum)
-	    throws SQLException {
+	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum) {
 	return MedewerkerRepository.insertMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum);
 
     }

@@ -23,16 +23,15 @@ public class ProjectController {
     public Project getProjectByNaam(@RequestParam(name = "naam") String naam) throws SQLException {
 	return ProjectRepository.getProjectByNaam(naam);
     }
-    
+
     @PostMapping("/nieuwProject")
-    public int nieuwProject(@RequestParam(name="naam") String naam, 
-    		@RequestParam(name="categorie") String categorie,
-    		@RequestParam(name="opdrachtgever") String opdrachtgever,
-    		@RequestParam(name="directie") String directie,
-    		@RequestParam(name="startdatum") String startdatum,
-    		@RequestParam(name="einddatum") String einddatum) throws SQLException {
-    	   	
-    	return ProjectRepository.insertProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum);
+    public int nieuwProject(@RequestParam(name = "naam") String naam,
+	    @RequestParam(name = "categorie") String categorie,
+	    @RequestParam(name = "opdrachtgever") String opdrachtgever,
+	    @RequestParam(name = "directie") String directie, @RequestParam(name = "startdatum") String startdatum,
+	    @RequestParam(name = "einddatum") String einddatum) throws SQLException {
+
+	return ProjectRepository.insertProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum);
     }
-    
+
 }

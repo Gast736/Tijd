@@ -1,12 +1,9 @@
 package nl.gemeente.groningen.tijdschrijven.repositories;
 
-import java.beans.Statement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -149,8 +146,8 @@ public class MedewerkerRepository {
 
 	    String wachtwoordCheck = medewerker.getWachtwoord();
 	    if (wachtwoordCheck.equals(wachtwoord)) {
-	    	System.out.println("wachtwoord is correct en het id dat teruggegeven wordt = "+id);
-	    	return id;
+		logger.info("wachtwoord is correct en het id dat teruggegeven wordt = " + id);
+		return id;
 	    } else {
 		return 0;
 	    }
@@ -165,7 +162,7 @@ public class MedewerkerRepository {
     }
 
     public static boolean updateMedewerker(Medewerker medewerker) throws SQLException {
-	String sql = "update tblMedewerker " + "set naam = ?" + ", wachtwoord = ?" + ", team = ?" + ", rol = "
+	String sql = "update tblMedewerker " + "set naam = ?" + ", wachtwoord = ?" + ", team = ?" + ", rol = ?"
 		+ ", contracturen = ?" + ", startdatum = ?" + ", einddatum = ?";
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, medewerker.getNaam());
@@ -192,7 +189,8 @@ public class MedewerkerRepository {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN);
 	LocalDate start = LocalDate.parse(startdatum, formatter);
 	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "31-12-9999" : einddatum), formatter);
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
+		java.sql.Statement.RETURN_GENERATED_KEYS)) {
 	    stmt.setString(1, naam);
 	    stmt.setString(2, wachtwoord);
 	    stmt.setString(3, team);
@@ -202,15 +200,17 @@ public class MedewerkerRepository {
 	    stmt.setDate(7, Date.valueOf(eind));
 
 	    stmt.executeUpdate();
-	    
-	    ResultSet key = stmt.getGeneratedKeys();
-	    key.next();
-	    return key.getInt(1);
+
+	    try (ResultSet key = stmt.getGeneratedKeys()) {
+		key.next();
+		
+		return key.getInt(1);
+	    }
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
-	
+
 	return -1;
-	
+
     }
 }

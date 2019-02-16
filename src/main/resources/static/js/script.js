@@ -189,7 +189,7 @@ function haalDatums() {
         timeout: 3000 //to do: research and develop further in combination with error handling
     });
     return false;
-};
+}
 
 function haalProjecten() {
     $.ajax({
@@ -206,7 +206,7 @@ function haalProjecten() {
                     naam: data[i].naam
                 }; // we maken een project object. De ID mist nog in de controller
                 projecten.push(project); // Met push voeg je het element toe aan de array projecten
-            };
+            }
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -215,7 +215,7 @@ function haalProjecten() {
         timeout: 3000 //to do: research and develop further in combination with error handling
     });
     return false;
-};
+}
 
 /* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
 function slaUrenOp(surl, id) {
@@ -299,7 +299,7 @@ function bouwFormulierOp() {
             </div>`;
     for (var i = 0; i < projecten.length; i++) {
         // per project een rij aanmaken d.m.v. lus
-        j = i + 1
+        var j = i + 1
         s = s + `<div id="row1" class="row">
                 <div class="col-sm-3">
                     <strong>` + projecten[i].naam + `</strong>
