@@ -9,10 +9,16 @@ Dit script bestaat nu uit 3 delen:
 // DECLARATIE GLOBALE VARIABELEN
 
 var projecten = [];
+var medewerkerid;
 var begindatum;
 var einddatum;
 var weeknummer;
 var eerstedag;
+var day1;
+var day2;
+var day3;
+var day4;
+var day5;
 
 /*
 BLOK BEREKENING VAN KOLOMTOTALEN
@@ -25,7 +31,7 @@ $('#regform1').keyup(function () {
     var sum = 0;
     $('.monday').each(function () {
         sum += Number($(this).val());
-        console.log("Het totaal voor maandag is nu: "+sum);
+        console.log("Het totaal voor maandag is nu: " + sum);
     });
     $('#totMonday').val(sum);
 })
@@ -141,14 +147,17 @@ function getCookie(cname) {
 }
 
 /* Event voor wijzigen data na aanpassing jaar en/of datum
-*/
+ */
 $('.periodSelect').change(function () {
     haalDatums();
 })
 
 function checkCookie() {
     var user = getCookie("user");
+
     if (user != "") {
+        medewerkerid = getCookie("id");
+        console.log("De id van ingelogde medewerker is: " + medewerkerid);
         $('#employeeName').text(user);
     } else {
         alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
@@ -166,8 +175,8 @@ function haalDatums() {
         },
         dataType: 'json',
         success: function (data) {
-            begindatum = data.eersteDagVanDeWeek.substring(0,10);
-            einddatum = data.laatsteDagVanDeWeek.substring(0,10);
+            begindatum = data.eersteDagVanDeWeek.substring(0, 10);
+            einddatum = data.laatsteDagVanDeWeek.substring(0, 10);
             var d = "Van " + begindatum + " tot " + einddatum;
             // LOGGING AAN
             console.log(d);
@@ -192,7 +201,11 @@ function haalProjecten() {
             console.log("Het JSON object met " + data.length + " records, is ontvangen.");
 
             for (var i = 0; i < data.length; i++) {
-                projecten.push(data[i].naam); // Met push voeg je het element toe aan de array projecten
+                var project = {
+                    projectid: i,
+                    naam: data[i].naam
+                }; // we maken een project object. De ID mist nog in de controller
+                projecten.push(project); // Met push voeg je het element toe aan de array projecten
             };
         },
         error: function (requestObject, error, errorThrown) {
@@ -203,13 +216,42 @@ function haalProjecten() {
     });
     return false;
 };
+
+/* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
+function slaUrenOp(surl, id) {
+
+    var registratie = [];
+
+    {
+        idmedewerker: medewerkerid,
+        idproject: "Jenny",
+        startdatum: "Wallender",
+        uren: "JWHALEN@gmail.com",
+        phone_number: "07854 554350"
+    };
+
+
+    var regJson = JSON.stringify(registratie);
+
+    $.ajax({
+        type: 'POST',
+        data: regJson,
+        url: surl, // registratieUpdate
+        contentType: "application/json"
+    }).done(function (res) {
+        console.log('res', res);
+        // Do something with the result :)
+    });
+}
+*/
+
 /*
 Onderstaand script bouwt een editable table op op basis van de projectenquery
 */
 function bouwTabelOp() {
     var s = "<table id=test><tr><th>Project</th><th>Maandag</th><th>Dinsdag</th><th>Woensdag</th><th>Donderdag</th><th>Vrijdag</th></tr>";
     for (var i = 0; i < projecten.length; i++) {
-        s = s + "<tr><td>" + projecten[i] + "</td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td></tr>";
+        s = s + "<tr><td>" + projecten[i].naam + "</td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td></tr>";
     }
     s = s + "</table>";
     console.log(s);
@@ -221,10 +263,10 @@ Een probeersel om de tabel met gevulde waarden om te zetten in JSON formaat. Gaa
 via de invoeg toepassing: jquery.tabeltojson.min.js >> kan uiteraard ook anders. Ook afhankelijk
 van keuze op welke wijze invoer formulier wordt opgebouwd (ErRe 13-2-2019, 20:16).
 */
-$('#run').click( function() {
-  var table = $('#test').tableToJSON();
-  console.log(table);
-  alert(JSON.stringify(table)); 
+$('#run').click(function () {
+    var table = $('#test').tableToJSON();
+    console.log(table);
+    alert(JSON.stringify(table));
 });
 
 
@@ -257,31 +299,34 @@ function bouwFormulierOp() {
             </div>`;
     for (var i = 0; i < projecten.length; i++) {
         // per project een rij aanmaken d.m.v. lus
-        j=i+1
+        j = i + 1
         s = s + `<div id="row1" class="row">
                 <div class="col-sm-3">
-                    <strong>`+projecten[i]+`</strong>
+                    <strong>` + projecten[i].naam + `</strong>
+                </div>
+                <div style="display: none;">
+                    <input type="hidden" class="form-control row` + j + ` hidden" id="r` + j + `hidden"` + projecten[i].id +`>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row`+j+` monday" id="r`+j+`monday" placeholder="0">
+                    <input type="number" class="form-control row` + j + ` monday" id="r` + j + `monday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row`+j+` tuesday" id="r`+j+`tuesday" placeholder="0">
+                    <input type="number" class="form-control row` + j + ` tuesday" id="r` + j + `tuesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row`+j+` wednesday" id="r`+j+`wednesday" placeholder="0">
+                    <input type="number" class="form-control row` + j + ` wednesday" id="r` + j + `wednesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row`+j+` thursday" id="r`+j+`thursday" placeholder="0">
+                    <input type="number" class="form-control row` + j + ` thursday" id="r` + j + `thursday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row`+j+` friday" id="r`+j+`friday" placeholder="0">
+                    <input type="number" class="form-control row` + j + ` friday" id="r` + j + `friday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control rowtotals" id="r`+j+`total" placeholder="0">
+                    <input type="number" class="form-control rowtotals" id="r` + j + `total" placeholder="0">
                 </div>
             </div>`;
-        
+
     }
     // totaalrij toevoegen
     s = s + `<div id="coltotals" class="row">
@@ -319,4 +364,5 @@ $(document).ready(function () {
     haalProjecten();
     setTimeout(bouwTabelOp, 3000);
     setTimeout(bouwFormulierOp, 3000);
+    console.log(projecten);
 });

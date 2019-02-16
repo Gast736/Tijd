@@ -7,6 +7,9 @@ Dit javasscript zorgt voor de functionaliteit op de inlogpagina.
 3) Checken of het ingevoerde wachtwoord overeenkomt met het geregistreerde wachtwoord
 */
 
+
+// GLOBALE VARIABELEN
+
 function toonMedewerkers(jsonrecordset) {
     /* Deze functie toont alle medewerkers:
     - doorloopt het json object
@@ -94,8 +97,10 @@ $('#submitBtn').click(function (e) {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
-            if (data) {
+            if (data>=1) {
+                console.log("het medewerker is: " + data);
                 setCookie("user", $('#inputName').val());
+                setCookie("id", data);
                 window.location.href = "registratie.html";
             } else {
                 $('#submitResult').addClass("alert alert-danger");
