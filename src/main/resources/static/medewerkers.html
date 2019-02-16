@@ -1,94 +1,203 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+<!-- Required meta tags -->
 <meta charset="utf-8">
-<title>Medewerkerbeheer voor tijdschrijven</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="/webjars/bootstrap/4.2.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/tijdschrijven.css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<script src="/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
-<script src="/webjars/popper.js/1.14.3/popper.js"></script>
-<script src="/js/tijdschrijven.js"></script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	number-anchor: middle;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+<!-- Aangepaste stylesheet voor dit template -->
+<link href="css/registration.css" rel="stylesheet">
+<title>Tijdschrijfapplicatie</title>
 </head>
 <body>
+	<!-- Navbar sectie -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+		<a class="navbar-brand"> <img src="img/calendarw.svg" alt="">
+			<img src="img/clockw.svg" alt=""> <img src="img/file-textw.svg"
+			alt=""></a>
 
-	<div class="container-fluid">
-		<nav class="navbar navbar-expand-sm bg-light">
-
-			<!-- Links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link "
-					href="bureaublad.html">Bureaublad</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="registratie.html">Tijdschrijven</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="medewerkers.html">Medewerkers</a></li>
-				<li class="nav-item"><a class="nav-link " href="projecten.html">Projecten</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="rapportage.html">Rapportage</a></li>
-				<li class="nav-item"><a class="nav-link " href="index.html">Uitloggen</a></li>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="/registratie.html"><img src="img/edit-2w.svg">
+						Registratie <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="#"><img
+						src="img/editw.svg"> Wijzigen</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown01"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+						src="img/bar-chart-2w.svg"> Rapportage</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="#"><img src="img/user.svg">
+							Persoonlijk</a> <a class="dropdown-item" href="#"><img
+							src="img/users.svg"> Afdeling</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown02"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+						src="img/settingsw.svg"> Beheer</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown02">
+						<a class="dropdown-item" href="/projecten.html"><img
+							src="img/folder-plus.svg"> Projecten</a> <a
+							class="dropdown-item" href="/medewerkers.html"><img
+							src="img/user-plus.svg"> Medewerkers</a>
+					</div></li>
 			</ul>
 
-		</nav>
-
-		<div class="jumbotron text-center">
-			<h1>Tijdschrijfapplicatie gemeente Groningen</h1>
-			<p>Medewerkerbeheer</p>
 		</div>
-
-		<div class="row">
-			<div class="col">Gebruikersnaam</div>
-			<div class="col">Wachtwoord</div>
-			<div class="col-md-2">Naam</div>
-			<div class="col-md-2">Team</div>
-			<div class="col-md-2">Rol</div>
-			<div class="col">Begindatum</div>
-			<div class="col">Einddatum</div>
-		</div>
-
-		<form action="">
+	</nav>
+	<div role="main" class="container-fluid">
+		<div id="header" class="container">
 			<div class="row">
-				<div class="col">
-					<input class="form-control" type="text">
+				<div class="col-sm">
+					<strong>Medewerker</strong>
 				</div>
-				<div class="col">
-					<input class="form-control" type="text">
-				</div>
-				<div class="col-md-2">
-					<input class="form-control" type="text">
-				</div>
-				<div class="col-md-2">
-					<select name="projecten" class="form-control" id="projectselectie">
-						<option>BI</option>
-						<option>DWH</option>
-						<option>Onderzoek</option>
-						<option>Etcetera...</option>
-					</select>
-				</div>
-				<div class="col-md-2">
-					<select name="projecten" class="form-control" id="projectselectie">
-						<option>Medewerker</option>
-						<option>Beheerder</option>
-						<option>Afdelingshoofd</option>
-						<option>Etcetera...</option>
-					</select>
-				</div>
-				<div class="col">
-					<input class="form-control" type="date">
-				</div>
-				<div class="col">
-					<input class="form-control" type="date">
-				</div>
+				<div id="employeeName" class="col-sm"></div>
 			</div>
-
-			<div class="row"></div>
-		</form>
-
+		</div>
+		<hr>
+		<h1>Beheer medewerkers</h1>
+		<hr>
+		<div class="row"></div>
+		<div class="row">
+			<div class="col">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Emailadres</th>
+							<th>Naam</th>
+							<th>Wachtwoord</th>
+							<th>Team</th>
+							<th>Rol</th>
+							<th>Contracturen</th>
+							<th>Startdatum</th>
+							<th>Einddatum</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input id="emailadres" type="text" required
+								maxlength="45"></td>
+							<td><input id="naam" type="text" required maxlength="45"></td>
+							<td><input id="wachtwoord" type="text" required
+								maxlength="50"></td>
+							<td><input id="team" type="text" required maxlength="45"></td>
+							<td><input id="rol" type="text" required maxlength="45"></td>
+							<td><input id="contracturen" type="number" required min="0"
+								max="36" pattern="[99.9]"></td>
+							<td><input id="startdatum" type="date" required></td>
+							<td><input id="einddatum" type="date"></td>
+						</tr>
+						<tr>
+							<td colspan="8"><button id="btnNewMedewerker" class="btn btn-lg btn-primary btn-block">Voeg medewerker toe</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
+	<div class="row">
+		<div class="col">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Emailadres</th>
+						<th>Naam</th>
+						<th>Wachtwoord</th>
+						<th>Team</th>
+						<th>Rol</th>
+						<th>Contracturen</th>
+						<th>Startdatum</th>
+						<th>Einddatum</th>
+					</tr>
+				</thead>
+				<tbody id="medewerkertabel">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS 
+    Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+	<script>
+function readMedewerkers() {
+	$("#medewerkertabel").html(''),
+		$.ajax('/medewerkers', {
+			'method' : 'GET'
+		}).done(function(data) {
+			$.each(data, function(idx, el) {
+				let h = `
+				<tr>
+					<td>${el.idmedewerker}</td>
+					<td>${el.emailadres}</td>
+					<td>${el.naam}</td>
+					<td>${el.wachtwoord}</td>
+					<td>${el.team}</td>
+					<td>${el.rol}</td>
+					<td>${el.contracturen}</td>
+					<td>${el.startdatum}</td>
+					<td>${el.einddatum}</td>
+				</tr>
+				`
+				$("#medewerkertabel").html($("#medewerkertabel").html() + h)
+			})
+		}).fail(function(e) {
+			console.log(e)
+		})
+
+	}
+
+function insertMedewerker() {
+    $.ajax('/newMedewerker', {
+        data: {
+            emailadres: $('#emailadres').val(),
+            naam: $('#naam').val(),
+            wachtwoord: $('#wachtwoord').val(),
+            team: $('#team').val(),
+            rol: $('#rol').val(),
+            contracturen: $('#contracturen').val(),
+            startdatum: $('#startdatum').val(),
+            einddatum: $('#einddatum').val()
+        },
+        method: 'post'
+    }).done(function(){
+    	readMedewerkers();
+    });
+}
+$('#btnNewMedewerker').click(function(){
+		insertMedewerker();
+		readMedewerkers();
+});
+
+$(document).ready(function(){
+	readMedewerkers();
+})
+</script>
 </body>
 </html>

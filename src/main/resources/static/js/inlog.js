@@ -20,11 +20,11 @@ function toonMedewerkers(jsonrecordset) {
     console.log("Het JSON object met " + jsonrecordset.length + " records, is ontvangen.");
 
     for (var i = 0; i < jsonrecordset.length; i++) {
-        s = s + "<option>" + jsonrecordset[i].naam + "</option>";
+        s = s + "<option>" + jsonrecordset[i].emailadres + "</option>";
         // LOGGING AAN
-        console.log("Medewerker: " + jsonrecordset[i].naam + " toegevoegd.");
+        console.log("Medewerker: " + jsonrecordset[i].emailadres + " toegevoegd.");
     }
-    s = '<select id="inputName" class="form-control" placeholder="Naam medewerker" required autofocus>' + s + "</select>";
+    s = '<select id="inputName" class="form-control" placeholder="Emailadres medewerker" required autofocus>' + s + "</select>";
     document.getElementById("ophalenMdw").innerHTML = s;
     return false;
 }

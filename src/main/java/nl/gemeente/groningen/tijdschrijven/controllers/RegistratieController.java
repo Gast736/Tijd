@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import nl.gemeente.groningen.tijdschrijven.model.ProjectDTO;
+import nl.gemeente.groningen.tijdschrijven.model.Project;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
 import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository;
@@ -44,7 +44,7 @@ public class RegistratieController {
     }
 
     @GetMapping("/registraties/perproject")
-    public List<Registratie> getRegistratiesByProject(@RequestParam(name = "project") ProjectDTO project)
+    public List<Registratie> getRegistratiesByProject(@RequestParam(name = "project") Project project)
 	    throws SQLException {
 	return RegistratieRepository.getRegistratiesByProject(project);
     }

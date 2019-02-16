@@ -28,7 +28,8 @@ public class MedewerkerRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt("idmedewerker"));
+		medewerker.setIdmedewerker(result.getInt("idmedewerker"));
+		medewerker.setEmailadres(result.getString("emailadres"));
 		medewerker.setNaam(result.getString("naam"));
 		medewerker.setWachtwoord(result.getString("wachtwoord"));
 		medewerker.setTeam(result.getString("team"));
@@ -58,7 +59,7 @@ public class MedewerkerRepository {
 
 	    result.next();
 
-	    medewerker.setIdMedewerker(result.getInt("idmedewerker"));
+	    medewerker.setIdmedewerker(result.getInt("idmedewerker"));
 	    medewerker.setNaam(result.getString("naam"));
 	    medewerker.setWachtwoord(result.getString("wachtwoord"));
 	    medewerker.setTeam(result.getString("team"));
@@ -88,7 +89,7 @@ public class MedewerkerRepository {
 
 	    result.next();
 
-	    medewerker.setIdMedewerker(result.getInt("idmedewerker"));
+	    medewerker.setIdmedewerker(result.getInt("idmedewerker"));
 	    medewerker.setNaam(result.getString("naam"));
 	    medewerker.setWachtwoord(result.getString("wachtwoord"));
 	    medewerker.setTeam(result.getString("team"));
@@ -127,13 +128,13 @@ public class MedewerkerRepository {
 	return false;
     }
 
-    public static int isWachtwoordCorrect(String naam, String wachtwoord) throws SQLException {
-	String sql = "select idmedewerker, naam, wachtwoord from tblmedewerker where naam = ?";
+    public static int isWachtwoordCorrect(String emailadres, String wachtwoord) throws SQLException {
+	String sql = "select idmedewerker, emailadres, wachtwoord from tblmedewerker where emailadres = ?";
 	ResultSet result = null;
 
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
 
-	    stmt.setString(1, naam);
+	    stmt.setString(1, emailadres);
 	    result = stmt.executeQuery();
 
 	    result.next();
@@ -183,21 +184,22 @@ public class MedewerkerRepository {
     private MedewerkerRepository() {
     }
 
-    public static int insertMedewerker(String naam, String wachtwoord, String team, String rol, double contracturen,
+    public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol, double contracturen,
 	    String startdatum, String einddatum) {
-	String sql = "insert into tblMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) values (?, ?, ?, ?, ?, ?, ?)";
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN);
+	String sql = "insert into tblMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) values (?, ?, ?, ?, ?, ?, ?, ?)";
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
 	LocalDate start = LocalDate.parse(startdatum, formatter);
-	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "31-12-9999" : einddatum), formatter);
+	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
 		java.sql.Statement.RETURN_GENERATED_KEYS)) {
-	    stmt.setString(1, naam);
-	    stmt.setString(2, wachtwoord);
-	    stmt.setString(3, team);
-	    stmt.setString(4, rol);
-	    stmt.setDouble(5, contracturen);
-	    stmt.setDate(6, Date.valueOf(start));
-	    stmt.setDate(7, Date.valueOf(eind));
+	    stmt.setString(1, emailadres);
+	    stmt.setString(2, naam);
+	    stmt.setString(3, wachtwoord);
+	    stmt.setString(4, team);
+	    stmt.setString(5, rol);
+	    stmt.setDouble(6, contracturen);
+	    stmt.setDate(7, Date.valueOf(start));
+	    stmt.setDate(8, Date.valueOf(eind));
 
 	    stmt.executeUpdate();
 

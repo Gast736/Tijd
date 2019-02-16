@@ -27,17 +27,22 @@ public class MedewerkerController {
     }
 
     @PostMapping("/newMedewerker")
-    public int insertMedewerker(@RequestParam(name = "naam") String naam,
-	    @RequestParam(name = "wachtwoord") String wachtwoord, @RequestParam(name = "team") String team,
-	    @RequestParam(name = "rol") String rol, @RequestParam(name = "contracturen") double contracturen,
-	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum) {
-	return MedewerkerRepository.insertMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum);
+    public int insertMedewerker(
+	    @RequestParam(name = "emailadres") String emailadres,
+	    @RequestParam(name = "naam") String naam,
+	    @RequestParam(name = "wachtwoord") String wachtwoord, 
+	    @RequestParam(name = "team") String team,
+	    @RequestParam(name = "rol") String rol, 
+	    @RequestParam(name = "contracturen") double contracturen,
+	    @RequestParam(name = "startdatum") String startdatum, 
+	    @RequestParam(name = "einddatum") String einddatum) {
+	return MedewerkerRepository.insertMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum);
 
     }
 
     @GetMapping("/medewerker/wachtwoord")
-    public int isWachtwoordCorrect(@RequestParam(name = "naam") String naam,
+    public int isWachtwoordCorrect(@RequestParam(name = "naam") String emailadres,
 	    @RequestParam(name = "wachtwoord") String wachtwoord) throws SQLException {
-	return MedewerkerRepository.isWachtwoordCorrect(naam, wachtwoord);
+	return MedewerkerRepository.isWachtwoordCorrect(emailadres, wachtwoord);
     }
 }

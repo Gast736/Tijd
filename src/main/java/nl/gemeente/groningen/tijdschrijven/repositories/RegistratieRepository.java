@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
 import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.model.Project;
-import nl.gemeente.groningen.tijdschrijven.model.ProjectDTO;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
 import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 
@@ -23,6 +22,7 @@ public class RegistratieRepository {
     private static final String CONTRACTUREN = "contracturen";
     private static final String DIRECTIE = "directie";
     private static final String EINDDATUM = "einddatum";
+    private static final String EMAILADRES = "emailadres";
     private static final String IDMEDEWERKER = "idmedewerker";
     private static final String IDPROJECT = "idproject";
     private static final String NAAM = "naam";
@@ -43,7 +43,8 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setIdmedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setEmailadres(result.getString(EMAILADRES));
 		medewerker.setNaam(result.getString(NAAM));
 		medewerker.setWachtwoord(result.getString(WACHTWOORD));
 		medewerker.setTeam(result.getString(TEAM));
@@ -88,7 +89,7 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setIdmedewerker(result.getInt(IDMEDEWERKER));
 		medewerker.setNaam(result.getString(NAAM));
 		medewerker.setWachtwoord(result.getString(WACHTWOORD));
 		medewerker.setTeam(result.getString(TEAM));
@@ -141,7 +142,7 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setIdmedewerker(result.getInt(IDMEDEWERKER));
 		medewerker.setNaam(result.getString(NAAM));
 		medewerker.setWachtwoord(result.getString(WACHTWOORD));
 		medewerker.setTeam(result.getString(TEAM));
@@ -198,7 +199,7 @@ public class RegistratieRepository {
 	    while (result.next()) {
 
 		Medewerker medewerker = new Medewerker();
-		medewerker.setIdMedewerker(result.getInt(IDMEDEWERKER));
+		medewerker.setIdmedewerker(result.getInt(IDMEDEWERKER));
 		medewerker.setNaam(result.getString(NAAM));
 		medewerker.setWachtwoord(result.getString(WACHTWOORD));
 		medewerker.setTeam(result.getString(TEAM));
@@ -234,7 +235,7 @@ public class RegistratieRepository {
 	return registraties;
     }
 
-    public static List<Registratie> getRegistratiesByProject(ProjectDTO project) throws SQLException {
+    public static List<Registratie> getRegistratiesByProject(Project project) throws SQLException {
 	String sql = "select * " + "from tblregistratie " + "join tblmedewerker using(idmedewerker) "
 		+ "join tblproject using(idproject) " + "where idproject = ?";
 	List<Registratie> registraties = new ArrayList<>();
