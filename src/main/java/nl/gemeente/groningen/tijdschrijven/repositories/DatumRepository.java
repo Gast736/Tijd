@@ -1,8 +1,11 @@
 package nl.gemeente.groningen.tijdschrijven.repositories;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DatumRepository {
@@ -95,5 +98,23 @@ public class DatumRepository {
 
 	return dagen;
 
+    }
+
+    public static Map<Integer, Object> getDaysBetweenDates(String begindatum, String einddatum) {
+
+	Map<Integer, Object> dagen = new HashMap<>();
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
+	LocalDate begin = LocalDate.parse(begindatum, formatter);
+	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
+
+	int i = 0;
+	while (!begin.isAfter(eind)) {
+	    if (begin.getDayOfWeek().getValue() < 6) {
+		dagen.put(i, begin);
+	    }
+	    i++;
+	    begin = begin.plusDays(1);
+	}
+	return dagen;
     }
 }

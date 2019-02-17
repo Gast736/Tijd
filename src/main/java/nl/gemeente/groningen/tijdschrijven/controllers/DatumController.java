@@ -35,6 +35,12 @@ public class DatumController {
 	return DatumRepository.getDaysInWeek(jaar, week);
     }
 
+    @GetMapping("/daysBetweenDates")
+    public Map<Integer, Object> getDaysBetweenDates(@RequestParam(name = "begindatum") String begindatum,
+	    @RequestParam(name = "einddatum") String einddatum) {
+	return DatumRepository.getDaysBetweenDates(begindatum, einddatum);
+    }
+
     public Calendar stringToDate(String datum) {
 	String[] datumdeel = datum.split("-");
 
