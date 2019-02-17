@@ -22,6 +22,7 @@ Drop table if exists `tijd`.`tblmedewerker`;
 CREATE TABLE `tijd`.`tblmedewerker` (
   `idmedewerker` INT(11) NOT NULL AUTO_INCREMENT,
   `naam` VARCHAR(45) NULL DEFAULT NULL,
+  `emailadres` VARCHAR(50) NOT NULL UNIQUE,
   `wachtwoord` VARCHAR(10) NULL DEFAULT NULL,
   `team` VARCHAR(45) NULL DEFAULT NULL,
   `rol` VARCHAR(45) NULL DEFAULT NULL,
