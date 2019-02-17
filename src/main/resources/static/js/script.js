@@ -238,15 +238,27 @@ $('#submitBtn').click(function (e) {
         $('.inputfield' + i).each(function () {
             if ($(this).val()) {
                 rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
+
+                var model = {
+                    idmedewerker: medewerkerid,
+                    idproject: projecten[i].projectid,
+                    startdatum: $(this).attr('id').substring(2, 13),
+                    uren: $(this).val()
+                };
+                 registratie.push(model);
+                
+
+                /* DIT WERKTE NIET
                 var o = '{"idmedewerker":"'+ medewerkerid + '","idproject":"' + projecten[i].projectid + '","startdatum":"' + $(this).attr("id").substring(2, 13) + '","uren":"' + $(this).val() +'"}';
                 registratie.push(o);
+                */
             }
         });
     }
     // alert(registratie);
     var regJson = JSON.stringify(registratie);
-    
-        $.ajax({
+
+    $.ajax({
         type: 'POST',
         data: regJson,
         url: "/registratieUpdate",
@@ -255,8 +267,8 @@ $('#submitBtn').click(function (e) {
         console.log('res', res);
         // Do something with the result :)
     });
-    
-    
+
+
 });
 /*
 {"idmedewerker":"1", 
