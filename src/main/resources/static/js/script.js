@@ -27,11 +27,9 @@ BLOK BEREKENING VAN KOLOMTOTALEN
 // Bereken totaal voor maandag
 //$('#regform1').on('keyup', '.monday', function() {
 $('#regform1').keyup(function () {
-    console.log("activiteit op maandagveld gelezen");
     var sum = 0;
     $('.monday').each(function () {
         sum += Number($(this).val());
-        console.log("Het totaal voor maandag is nu: " + sum);
     });
     $('#totMonday').val(sum);
 })
@@ -216,18 +214,34 @@ function haalProjecten() {
     });
     return false;
 }
+/*
+Testscript om te kijken of we een formulier leeg kunnen trekken.... Ja, dat kunnen we :)
+*/
+$('#submitBtn').click(function (e) {
+    console.log("Er is geklikt op de Submit button van het formulier");
+    e.preventDefault();
+    console.log("Start loop...");
+    $('.inputfield').each(function () {
+        if ($(this).val()) {
+        console.log("veld met id " + $(this).attr('id') + " heeft waarde " + $(this).val());
+        }
+    });
 
+
+});
 /* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
 function slaUrenOp(surl, id) {
 
     var registratie = [];
+    var invoervelden = document.querySelectorAll(".inputfield[type=number]");
+    for (var i=0;i<invoervelden.length;i++)
 
-    {
+for (var i = 0; i < projecten.length; i++)
+    var o = "{idmedewerker: " + medewerkerid + ", idproject: " + projecten[i].id + ", startdatum: " +
         idmedewerker: medewerkerid,
         idproject: "Jenny",
         startdatum: "Wallender",
         uren: "JWHALEN@gmail.com",
-        phone_number: "07854 554350"
     };
 
 
@@ -305,22 +319,22 @@ function bouwFormulierOp() {
                     <strong>` + projecten[i].naam + `</strong>
                 </div>
                 <div style="display: none;">
-                    <input type="hidden" class="form-control row` + j + ` hidden" id="r` + j + `hidden"` + projecten[i].id +`>
+                    <input type="hidden" class="form-control row` + j + ` hidden" id="r` + j + `hidden"` + projecten[i].id + `>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` monday" id="r` + j + `monday" placeholder="0">
+                    <input type="number" class="form-control inputfield row` + j + ` monday" id="r` + j + `monday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` tuesday" id="r` + j + `tuesday" placeholder="0">
+                    <input type="number" class="form-control inputfield row` + j + ` tuesday" id="r` + j + `tuesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` wednesday" id="r` + j + `wednesday" placeholder="0">
+                    <input type="number" class="form-control inputfield row` + j + ` wednesday" id="r` + j + `wednesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` thursday" id="r` + j + `thursday" placeholder="0">
+                    <input type="number" class="form-control inputfield row` + j + ` thursday" id="r` + j + `thursday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` friday" id="r` + j + `friday" placeholder="0">
+                    <input type="number" class="form-control inputfield row` + j + ` friday" id="r` + j + `friday" placeholder="0">
                 </div>
                 <div class="col-sm">
                     <input type="number" class="form-control rowtotals" id="r` + j + `total" placeholder="0">
