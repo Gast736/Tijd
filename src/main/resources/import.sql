@@ -3,9 +3,9 @@ INSERT INTO `tijd`.tblproject(idproject, naam, categorie, opdrachtgever, directi
 INSERT INTO `tijd`.tblproject(idproject, naam, categorie, opdrachtgever, directie, startdatum, einddatum) VALUES (2, "dmo indicatiewaarden", "project", "Arne Tiel Groenestegen", "DMO", "2018-01-01", "2019-12-31");
 INSERT INTO `tijd`.tblproject(idproject, naam, categorie, opdrachtgever, directie, startdatum, einddatum) VALUES (3, "financiele rapportage", "project", "Willem van der Heide", "F&I", "2018-04-01", "2019-03-31");
 INSERT INTO `tijd`.tblproject(idproject, naam, categorie, opdrachtgever, directie, startdatum, einddatum) VALUES (4, "verlof", "afwezigheid", "Jeanine Vosselman", "I&S", "2001-01-01", "2050-12-31");
-INSERT INTO `tijd`.tblmedewerker(idmedewerker, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES (1, "Erwin", "welkom", "reporting", "medewerker", 36.00, "2009-04-01", null);
-INSERT INTO `tijd`.tblmedewerker(idmedewerker, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES (2, "Arjan", "welkom", "reporting", "medewerker", 36.00, "2008-01-01", null);
-INSERT INTO `tijd`.tblmedewerker(idmedewerker, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES (3, "Maarten", "welkom", "datawarehouse", "medewerker", 36.00, "1998-03-15", null);
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("erwin.reinders@groningen.nl", "Erwin", "welkom", "reporting", "afdelingshoofd", 36.00, "2009-04-01", null);
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("arjan.hegge@groningen.nl", "Arjan", "welkom", "reporting", "beheerder", 36.00, "2008-01-01", null);
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("maarten.millaard@groningen.nl", "Maarten", "welkom", "datawarehouse", "medewerker", 36.00, "1998-03-15", null);
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 1, "2019-01-21", 8);
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 3, "2019-01-22", 8);
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 1, "2019-01-23", 4);
@@ -27,3 +27,6 @@ INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VAL
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (3 , 2, "2019-01-24", 2);
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (3 , 1, "2019-01-24", 6);
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (3 , 4, "2019-01-25", 8);
+INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 4, "2019-02-05", 8);
+INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 4, "2019-01-05", 8);
+INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 4, "2019-02-25", 8);
