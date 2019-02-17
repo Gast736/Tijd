@@ -77,6 +77,36 @@ public class ProjectRepository {
 	return project;
     }
 
+    public static Project getProjectById(String idproject) throws SQLException {
+	String sql = "select * " + "from tblproject " + "where naam = ?";
+	ResultSet result = null;
+	Project project = new Project();
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+
+	    stmt.setString(1, idproject);
+	    result = stmt.executeQuery();
+
+	    result.next();
+
+	    project.setIdProject(result.getInt("idproject"));
+	    project.setNaam(result.getString("naam"));
+	    project.setCategorie(result.getString("categorie"));
+	    project.setOpdrachtgever(result.getString("opdrachtgever"));
+	    project.setDirectie(result.getString("directie"));
+	    project.setStartdatum(result.getDate("startdatum"));
+	    project.setEinddatum(result.getDate("einddatum"));
+
+	    result.close();
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
+	}
+	return project;
+    }
+
     public static int insertProject(String naam, String categorie, String opdrachtgever, String directie,
 	    String startdatum, String einddatum) throws SQLException {
 	String sql = "insert into tblProject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) "
