@@ -88,7 +88,8 @@ public class RegistratieController {
 
     @PostMapping("/registratieUpdate")
     public boolean registratieUpdate(@RequestBody List<RegistratieJSON> registraties) throws SQLException {
-	return RegistratieRepository.registratieUpdate(registraties);
+	System.out.println("Postcontroller is aangeroepen");
+    	return RegistratieRepository.registratieUpdate(registraties);
 
     }
 }

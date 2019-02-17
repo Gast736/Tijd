@@ -14,11 +14,11 @@ var begindatum;
 var einddatum;
 var weeknummer;
 var eerstedag;
-var day1;
-var day2;
-var day3;
-var day4;
-var day5;
+var day0; // maandag
+var day1; // dinsdag
+var day2; // woensdag
+var day3; // donderdag
+var day4; // vrijdag
 
 /*
 BLOK BEREKENING VAN KOLOMTOTALEN
@@ -182,9 +182,13 @@ function haalDatums() {
         success: function (data) {
             begindatum = data.eersteDagVanDeWeek.substring(0, 10);
             einddatum = data.laatsteDagVanDeWeek.substring(0, 10);
+            // ik werk tijdelijk met verkeerde dagen, wacht nog op de datumcontroller, waarmee ik dag 1 t/m 5 terugkrijg
+            day0 = begindatum;
+            day1 = begindatum;
+            day2 = begindatum;
+            day3 = begindatum;
+            day4 = einddatum;
             var d = "Van " + begindatum + " tot " + einddatum;
-            // LOGGING AAN
-            console.log(d);
             $('#fromUntil').text(d);
         },
         error: function (requestObject, error, errorThrown) {
@@ -226,18 +230,53 @@ Testscript om te kijken of we een formulier leeg kunnen trekken.... Ja, dat kunn
 */
 $('#submitBtn').click(function (e) {
     var rs = "";
+    var registratie = [];
     console.log("Er is geklikt op de Submit button van het formulier");
     e.preventDefault();
     console.log("Start loop...");
     for (var i = 0; i < projecten.length; i++) {
-        $('.inputfield'+i).each(function () {
+        $('.inputfield' + i).each(function () {
             if ($(this).val()) {
-                rs = rs+ "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid +  ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id') + ", " + $(this).val() + " uren geschreven.\n";
+                rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
+
+                var model = {
+                    idmedewerker: medewerkerid,
+                    idproject: projecten[i].projectid,
+                    startdatum: $(this).attr('id').substring(2, 13),
+                    uren: $(this).val()
+                };
+                 registratie.push(model);
+                
+
+                /* DIT WERKTE NIET
+                var o = '{"idmedewerker":"'+ medewerkerid + '","idproject":"' + projecten[i].projectid + '","startdatum":"' + $(this).attr("id").substring(2, 13) + '","uren":"' + $(this).val() +'"}';
+                registratie.push(o);
+                */
             }
         });
     }
-    alert(rs);
+    // alert(registratie);
+    var regJson = JSON.stringify(registratie);
+
+    $.ajax({
+        type: 'POST',
+        data: regJson,
+        url: "/registratieUpdate",
+        contentType: "application/json"
+    }).done(function (res) {
+        console.log('res', res);
+        // Do something with the result :)
+    });
+
+
 });
+/*
+{"idmedewerker":"1", 
+  "idproject":"2", 
+  "startdatum":"2019-02-13", 
+  "uren":"4"}
+  ]
+*/
 
 /* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
 function slaUrenOp(surl, id) {
@@ -331,19 +370,19 @@ function bouwFormulierOp() {
                     <input type="hidden" class="form-control row` + i + ` hidden" id="r` + i + `hidden"` + projecten[i].id + `>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` monday" id="r` + i + `monday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` monday" id="r` + i + day0 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` tuesday" id="r` + i + `tuesday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` tuesday" id="r` + i + day1 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` wednesday" id="r` + i + `wednesday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` wednesday" id="r` + i + day2 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` thursday" id="r` + i + `thursday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` thursday" id="r` + i + day3 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` friday" id="r` + i + `friday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` friday" id="r` + i + day4 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
                     <input type="number" class="form-control rowtotals" id="r` + i + `total" placeholder="0">
@@ -385,7 +424,7 @@ $(document).ready(function () {
     checkCookie();
     haalDatums();
     haalProjecten();
-    setTimeout(bouwTabelOp, 3000);
+    //setTimeout(bouwTabelOp, 3000);
     setTimeout(bouwFormulierOp, 3000);
     console.log(projecten);
 });
