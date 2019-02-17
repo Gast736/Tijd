@@ -27,11 +27,9 @@ BLOK BEREKENING VAN KOLOMTOTALEN
 // Bereken totaal voor maandag
 //$('#regform1').on('keyup', '.monday', function() {
 $('#regform1').keyup(function () {
-    console.log("activiteit op maandagveld gelezen");
     var sum = 0;
     $('.monday').each(function () {
         sum += Number($(this).val());
-        console.log("Het totaal voor maandag is nu: " + sum);
     });
     $('#totMonday').val(sum);
 })
@@ -75,7 +73,14 @@ $('#regform1').keyup(function () {
 /*
 BLOK BEREKENING VAN RIJTOTALEN
 */
-
+// Bereken totaal voor rij0
+$('#regform1').keyup(function () {
+    var sum = 0;
+    $('.row0').each(function () {
+        sum += Number($(this).val());
+    });
+    $('#r0total').val(sum);
+})
 // Bereken totaal voor rij1
 $('#regform1').keyup(function () {
     var sum = 0;
@@ -216,18 +221,37 @@ function haalProjecten() {
     });
     return false;
 }
+/*
+Testscript om te kijken of we een formulier leeg kunnen trekken.... Ja, dat kunnen we :)
+*/
+$('#submitBtn').click(function (e) {
+    var rs = "";
+    console.log("Er is geklikt op de Submit button van het formulier");
+    e.preventDefault();
+    console.log("Start loop...");
+    for (var i = 0; i < projecten.length; i++) {
+        $('.inputfield'+i).each(function () {
+            if ($(this).val()) {
+                rs = rs+ "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid +  ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id') + ", " + $(this).val() + " uren geschreven.\n";
+            }
+        });
+    }
+    alert(rs);
+});
 
 /* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
 function slaUrenOp(surl, id) {
 
     var registratie = [];
+    var invoervelden = document.querySelectorAll(".inputfield[type=number]");
+    for (var i=0;i<invoervelden.length;i++)
 
-    {
+for (var i = 0; i < projecten.length; i++)
+    var o = "{idmedewerker: " + medewerkerid + ", idproject: " + projecten[i].id + ", startdatum: " +
         idmedewerker: medewerkerid,
         idproject: "Jenny",
         startdatum: "Wallender",
         uren: "JWHALEN@gmail.com",
-        phone_number: "07854 554350"
     };
 
 
@@ -299,31 +323,30 @@ function bouwFormulierOp() {
             </div>`;
     for (var i = 0; i < projecten.length; i++) {
         // per project een rij aanmaken d.m.v. lus
-        var j = i + 1
-        s = s + `<div id="row1" class="row">
+        s = s + `<div id="row` + i + `" class="row">
                 <div class="col-sm-3">
                     <strong>` + projecten[i].naam + `</strong>
                 </div>
                 <div style="display: none;">
-                    <input type="hidden" class="form-control row` + j + ` hidden" id="r` + j + `hidden"` + projecten[i].id +`>
+                    <input type="hidden" class="form-control row` + i + ` hidden" id="r` + i + `hidden"` + projecten[i].id + `>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` monday" id="r` + j + `monday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` monday" id="r` + i + `monday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` tuesday" id="r` + j + `tuesday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` tuesday" id="r` + i + `tuesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` wednesday" id="r` + j + `wednesday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` wednesday" id="r` + i + `wednesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` thursday" id="r` + j + `thursday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` thursday" id="r` + i + `thursday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control row` + j + ` friday" id="r` + j + `friday" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` friday" id="r` + i + `friday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control rowtotals" id="r` + j + `total" placeholder="0">
+                    <input type="number" class="form-control rowtotals" id="r` + i + `total" placeholder="0">
                 </div>
             </div>`;
 
