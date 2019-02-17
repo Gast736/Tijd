@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,7 +18,40 @@ import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 
 public class RegistratieRepository {
 
-    private static final Logger logger = Logger.getLogger(RegistratieRepository.class);
+    public static final class Totaaloverzicht {
+	
+	private int aantal;
+	private Medewerker medewerker;
+	private int periode;
+	private Project project;
+	
+	
+	public int getAantal() {
+	    return aantal;
+	}
+	public Medewerker getMedewerker() {
+	    return medewerker;
+	}
+	public int getPeriode() {
+	    return periode;
+	}
+	public Project getProject() {
+	    return project;
+	}
+	public void setAantal(int aantal) {
+	    this.aantal = aantal;
+	}
+	public void setMedewerker(Medewerker medewerker) {
+	    this.medewerker = medewerker;
+	}
+	public void setPeriode(int periode) {
+	    this.periode = periode;
+	}
+	public void setProject(Project project) {
+	    this.project = project;
+	}
+
+    }
     private static final String CATEGORIE = "categorie";
     private static final String CONTRACTUREN = "contracturen";
     private static final String DIRECTIE = "directie";
@@ -25,12 +59,14 @@ public class RegistratieRepository {
     private static final String EMAILADRES = "emailadres";
     private static final String IDMEDEWERKER = "idmedewerker";
     private static final String IDPROJECT = "idproject";
+    private static final Logger logger = Logger.getLogger(RegistratieRepository.class);
     private static final String NAAM = "naam";
     private static final String OPDRACHTGEVER = "opdrachtgever";
     private static final String ROL = "rol";
     private static final String STARTDATUM = "startdatum";
     private static final String TEAM = "team";
     private static final String UREN = "uren";
+
     private static final String WACHTWOORD = "wachtwoord";
 
     public static List<Registratie> getAlleRegistraties() {
@@ -268,9 +304,165 @@ public class RegistratieRepository {
 	return registraties;
     }
 
-    private RegistratieRepository() {
+    public static List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerJaar(String idmedewerker, String begindatum, String einddatum) throws SQLException {
+	List<Totaaloverzicht> totalen = new ArrayList<>();
+	String sql = "SELECT \r\n" + 
+		"	m.naam medewerker\r\n" + 
+		",	p.naam project\r\n" + 
+		",	date_format(r.startdatum, \"%Y\") jaar\r\n" + 
+		",	sum(uren) uren\r\n" + 
+		"FROM tijd.tblregistratie r\r\n" + 
+		"	join tblmedewerker m using (idmedewerker)\r\n" + 
+		"    join tblproject p using (idproject)\r\n" + 
+		"where\r\n" + 
+		"	r.idmedewerker = ?\r\n" + 
+		"and\r\n" + 
+		"	startdatum between ? and ?\r\n" + 
+		"group by \r\n" + 
+		"	m.naam \r\n" + 
+		",	p.naam \r\n" + 
+		",	date_format(r.startdatum, \"%Y\")";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+	    stmt.setString(1, idmedewerker);
+	    stmt.setString(2, begindatum);
+	    stmt.setString(3, einddatum);
+
+	    ResultSet result = stmt.executeQuery();
+	    while (result.next()) {
+		Totaaloverzicht t = new Totaaloverzicht();
+		t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
+		t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
+		t.setPeriode(result.getInt("jaarweek"));
+		t.setAantal(result.getInt("uren"));
+
+		totalen.add(t);
+	    }
+	    return totalen;
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + " - " + e.getMessage());
+	}
+	return Collections.emptyList();
     }
 
+    public static List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerKwartaal(String idmedewerker, String begindatum, String einddatum) throws SQLException {
+	List<Totaaloverzicht> totalen = new ArrayList<>();
+	String sql = "SELECT \r\n" + 
+		"	m.naam medewerker\r\n" + 
+		",	p.naam project\r\n" + 
+		",	concat(date_format(r.startdatum, \"%Y\"), '-Q', quarter(r.startdatum)) jaarkwart\r\n" + 
+		",	sum(uren) uren\r\n" + 
+		"FROM tijd.tblregistratie r\r\n" + 
+		"	join tblmedewerker m using (idmedewerker)\r\n" + 
+		"    join tblproject p using (idproject)\r\n" + 
+		"where\r\n" + 
+		"	r.idmedewerker = ?\r\n" + 
+		"and\r\n" + 
+		"	startdatum between ? and ?\r\n" + 
+		"group by \r\n" + 
+		"	m.naam \r\n" + 
+		",	p.naam \r\n" + 
+		",	concat(date_format(r.startdatum, \"%Y\"), quarter(r.startdatum))";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+	    stmt.setString(1, idmedewerker);
+	    stmt.setString(2, begindatum);
+	    stmt.setString(3, einddatum);
+
+	    ResultSet result = stmt.executeQuery();
+	    while (result.next()) {
+		Totaaloverzicht t = new Totaaloverzicht();
+		t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
+		t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
+		t.setPeriode(result.getInt("jaarweek"));
+		t.setAantal(result.getInt("uren"));
+
+		totalen.add(t);
+	    }
+	    return totalen;
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + " - " + e.getMessage());
+	}
+	return Collections.emptyList();
+    }
+
+    public static List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerMaand(String idmedewerker, String begindatum, String einddatum) throws SQLException {
+	List<Totaaloverzicht> totalen = new ArrayList<>();
+	String sql = "SELECT \r\n" + 
+		"	m.naam medewerker\r\n" + 
+		",	p.naam project\r\n" + 
+		",	date_format(r.startdatum, \"%Y%m\") jaarmaand\r\n" + 
+		",	sum(uren) uren\r\n" + 
+		"FROM tijd.tblregistratie r\r\n" + 
+		"	join tblmedewerker m using (idmedewerker)\r\n" + 
+		"    join tblproject p using (idproject)\r\n" + 
+		"where\r\n" + 
+		"	r.idmedewerker = ?\r\n" + 
+		"and\r\n" + 
+		"	startdatum between ? and ?\r\n" + 
+		"group by \r\n" + 
+		"	m.naam \r\n" + 
+		",	p.naam \r\n" + 
+		",	date_format(r.startdatum, \"%Y%m\")";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+	    stmt.setString(1, idmedewerker);
+	    stmt.setString(2, begindatum);
+	    stmt.setString(3, einddatum);
+
+	    ResultSet result = stmt.executeQuery();
+	    while (result.next()) {
+		Totaaloverzicht t = new Totaaloverzicht();
+		t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
+		t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
+		t.setPeriode(result.getInt("jaarweek"));
+		t.setAantal(result.getInt("uren"));
+
+		totalen.add(t);
+	    }
+	    return totalen;
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + " - " + e.getMessage());
+	}
+	return Collections.emptyList();
+    }
+    public static List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerWeek(String idmedewerker, String begindatum, String einddatum) throws SQLException {
+	List<Totaaloverzicht> totalen = new ArrayList<>();
+	String sql = "SELECT \r\n" + 
+		"	m.naam medewerker\r\n" + 
+		",	p.naam project\r\n" + 
+		",	date_format(r.startdatum, \"%Y%u\") jaarweek\r\n" + 
+		",	sum(uren) uren\r\n" + 
+		"FROM tijd.tblregistratie r\r\n" + 
+		"	join tblmedewerker m using (idmedewerker)\r\n" + 
+		"	join tblproject p using (idproject)\r\n" + 
+		"where\r\n" + 
+		"	r.idmedewerker = ?\r\n" + 
+		"and\r\n" + 
+		"	r.startdatum between ? and ?\r\n" + 
+		"group by \r\n" + 
+		"	m.naam \r\n" + 
+		",	p.naam \r\n" + 
+		",	date_format(r.startdatum, \"%Y%u\")";
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+	    stmt.setString(1, idmedewerker);
+	    stmt.setString(2, begindatum);
+	    stmt.setString(3, einddatum);
+
+	    ResultSet result = stmt.executeQuery();
+	    while (result.next()) {
+		Totaaloverzicht t = new Totaaloverzicht();
+		t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
+		t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
+		t.setPeriode(result.getInt("jaarweek"));
+		t.setAantal(result.getInt("uren"));
+
+		totalen.add(t);
+	    }
+	    return totalen;
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + " - " + e.getMessage());
+	}
+	return Collections.emptyList();
+    }
+    
     /**
      * Deze methode verwerkt de JSON input data van het urenregistratieformulier. De
      * data moet bestaan uit: idmedewerker, idproject, datum en uren. De data van
@@ -309,5 +501,7 @@ public class RegistratieRepository {
 	    }
 	}
 	return true;
+    }
+    private RegistratieRepository() {
     }
 }

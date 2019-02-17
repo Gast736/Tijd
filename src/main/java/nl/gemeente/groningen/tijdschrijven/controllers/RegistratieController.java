@@ -14,6 +14,7 @@ import nl.gemeente.groningen.tijdschrijven.model.Project;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
 import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository;
+import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository.Totaaloverzicht;
 
 @RestController
 public class RegistratieController {
@@ -47,6 +48,42 @@ public class RegistratieController {
     public List<Registratie> getRegistratiesByProject(@RequestParam(name = "project") Project project)
 	    throws SQLException {
 	return RegistratieRepository.getRegistratiesByProject(project);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerWeek")
+    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerWeek(
+	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="begindatum") String begindatum, 
+	    @RequestParam(name="einddatum") String einddatum)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerMedewerkerPerProjectPerWeek(idmedewerker, begindatum, einddatum);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerMaand(
+	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="begindatum") String begindatum, 
+	    @RequestParam(name="einddatum") String einddatum)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerMedewerkerPerProjectPerMaand(idmedewerker, begindatum, einddatum);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerKwartaal")
+    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerKwartaal(
+	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="begindatum") String begindatum, 
+	    @RequestParam(name="einddatum") String einddatum)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerMedewerkerPerProjectPerKwartaal(idmedewerker, begindatum, einddatum);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerJaar")
+    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerJaar(
+	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="begindatum") String begindatum, 
+	    @RequestParam(name="einddatum") String einddatum)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerMedewerkerPerProjectPerJaar(idmedewerker, begindatum, einddatum);
     }
 
     @PostMapping("/registratieUpdate")
