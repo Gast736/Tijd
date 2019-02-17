@@ -95,7 +95,7 @@
 							<th>Einddatum</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="newMdwTbody">
 						<tr>
 							<td><input id="emailadres" type="text" required
 								maxlength="45"></td>
@@ -110,7 +110,9 @@
 							<td><input id="einddatum" type="date"></td>
 						</tr>
 						<tr>
-							<td colspan="8"><button id="btnNewMedewerker" class="btn btn-lg btn-primary btn-block">Voeg medewerker toe</button></td>
+							<td colspan="8"><button id="btnNewMdw"
+									class="btn btn-lg btn-primary btn-block">Voeg
+									medewerker toe</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -133,7 +135,7 @@
 						<th>Einddatum</th>
 					</tr>
 				</thead>
-				<tbody id="medewerkertabel">
+				<tbody id="mdwTbody">
 				</tbody>
 			</table>
 		</div>
@@ -147,7 +149,6 @@
 
 	<script>
 function readMedewerkers() {
-	$("#medewerkertabel").html(''),
 		$.ajax('/medewerkers', {
 			'method' : 'GET'
 		}).done(function(data) {
@@ -165,7 +166,7 @@ function readMedewerkers() {
 					<td>${el.einddatum}</td>
 				</tr>
 				`
-				$("#medewerkertabel").html($("#medewerkertabel").html() + h)
+				$("#mdwTbody").html($("#mdwTbody").html() + h)
 			})
 		}).fail(function(e) {
 			console.log(e)
@@ -187,12 +188,14 @@ function insertMedewerker() {
         },
         method: 'post'
     }).done(function(){
+    	$("#mdwTbody").html($("")
+    }).done(function(){
     	readMedewerkers();
-    });
+    })
 }
-$('#btnNewMedewerker').click(function(){
+
+$('#btnNewMdw').click(function(){
 		insertMedewerker();
-		readMedewerkers();
 });
 
 $(document).ready(function(){
