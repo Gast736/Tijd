@@ -28,31 +28,24 @@ public class MedewerkerController {
     }
 
     @PostMapping("/newMedewerker")
-    public int insertMedewerker(
-	    @RequestParam(name = "emailadres") String emailadres,
-	    @RequestParam(name = "naam") String naam,
-	    @RequestParam(name = "wachtwoord") String wachtwoord, 
-	    @RequestParam(name = "team") String team,
-	    @RequestParam(name = "rol") String rol, 
+    public int insertMedewerker(@RequestParam(name = "emailadres") String emailadres,
+	    @RequestParam(name = "naam") String naam, @RequestParam(name = "wachtwoord") String wachtwoord,
+	    @RequestParam(name = "team") String team, @RequestParam(name = "rol") String rol,
 	    @RequestParam(name = "contracturen") double contracturen,
-	    @RequestParam(name = "startdatum") String startdatum, 
-	    @RequestParam(name = "einddatum") String einddatum) {
-	return MedewerkerRepository.insertMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum);
+	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum) {
+	return MedewerkerRepository.insertMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum,
+		einddatum);
 
     }
 
     @PutMapping("/changeMedewerker")
-    public int updateMedewerker(
-	    @RequestParam(name = "idmedewerker") String idmedewerker,
-	    @RequestParam(name = "emailadres") String emailadres,
-	    @RequestParam(name = "naam") String naam,
-	    @RequestParam(name = "wachtwoord") String wachtwoord, 
-	    @RequestParam(name = "team") String team,
-	    @RequestParam(name = "rol") String rol, 
-	    @RequestParam(name = "contracturen") double contracturen,
-	    @RequestParam(name = "startdatum") String startdatum, 
-	    @RequestParam(name = "einddatum") String einddatum) {
-	return MedewerkerRepository.updateMedewerker(idmedewerker, emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum);
+    public int updateMedewerker(@RequestParam(name = "idmedewerker") String idmedewerker,
+	    @RequestParam(name = "emailadres") String emailadres, @RequestParam(name = "naam") String naam,
+	    @RequestParam(name = "wachtwoord") String wachtwoord, @RequestParam(name = "team") String team,
+	    @RequestParam(name = "rol") String rol, @RequestParam(name = "contracturen") double contracturen,
+	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum) {
+	return MedewerkerRepository.updateMedewerker(idmedewerker, emailadres, naam, wachtwoord, team, rol,
+		contracturen, startdatum, einddatum);
 
     }
 

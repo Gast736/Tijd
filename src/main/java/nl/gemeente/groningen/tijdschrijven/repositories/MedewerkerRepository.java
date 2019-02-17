@@ -184,8 +184,8 @@ public class MedewerkerRepository {
     private MedewerkerRepository() {
     }
 
-    public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol, double contracturen,
-	    String startdatum, String einddatum) {
+    public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol,
+	    double contracturen, String startdatum, String einddatum) {
 	String sql = "insert into tblMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
 	LocalDate start = LocalDate.parse(startdatum, formatter);
@@ -205,7 +205,7 @@ public class MedewerkerRepository {
 
 	    try (ResultSet key = stmt.getGeneratedKeys()) {
 		key.next();
-		
+
 		return key.getInt(1);
 	    }
 	} catch (SQLException e) {
@@ -216,8 +216,8 @@ public class MedewerkerRepository {
 
     }
 
-    public static int updateMedewerker(String idmedewerker, String emailadres, String naam, String wachtwoord, String team, String rol,
-	    double contracturen, String startdatum, String einddatum) {
+    public static int updateMedewerker(String idmedewerker, String emailadres, String naam, String wachtwoord,
+	    String team, String rol, double contracturen, String startdatum, String einddatum) {
 	String sql = "update tblMedewerker set emailadres=?, naam=?, wachtwoord=?, team=?, rol=?, contracturen=?, startdatum=?, einddatum=? where idmedewerker=?";
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
 	LocalDate start = LocalDate.parse(startdatum, formatter);
@@ -238,7 +238,7 @@ public class MedewerkerRepository {
 
 	    try (ResultSet key = stmt.getGeneratedKeys()) {
 		key.next();
-		
+
 		return key.getInt(1);
 	    }
 	} catch (SQLException e) {

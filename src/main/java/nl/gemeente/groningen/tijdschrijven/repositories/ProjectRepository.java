@@ -96,7 +96,7 @@ public class ProjectRepository {
 	    stmt.executeUpdate();
 
 	    try (ResultSet key = stmt.getGeneratedKeys()) {
-		
+
 		key.next();
 		return key.getInt(1);
 	    }
@@ -107,8 +107,8 @@ public class ProjectRepository {
     }
 
     public static boolean updateProject(Project project) throws SQLException {
-	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?" + ", directie = ?"
-		+ ", startdatum = ?" + ", einddatum = ?";
+	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?"
+		+ ", directie = ?" + ", startdatum = ?" + ", einddatum = ?";
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, project.getNaam());
 	    stmt.setString(2, project.getCategorie());

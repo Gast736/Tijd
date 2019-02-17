@@ -97,17 +97,21 @@
 					</thead>
 					<tbody id="newMdwTbody">
 						<tr>
-							<td><input id="emailadres" type="text" required
+							<td><input class="form-control" id="emailadres" type="text" required
 								maxlength="45"></td>
-							<td><input id="naam" type="text" required maxlength="45"></td>
-							<td><input id="wachtwoord" type="text" required
+							<td><input class="form-control" id="naam" type="text" required maxlength="45"></td>
+							<td><input class="form-control" id="wachtwoord" type="text" required
 								maxlength="50"></td>
-							<td><input id="team" type="text" required maxlength="45"></td>
-							<td><input id="rol" type="text" required maxlength="45"></td>
-							<td><input id="contracturen" type="number" required min="0"
-								max="36" pattern="[99.9]"></td>
-							<td><input id="startdatum" type="date" required></td>
-							<td><input id="einddatum" type="date"></td>
+							<td><input class="form-control" id="team" type="text" required maxlength="45"></td>
+							<td><select class="form-control">
+									<option value="medewerker">Medewerker</option>
+									<option value="beheerder">Beheerder</option>
+									<option value="afdelingshoofd">Afdelingshoofd</option>
+							</select></td>
+							<td><input class="form-control" id="contracturen" type="number" min="0.00"
+								max="36.00" pattern="^\d{0,2}(\.\d{1,2})?$"></td>
+							<td><input class="form-control" id="startdatum" type="date" required></td>
+							<td><input class="form-control" id="einddatum" type="date"></td>
 						</tr>
 						<tr>
 							<td colspan="8"><button id="btnNewMdw"
@@ -156,14 +160,22 @@ function readMedewerkers() {
 				let h = `
 				<tr>
 					<td>${el.idmedewerker}</td>
-					<td>${el.emailadres}</td>
-					<td>${el.naam}</td>
-					<td>${el.wachtwoord}</td>
-					<td>${el.team}</td>
-					<td>${el.rol}</td>
-					<td>${el.contracturen}</td>
-					<td>${el.startdatum}</td>
-					<td>${el.einddatum}</td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.emailadres}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.naam}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.wachtwoord}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.team}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.rol}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.contracturen}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.startdatum}\"></td>
+					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					maxlength=\"45\" value=\"${el.einddatum}\"></td>
 				</tr>
 				`
 				$("#mdwTbody").html($("#mdwTbody").html() + h)
@@ -188,7 +200,7 @@ function insertMedewerker() {
         },
         method: 'post'
     }).done(function(){
-    	$("#mdwTbody").html($("")
+    	$("#mdwTbody").html($(""))
     }).done(function(){
     	readMedewerkers();
     })
