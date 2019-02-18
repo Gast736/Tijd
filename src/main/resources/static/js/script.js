@@ -12,8 +12,6 @@ var projecten = [];
 var medewerkerid;
 var begindatum;
 var einddatum;
-var weeknummer;
-var eerstedag;
 var day0; // maandag
 var day1; // dinsdag
 var day2; // woensdag
@@ -155,6 +153,8 @@ function getCookie(cname) {
  */
 $('.periodSelect').change(function () {
     haalDatums();
+    // en bouw vervolgens het formulier op.... Ook hier moet ik iets met callbacks... die setTimeouts werken vertragend...
+    setTimeout(bouwFormulierOp, 1500);
 })
 
 function checkCookie() {
@@ -172,7 +172,7 @@ function checkCookie() {
 
 function haalDatums() {
     $.ajax({
-        url: "/datum",
+        url: "/daysInWeek",
         method: 'GET',
         data: {
             week: $('#selWeek').val(),
@@ -180,15 +180,12 @@ function haalDatums() {
         },
         dataType: 'json',
         success: function (data) {
-            begindatum = data.eersteDagVanDeWeek.substring(0, 10);
-            einddatum = data.laatsteDagVanDeWeek.substring(0, 10);
-            // ik werk tijdelijk met verkeerde dagen, wacht nog op de datumcontroller, waarmee ik dag 1 t/m 5 terugkrijg
-            day0 = begindatum;
-            day1 = begindatum;
-            day2 = begindatum;
-            day3 = begindatum;
-            day4 = einddatum;
-            var d = "Van " + begindatum + " tot " + einddatum;
+            day0 = data[0].substring(0, 10);
+            day1 = data[1].substring(0, 10);
+            day2 = data[2].substring(0, 10);
+            day3 = data[3].substring(0, 10);
+            day4 = data[4].substring(0, 10);
+            var d = "Van " + day0 + " tot " + day4;
             $('#fromUntil').text(d);
         },
         error: function (requestObject, error, errorThrown) {
@@ -226,7 +223,7 @@ function haalProjecten() {
     return false;
 }
 /*
-Testscript om te kijken of we een formulier leeg kunnen trekken.... Ja, dat kunnen we :)
+Met onderstaand script wordt het ingevulde formulier in JSON format naar de controller gestuurd.
 */
 $('#submitBtn').click(function (e) {
     var rs = "";
@@ -255,8 +252,9 @@ $('#submitBtn').click(function (e) {
             }
         });
     }
-    // alert(registratie);
+    
     var regJson = JSON.stringify(registratie);
+    console.log("We gaan versturen: " + regJson);
 
     $.ajax({
         type: 'POST',
@@ -265,48 +263,16 @@ $('#submitBtn').click(function (e) {
         contentType: "application/json"
     }).done(function (res) {
         console.log('res', res);
-        // Do something with the result :)
+        if (!res) {
+            alert("Verzending niet gelukt");
+        } else
+            {
+               alert("Verzending formulier voltooid"); 
+            }
     });
 
 
 });
-/*
-{"idmedewerker":"1", 
-  "idproject":"2", 
-  "startdatum":"2019-02-13", 
-  "uren":"4"}
-  ]
-*/
-
-/* BLOK TIJDELIJK UITGEZET.... WERK IN UITVOERING
-function slaUrenOp(surl, id) {
-
-    var registratie = [];
-    var invoervelden = document.querySelectorAll(".inputfield[type=number]");
-    for (var i=0;i<invoervelden.length;i++)
-
-for (var i = 0; i < projecten.length; i++)
-    var o = "{idmedewerker: " + medewerkerid + ", idproject: " + projecten[i].id + ", startdatum: " +
-        idmedewerker: medewerkerid,
-        idproject: "Jenny",
-        startdatum: "Wallender",
-        uren: "JWHALEN@gmail.com",
-    };
-
-
-    var regJson = JSON.stringify(registratie);
-
-    $.ajax({
-        type: 'POST',
-        data: regJson,
-        url: surl, // registratieUpdate
-        contentType: "application/json"
-    }).done(function (res) {
-        console.log('res', res);
-        // Do something with the result :)
-    });
-}
-*/
 
 /*
 Onderstaand script bouwt een editable table op op basis van de projectenquery
@@ -414,7 +380,7 @@ function bouwFormulierOp() {
                     <input type="number" class="form-control" id="totTotal" placeholder="0">
                 </div>
             </div>`;
-    console.log(s);
+    //console.log(s);
     document.getElementById("regform1").innerHTML = s;
 }
 
@@ -425,6 +391,6 @@ $(document).ready(function () {
     haalDatums();
     haalProjecten();
     //setTimeout(bouwTabelOp, 3000);
-    setTimeout(bouwFormulierOp, 3000);
+    setTimeout(bouwFormulierOp, 1500);
     console.log(projecten);
 });
