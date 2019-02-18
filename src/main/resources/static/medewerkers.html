@@ -157,24 +157,25 @@ function readMedewerkers() {
 			'method' : 'GET'
 		}).done(function(data) {
 			$.each(data, function(idx, el) {
+				console.log(el.rol == "medewerker" ? "selected" : null)
 				let h = `
 				<tr>
 					<td>${el.idmedewerker}</td>
 					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.emailadres}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"naam\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.naam}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"wachtwoord\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.wachtwoord}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"team\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.team}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"rol\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.rol}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"contracturen\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.contracturen}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"startdatum\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.startdatum}\"></td>
-					<td><input class=\"form-control\" id=\"emailadres\" type=\"text\" required
+					<td><input class=\"form-control\" id=\"einddatum\" type=\"text\" required
 					maxlength=\"45\" value=\"${el.einddatum}\"></td>
 				</tr>
 				`
