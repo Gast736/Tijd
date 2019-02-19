@@ -266,10 +266,14 @@ $('#submitBtn').click(function (e) {
     }).done(function (res) {
         console.log('res', res);
         if (!res) {
-            alert("Verzending niet gelukt");
+                $('#submitResult').addClass("alert alert-danger");
+                $('#submitResult').attr("role", "alert");
+                $('#submitResult').text("De data kon niet worden verzonden.");
         } else
             {
-               alert("Verzending formulier voltooid"); 
+                $('#submitResult').addClass("alert alert-success");
+                $('#submitResult').attr("role", "alert");
+                $('#submitResult').text("De ingevulde data is opgeslagen"); 
             }
     });
 
@@ -381,6 +385,8 @@ function bouwFormulierOp() {
                 <div class="col-sm">
                     <input type="number" class="form-control" id="totTotal" placeholder="0">
                 </div>
+            </div>
+            <div class="row" id ="submitResult">
             </div>`;
     //console.log(s);
     document.getElementById("regform1").innerHTML = s;
