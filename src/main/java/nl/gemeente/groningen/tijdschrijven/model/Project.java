@@ -18,6 +18,11 @@ public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idproject")
+    private int idproject;
+    
     @Column(length = 45)
     private String categorie;
 
@@ -26,11 +31,6 @@ public class Project implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date einddatum;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idproject")
-    private int idProject;
 
     @Column(length = 45)
     private String naam;
@@ -54,7 +54,7 @@ public class Project implements Serializable {
     }
 
     public int getIdProject() {
-	return idProject;
+	return idproject;
     }
 
     public String getNaam() {
@@ -81,8 +81,8 @@ public class Project implements Serializable {
 	this.einddatum = einddatum;
     }
 
-    public void setIdProject(int idProject) {
-	this.idProject = idProject;
+    public void setIdProject(int idproject) {
+	this.idproject = idproject;
     }
 
     public void setNaam(String naam) {

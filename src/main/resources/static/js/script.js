@@ -205,11 +205,12 @@ function haalProjecten() {
         success: function (data) {
             // LOGGING AAN
             console.log("Het JSON object met " + data.length + " records, is ontvangen.");
-
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
                 var project = {
-                    projectid: i,
+                    projectid: data[i].idProject,
                     naam: data[i].naam
+                    
                 }; // we maken een project object. De ID mist nog in de controller
                 projecten.push(project); // Met push voeg je het element toe aan de array projecten
             }
@@ -235,7 +236,8 @@ $('#submitBtn').click(function (e) {
         $('.inputfield' + i).each(function () {
             if ($(this).val()) {
                 rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
-
+                console.log(rs);
+                
                 var model = {
                     idmedewerker: medewerkerid,
                     idproject: projecten[i].projectid,
