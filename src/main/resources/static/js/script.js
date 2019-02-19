@@ -210,10 +210,33 @@ function haalProjecten() {
                 var project = {
                     projectid: data[i].idProject,
                     naam: data[i].naam
-                    
+
                 }; // we maken een project object. De ID mist nog in de controller
                 projecten.push(project); // Met push voeg je het element toe aan de array projecten
             }
+        },
+        error: function (requestObject, error, errorThrown) {
+
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+}
+
+function haalRegistratie() {
+    $.ajax({
+        url: "/registraties/perweek",
+        method: 'GET',
+        data: {
+            datum: day0,
+            idmedewerker: medewerkerid,
+        },
+        dataType: 'json',
+        success: function (data) {
+            // LOGGING AAN
+            console.log("Het JSON object met " + data.length + " records, is ontvangen.");
+            console.log(data);
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -237,15 +260,15 @@ $('#submitBtn').click(function (e) {
             if ($(this).val()) {
                 rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
                 console.log(rs);
-                
+
                 var model = {
                     idmedewerker: medewerkerid,
                     idproject: projecten[i].projectid,
                     startdatum: $(this).attr('id').substring(2, 13),
                     uren: $(this).val()
                 };
-                 registratie.push(model);
-                
+                registratie.push(model);
+
 
                 /* DIT WERKTE NIET
                 var o = '{"idmedewerker":"'+ medewerkerid + '","idproject":"' + projecten[i].projectid + '","startdatum":"' + $(this).attr("id").substring(2, 13) + '","uren":"' + $(this).val() +'"}';
@@ -254,7 +277,7 @@ $('#submitBtn').click(function (e) {
             }
         });
     }
-    
+
     var regJson = JSON.stringify(registratie);
     console.log("We gaan versturen: " + regJson);
 
@@ -266,15 +289,14 @@ $('#submitBtn').click(function (e) {
     }).done(function (res) {
         console.log('res', res);
         if (!res) {
-                $('#submitResult').addClass("alert alert-danger");
-                $('#submitResult').attr("role", "alert");
-                $('#submitResult').text("De data kon niet worden verzonden.");
-        } else
-            {
-                $('#submitResult').addClass("alert alert-success");
-                $('#submitResult').attr("role", "alert");
-                $('#submitResult').text("De ingevulde data is opgeslagen"); 
-            }
+            $('#submitResult').addClass("alert alert-danger");
+            $('#submitResult').attr("role", "alert");
+            $('#submitResult').text("De data kon niet worden verzonden.");
+        } else {
+            $('#submitResult').addClass("alert alert-success");
+            $('#submitResult').attr("role", "alert");
+            $('#submitResult').text("De ingevulde data is opgeslagen");
+        }
     });
 
 
@@ -398,7 +420,7 @@ $(document).ready(function () {
     checkCookie();
     haalDatums();
     haalProjecten();
-    //setTimeout(bouwTabelOp, 3000);
-    setTimeout(bouwFormulierOp, 1500);
+    setTimeout(bouwFormulierOp, 1000);
     console.log(projecten);
+    setTimeout(haalRegistratie,1500);
 });
