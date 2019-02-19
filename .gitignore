@@ -24,3 +24,5 @@
 /.nb-gradle/
 /build/
 /log4j-application.log
+/mvnw
+/mvnw.cmd
