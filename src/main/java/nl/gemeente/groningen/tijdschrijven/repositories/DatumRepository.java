@@ -105,7 +105,7 @@ public class DatumRepository {
 
     /* Een aangepaste methode om de datum reeks van een week te bepalen. Ik zag dat in de  
      * versie (hierboven) week 1 van 2019 niet goed ging. Heb de get verwijzing in het script.js 
-     * ook aangepast
+     * ook aangepast.
      */
     public static Map<Integer, LocalDate> getDatesOfWeek(String jaar, String week){
 	    int y = Integer.parseInt(jaar);
