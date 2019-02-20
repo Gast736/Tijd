@@ -1,6 +1,8 @@
 package nl.gemeente.groningen.tijdschrijven.controllers;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,12 @@ public class DatumController {
 	return DatumRepository.getDaysInWeek(jaar, week);
     }
 
+    @GetMapping("/daysOfWeek")
+    public Map<Integer, LocalDate> getDatesOfWeek(@RequestParam(name = "jaar") String jaar,
+	    @RequestParam(name = "week") String week) {
+	return DatumRepository.getDatesOfWeek(jaar, week);
+    }
+    
     @GetMapping("/daysBetweenDates")
     public Map<Integer, Object> getDaysBetweenDates(@RequestParam(name = "begindatum") String begindatum,
 	    @RequestParam(name = "einddatum") String einddatum) {

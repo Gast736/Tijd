@@ -2,9 +2,12 @@ package nl.gemeente.groningen.tijdschrijven.repositories;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -100,6 +103,27 @@ public class DatumRepository {
 
     }
 
+    /* Een aangepaste methode om de datum reeks van een week te bepalen. Ik zag dat in de  
+     * versie (hierboven) week 1 van 2019 niet goed ging. Heb de get verwijzing in het script.js 
+     * ook aangepast
+     */
+    public static Map<Integer, LocalDate> getDatesOfWeek(String jaar, String week){
+	    int y = Integer.parseInt(jaar);
+	    LocalDate date = LocalDate.of(y, 7, 1); // safer than choosing current date
+	    date = date.with(WeekFields.ISO.weekOfWeekBasedYear(), Long.parseLong(week));
+	    date = date.with(WeekFields.ISO.dayOfWeek(), 1);
+		
+	    Map<Integer, LocalDate> d = new HashMap<>();
+		
+		LocalDate datestart = date;
+		for (int i=0; i<5;i++) {
+			LocalDate datenew = datestart.plusDays(i);
+			d.put(i, datenew);
+		}
+		return d;
+	}
+    
+    
     public static Map<Integer, Object> getDaysBetweenDates(String begindatum, String einddatum) {
 
 	Map<Integer, Object> dagen = new HashMap<>();

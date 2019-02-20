@@ -172,7 +172,7 @@ function checkCookie() {
 
 function haalDatums() {
     $.ajax({
-        url: "/daysInWeek",
+        url: "/daysOfWeek",
         method: 'GET',
         data: {
             week: $('#selWeek').val(),
