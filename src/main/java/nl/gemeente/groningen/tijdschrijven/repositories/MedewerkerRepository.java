@@ -216,31 +216,26 @@ public class MedewerkerRepository {
 
     }
 
-    public static int updateMedewerker(String idmedewerker, String emailadres, String naam, String wachtwoord,
-	    String team, String rol, double contracturen, String startdatum, String einddatum) {
+    public static int updateMedewerker(int idmedewerker, String emailadres, String naam, String wachtwoord,
+	    String team, String rol, double contracturen, Date startdatum, Date einddatum) {
 	String sql = "update tblMedewerker set emailadres=?, naam=?, wachtwoord=?, team=?, rol=?, contracturen=?, startdatum=?, einddatum=? where idmedewerker=?";
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
-	LocalDate start = LocalDate.parse(startdatum, formatter);
-	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
-		java.sql.Statement.RETURN_GENERATED_KEYS)) {
+//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
+//	LocalDate start = LocalDate.parse(startdatum, formatter);
+//	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, emailadres);
 	    stmt.setString(2, naam);
 	    stmt.setString(3, wachtwoord);
 	    stmt.setString(4, team);
 	    stmt.setString(5, rol);
 	    stmt.setDouble(6, contracturen);
-	    stmt.setDate(7, Date.valueOf(start));
-	    stmt.setDate(8, Date.valueOf(eind));
-	    stmt.setInt(9, Integer.valueOf(idmedewerker));
+	    stmt.setDate(7, startdatum);
+	    stmt.setDate(8, einddatum);
+	    stmt.setInt(9, idmedewerker);
 
 	    stmt.executeUpdate();
 
-	    try (ResultSet key = stmt.getGeneratedKeys()) {
-		key.next();
-
-		return key.getInt(1);
-	    }
+	    return idmedewerker;
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}

@@ -127,6 +127,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="test"></div>
 	<div class="row">
 		<div class="col">
 			<table class="table table-striped">
@@ -141,6 +142,7 @@
 						<th>Contracturen</th>
 						<th>Startdatum</th>
 						<th>Einddatum</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody id="mdwTbody">
@@ -148,76 +150,13 @@
 			</table>
 		</div>
 	</div>
+	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS 
     Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-
-	<script>
-function readMedewerkers() {
-		$.ajax('/medewerkers').done(function(data) {
-			$.each(data, function(idx, el) {
-				let h = `
-				<tr class="medewerker" id="${el.idmedewerker}">
-					<td>${el.idmedewerker}</td>
-					<td><input class="form-control" id="emailadres${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.emailadres}"></td>
-					<td><input class="form-control" id="naam${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.naam}"></td>
-					<td><input class="form-control" id="wachtwoord${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.wachtwoord}"></td>
-					<td><input class="form-control" id="team${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.team}"></td>
-					<td><select class="form-control" id="rollen${el.idmedewerker}">
-						<option>Medewerker</option>
-						<option>Beheerder</option>
-						<option>Afdelingshoofd</option>
-					</select></td>
-					<td><input class="form-control" id="contracturen${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.contracturen}"></td>
-					<td><input class="form-control" id="startdatum${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.startdatum}"></td>
-					<td><input class="form-control" id="einddatum${el.idmedewerker}" type="text" required
-					maxlength="45" value="${el.einddatum}"></td>
-				</tr>
-				`;
-				$("#mdwTbody").html($("#mdwTbody").html() + h);
-				$("#el.idmedewerker select").val(el.rol).prop("selected","");
-			})
-		}).fail(function(e) {
-			console.log(e)
-		})
-	}
-
-function insertMedewerker() {
-    $.ajax('/newMedewerker', {
-        data: {
-            emailadres: $('#emailadres').val(),
-            naam: $('#naam').val(),
-            wachtwoord: $('#wachtwoord').val(),
-            team: $('#team').val(),
-            rol: $('#rol').val(),
-            contracturen: $('#contracturen').val(),
-            startdatum: $('#startdatum').val(),
-            einddatum: $('#einddatum').val()
-        },
-        method: 'post'
-    }).done(function(){
-    	$("#mdwTbody").html($(""));
-    }).done(function(){
-    	readMedewerkers();
-    })
-}
-
-$('#btnNewMdw').click(function(){
-		insertMedewerker();
-});
-
-$(document).ready(function(){
-	readMedewerkers();
-})
-</script>
+	<script src="js/medewerkers.js"></script>
 </body>
 </html>

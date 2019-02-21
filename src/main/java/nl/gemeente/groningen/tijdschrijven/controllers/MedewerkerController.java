@@ -1,5 +1,6 @@
 package nl.gemeente.groningen.tijdschrijven.controllers;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,11 +40,16 @@ public class MedewerkerController {
     }
 
     @PutMapping("/changeMedewerker")
-    public int updateMedewerker(@RequestParam(name = "idmedewerker") String idmedewerker,
-	    @RequestParam(name = "emailadres") String emailadres, @RequestParam(name = "naam") String naam,
-	    @RequestParam(name = "wachtwoord") String wachtwoord, @RequestParam(name = "team") String team,
-	    @RequestParam(name = "rol") String rol, @RequestParam(name = "contracturen") double contracturen,
-	    @RequestParam(name = "startdatum") String startdatum, @RequestParam(name = "einddatum") String einddatum) {
+    public int updateMedewerker(
+	    @RequestParam(name = "idmedewerker") int idmedewerker,
+	    @RequestParam(name = "emailadres") String emailadres, 
+	    @RequestParam(name = "naam") String naam,
+	    @RequestParam(name = "wachtwoord") String wachtwoord, 
+	    @RequestParam(name = "team") String team,
+	    @RequestParam(name = "rol") String rol, 
+	    @RequestParam(name = "contracturen") double contracturen,
+	    @RequestParam(name = "startdatum") Date startdatum, 
+	    @RequestParam(name = "einddatum") Date einddatum) {
 	return MedewerkerRepository.updateMedewerker(idmedewerker, emailadres, naam, wachtwoord, team, rol,
 		contracturen, startdatum, einddatum);
 
