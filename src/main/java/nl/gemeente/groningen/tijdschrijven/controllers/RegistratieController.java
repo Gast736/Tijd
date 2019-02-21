@@ -44,6 +44,13 @@ public class RegistratieController {
 	return RegistratieRepository.getAlleRegistratiesByMedewerkerByWeek(idMedewerker, datum);
     }
 
+    @GetMapping("/registraties/dezeweek")
+    public List<RegistratieJSON> getAlleRegistratiesDezeMedewerkerDezeWeek(
+	    @RequestParam(name = "idmedewerker") int idmedewerker, @RequestParam(name = "datum") Date datum)
+	    throws SQLException {
+	return RegistratieRepository.getAlleRegistratiesDezeMedewerkerDezeWeek(idmedewerker, datum);
+    }
+    
     @GetMapping("/registraties/perproject")
     public List<Registratie> getRegistratiesByProject(@RequestParam(name = "project") Project project)
 	    throws SQLException {

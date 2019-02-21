@@ -215,6 +215,42 @@ public class RegistratieRepository {
 	return registraties;
     }
 
+    public static List<RegistratieJSON> getAlleRegistratiesDezeMedewerkerDezeWeek(int idmedewerker, Date eerstedatum)
+    	    throws SQLException {
+    	String sql = "select * from tblregistratie r join tblmedewerker m using(idmedewerker) "
+    		+ "join tblproject p using(idproject) where r.idmedewerker = ? "
+    		+ "and r.startdatum between ? and date_add(?, interval 4 day)";
+    	List<RegistratieJSON> registraties = new ArrayList<>();
+    	ResultSet result = null;
+    	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+
+    	    stmt.setInt(1, idmedewerker);
+    	    stmt.setDate(2, eerstedatum);
+    	    stmt.setDate(3, eerstedatum);
+    	    result = stmt.executeQuery();
+
+    	    while (result.next()) {
+
+    	    RegistratieJSON j = new RegistratieJSON();
+    	    j.setidMedewerker(result.getInt(IDMEDEWERKER));
+    	    j.setidProject(result.getInt(IDPROJECT));
+    	    j.setStartdatum(result.getDate(STARTDATUM));
+    	    j.setUren(result.getDouble(UREN));
+    	    
+    		registraties.add(j);
+
+    	    }
+    	} catch (SQLException e) {
+    	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+    	} finally {
+    	    if (result != null) {
+    		result.close();
+    	    }
+    	}
+    	return registraties;
+        }
+    
+    
     public static List<Registratie> getAlleRegistratiesByMedewerkerByWeek(int idMedewerker, Date datum)
 	    throws SQLException {
 	String sql = "select * " + "from tblregistratie r " + "join tblmedewerker m using(idmedewerker) "
