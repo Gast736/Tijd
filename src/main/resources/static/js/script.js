@@ -170,6 +170,13 @@ function checkCookie() {
     }
 }
 
+function vulWeken() {
+    var w= "";
+    for (var i=1; i<54; i++) {
+        w = w + "<option>"+i+"</option>";
+        $('#selWeek').html(w);
+    }
+}
 function haalDatums() {
     $.ajax({
         url: "/daysOfWeek",
@@ -418,9 +425,10 @@ function bouwFormulierOp() {
 $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
+    vulWeken();
     haalDatums();
     haalProjecten();
-    setTimeout(bouwFormulierOp, 1000);
+    setTimeout(bouwFormulierOp, 500);
     console.log(projecten);
-    setTimeout(haalRegistratie,1500);
+    setTimeout(haalRegistratie,1000);
 });
