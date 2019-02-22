@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	number-anchor: middle;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+<!-- Aangepaste stylesheet voor dit template -->
+<link href="css/registration.css" rel="stylesheet">
+<title>Tijdschrijfapplicatie</title>
+</head>
+<body>
+	<!-- Navbar sectie -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+		<a class="navbar-brand"> <img src="img/calendarw.svg" alt="">
+			<img src="img/clockw.svg" alt=""> <img src="img/file-textw.svg"
+			alt=""></a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="/registratie.html"><img src="img/edit-2w.svg">
+						Registratie <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="#"><img
+						src="img/editw.svg"> Wijzigen</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown01"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+						src="img/bar-chart-2w.svg"> Rapportage</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="#"><img src="img/user.svg">
+							Persoonlijk</a> <a class="dropdown-item" href="#"><img
+							src="img/users.svg"> Afdeling</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="dropdown02"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+						src="img/settingsw.svg"> Beheer</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown02">
+						<a class="dropdown-item" href="/projecten.html"><img
+							src="img/folder-plus.svg"> Projecten</a> <a
+							class="dropdown-item" href="/medewerkers.html"><img
+							src="img/user-plus.svg"> Medewerkers</a>
+					</div></li>
+			</ul>
+
+		</div>
+	</nav>
+	<div role="main" class="container-fluid">
+		<div id="header" class="container">
+			<div class="row">
+				<div class="col-sm">
+					<strong>Medewerker</strong>
+				</div>
+				<div id="employeeName" class="col-sm"></div>
+			</div>
+		</div>
+		<hr>
+		<h1>Beheer medewerkers</h1>
+		<hr>
+		<div class="container-fluid">
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-2">Emailadres</div>
+					<div class="col-2">Naam</div>
+					<div class="col-2">Wachtwoord</div>
+					<div class="col-2">Team</div>
+					<div class="col-1">Rol</div>
+					<div class="col-1">Contracturen</div>
+					<div class="col-1">Startdatum</div>
+					<div class="col-1">Einddatum</div>
+				</div>
+
+				<div class="row" id="newMdwTbody">
+					<div class="col-2">
+						<input class="form-control" id="emailadres" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="naam" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="wachtwoord" type="text" required
+							maxlength="50">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="team" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-1">
+						<select class="form-control" id="rol">
+							<option value="afdelingshoofd">Afdelingshoofd</option>
+							<option value="beheerder">Beheerder</option>
+							<option value="medewerker">Medewerker</option>
+						</select>
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="contracturen" type="number"
+							min="0.00" max="36.00" pattern="^\d{0,2}(\.\d{1,2})?$">
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="startdatum" type="date" required>
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="einddatum" type="date">
+					</div>
+				</div>
+				<div class="row">
+					<hr>
+				</div>
+				<div class="row">
+					<div class="col-2">
+						<button id="btnNewMdw" class="btn btn-lg btn-primary btn-block">Voeg
+							medewerker toe</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<div class="row">
+				<div>#</div>
+				<div class="col-2">Emailadres</div>
+				<div class="col-2">Naam</div>
+				<div class="col-2">Wachtwoord</div>
+				<div class="col-1">Team</div>
+				<div class="col-1">Rol</div>
+				<div class="col-1">Contracturen</div>
+				<div class="col-1">Startdatum</div>
+				<div class="col-1">Einddatum</div>
+			</div>
+			<div id="mdwTbody"></div>
+		</div>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS 
+    Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/js/medewerkers2.js"></script>
+</body>
+</html>
