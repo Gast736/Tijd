@@ -89,9 +89,7 @@ function nieuweMedewerker() {
 		},
 		method: 'POST'
 	}).done(function(){
-		$("#mdwTbody").html($(""));
-	}).done(function(){
-		haalMedewerkers();
+		location.reload();
 	})
 }
 
@@ -126,10 +124,6 @@ $('#mdwTbody').on('click', '.btnOpslaan', function(e){
 		console.log("Medewerker" + idmedewerker + "is opgeslagen");
 	})
 })
-
-function updateMedewerker() {
-
-}
 
 $("document").ready(function() {
 	haalMedewerkers();
