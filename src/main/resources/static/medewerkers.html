@@ -79,84 +79,87 @@
 		<hr>
 		<h1>Beheer medewerkers</h1>
 		<hr>
-		<div class="row"></div>
-		<div class="row">
-			<div class="col">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Emailadres</th>
-							<th>Naam</th>
-							<th>Wachtwoord</th>
-							<th>Team</th>
-							<th>Rol</th>
-							<th>Contracturen</th>
-							<th>Startdatum</th>
-							<th>Einddatum</th>
-						</tr>
-					</thead>
-					<tbody id="newMdwTbody">
-						<tr>
-							<td><input class="form-control" id="emailadres" type="text"
-								required maxlength="45"></td>
-							<td><input class="form-control" id="naam" type="text"
-								required maxlength="45"></td>
-							<td><input class="form-control" id="wachtwoord" type="text"
-								required maxlength="50"></td>
-							<td><input class="form-control" id="team" type="text"
-								required maxlength="45"></td>
-							<td><select class="form-control" id = "rol">
-									<option value="medewerker">Medewerker</option>
-									<option value="beheerder">Beheerder</option>
-									<option value="afdelingshoofd">Afdelingshoofd</option>
-							</select></td>
-							<td><input class="form-control" id="contracturen"
-								type="number" min="0.00" max="36.00"
-								pattern="^\d{0,2}(\.\d{1,2})?$"></td>
-							<td><input class="form-control" id="startdatum" type="date"
-								required></td>
-							<td><input class="form-control" id="einddatum" type="date"></td>
-						</tr>
-						<tr>
-							<td colspan="8"><button id="btnNewMdw"
-									class="btn btn-lg btn-primary btn-block">Voeg
-									medewerker toe</button></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="container-fluid">
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-2">Emailadres</div>
+					<div class="col-2">Naam</div>
+					<div class="col-2">Wachtwoord</div>
+					<div class="col-2">Team</div>
+					<div class="col-1">Rol</div>
+					<div class="col-1">Contracturen</div>
+					<div class="col-1">Startdatum</div>
+					<div class="col-1">Einddatum</div>
+				</div>
+
+				<div class="row" id="newMdwTbody">
+					<div class="col-2">
+						<input class="form-control" id="emailadres" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="naam" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="wachtwoord" type="text" required
+							maxlength="50">
+					</div>
+					<div class="col-2">
+						<input class="form-control" id="team" type="text" required
+							maxlength="45">
+					</div>
+					<div class="col-1">
+						<select class="form-control" id="rol">
+							<option value="afdelingshoofd">Afdelingshoofd</option>
+							<option value="beheerder">Beheerder</option>
+							<option value="medewerker">Medewerker</option>
+						</select>
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="contracturen" type="number"
+							min="0.00" max="36.00" pattern="^\d{0,2}(\.\d{1,2})?$">
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="startdatum" type="date" required>
+					</div>
+					<div class="col-1">
+						<input class="form-control" id="einddatum" type="date">
+					</div>
+				</div>
+				<div class="row">
+					<hr>
+				</div>
+				<div class="row">
+					<div class="col-2">
+						<button id="btnNewMdw" class="btn btn-lg btn-primary btn-block">Voeg
+							medewerker toe</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="test"></div>
-	<div class="row">
-		<div class="col">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Emailadres</th>
-						<th>Naam</th>
-						<th>Wachtwoord</th>
-						<th>Team</th>
-						<th>Rol</th>
-						<th>Contracturen</th>
-						<th>Startdatum</th>
-						<th>Einddatum</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody id="mdwTbody">
-				</tbody>
-			</table>
+		<div class="jumbotron">
+			<div class="row">
+				<div>#</div>
+				<div class="col-2">Emailadres</div>
+				<div class="col-2">Naam</div>
+				<div class="col-2">Wachtwoord</div>
+				<div class="col-1">Team</div>
+				<div class="col-1">Rol</div>
+				<div class="col-1">Contracturen</div>
+				<div class="col-1">Startdatum</div>
+				<div class="col-1">Einddatum</div>
+			</div>
+			<div id="mdwTbody"></div>
 		</div>
 	</div>
-	
+
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS 
     Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/medewerkers.js"></script>
+	<script src="/js/medewerkers.js"></script>
 </body>
 </html>
