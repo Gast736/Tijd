@@ -79,119 +79,75 @@
 		<hr>
 		<h1>Beheer projecten</h1>
 		<hr>
-		<div class="row"></div>
-		<div class="row">
-			<div class="col">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Categorie</th>
-							<th>Naam</th>
-							<th>Opdrachtgever</th>
-							<th>Directie</th>
-							<th>Startdatum</th>
-							<th>Einddatum</th>
-						</tr>
-					</thead>
-					<tbody id="newProjectTbody">
-						<tr>
-							<td><select class="form-control">
-									<option id="project">Project</option>
-									<option id="intern">Intern project</option>
-									<option id="afwezigheid">Afwezigheid</option>
-							</select></td>
-							<td><input class="form-control" id="naam" type="text" required maxlength="45"></td>
-							<td><input class="form-control" id="opdrachtgever" type="text" required
-								maxlength="45"></td>
-							<td><input class="form-control" id="directie" type="text" required maxlength="45"></td>
-							<td><input class="form-control" id="startdatum" type="date" required></td>
-							<td><input class="form-control" id="einddatum" type="date"></td>
-						</tr>
-						<tr>
-							<td colspan="8"><button id="btnNewProject"
-									class="btn btn-lg btn-primary btn-block">Voeg project
-									toe</button></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="container-fluid"></div>
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-1">Categorie</div>
+				<div class="col-2">Naam</div>
+				<div class="col-2">Opdrachtgever</div>
+				<div class="col-2">Directie</div>
+				<div class="col-2">Startdatum</div>
+				<div class="col-2">Einddatum</div>
+			</div>
+
+			<div class="row" id="newProjTbody">
+				<div class="col-1">
+					<select class="form-control" id="categorie">
+						<option id="project">Project</option>
+						<option id="intern">Intern project</option>
+						<option id="afwezigheid">Afwezigheid</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<input class="form-control" id="naam" type="text" required
+						maxlength="45">
+				</div>
+				<div class="col-2">
+					<input class="form-control" id="opdrachtgever" type="text" required
+						maxlength="45">
+				</div>
+				<div class="col-2">
+					<input class="form-control" id="directie" type="text" required
+						maxlength="45">
+				</div>
+				<div class="col-2">
+					<input class="form-control" id="startdatum" type="date" required>
+				</div>
+				<div class="col-2">
+					<input class="form-control" id="einddatum" type="date">
+				</div>
+			</div>
+			<div class="row">
+				<hr>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<button id="btnNewProject" class="btn btn-lg btn-primary btn-block">Voeg
+						project toe</button>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Categorie</th>
-						<th>Naam</th>
-						<th>Opdrachtgever</th>
-						<th>Directie</th>
-						<th>Startdatum</th>
-						<th>Einddatum</th>
-					</tr>
-				</thead>
-				<tbody id="projectTbody">
-				</tbody>
-			</table>
+	<div class="jumbotron">
+		<div class="row">
+			<div>#</div>
+			<div class="col-1">Categorie</div>
+			<div class="col-2">Naam</div>
+			<div class="col-2">Opdrachtgever</div>
+			<div class="col-2">Directie</div>
+			<div class="col-2">Startdatum</div>
+			<div class="col-2">Einddatum</div>
+		</div>
+		<div id="projTbody">
 		</div>
 	</div>
+
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS 
     Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-
-	<script>
-function readProjecten() {
-		$.ajax('/projecten', {
-			'method' : 'GET'
-		}).done(function(data) {
-			$.each(data, function(idx, el) {
-				let h = `
-				<tr>
-					<td>${el.idProject}</td>
-					<td>${el.categorie}</td>
-					<td>${el.naam}</td>
-					<td>${el.opdrachtgever}</td>
-					<td>${el.directie}</td>
-					<td>${el.startdatum}</td>
-					<td>${el.einddatum}</td>
-				</tr>
-				`
-				$("#projectTbody").html($("#projectTbody").html() + h)
-			})
-		}).fail(function(e) {
-			console.log(e)
-		})
-
-	}
-
-function insertProject() {
-    $.ajax('/newProject', {
-        data: {
-            naam: $('#naam').val(),
-            opdrachtgever: $('#opdrachtgever').val(),
-            directie: $('#directie').val(),
-            startdatum: $('#startdatum').val(),
-            einddatum: $('#einddatum').val()
-        },
-        method: 'post'
-    }).done(function(){
-    	$("#projectTbody").html($(""))
-    }).done(function(){
-    	readProjecten();
-    })
-}
-
-$('#btnNewProject').click(function(){
-		insertProject();
-});
-
-$(document).ready(function(){
-	readProjecten();
-})
-</script>
+	<script src="/js/projecten.js"></script>
 </body>
 </html>
