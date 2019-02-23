@@ -5,11 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.log4j.Logger;
 
@@ -132,9 +129,6 @@ public class ProjectRepository {
 	return -1;
     }
 
-    private ProjectRepository() {
-    }
-
     public static int updateProject(int idproject, String naam, String categorie, String opdrachtgever, String directie,
 	    Date startdatum, Date einddatum) {
 	String sql = "update tblProject " + "set naam = ?" + ", categorie = ?" + ", opdrachtgever = ?"
@@ -156,6 +150,9 @@ public class ProjectRepository {
 	}
 	return -1;
 	
+    }
+
+    private ProjectRepository() {
     }
 
 }

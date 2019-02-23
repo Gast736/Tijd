@@ -3,12 +3,9 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
-
 <style>
 .bd-placeholder-img {
 	font-size: 1.125rem;
@@ -28,43 +25,35 @@
 <body>
 	<!-- Navbar sectie -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-		<a class="navbar-brand"> <img src="img/calendarw.svg" alt="">
-			<img src="img/clockw.svg" alt=""> <img src="img/file-textw.svg"
-			alt=""></a>
-
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarCollapse" aria-controls="navbarCollapse"
-			aria-expanded="false" aria-label="Toggle navigation">
+		<a class="navbar-brand"> <img src="img/calendarw.svg" alt=""> <img src="img/clockw.svg"
+			alt=""> <img src="img/file-textw.svg" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="/registratie.html"><img src="img/edit-2w.svg">
-						Registratie <span class="sr-only">(current)</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"><img
-						src="img/editw.svg"> Wijzigen</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="dropdown01"
+				<li class="nav-item active"><a class="nav-link" href="/registratie.html"><img
+						src="img/edit-2w.svg"> Registratie <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="#"><img src="img/editw.svg">
+						Wijzigen</a></li>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="dropdown01"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
 						src="img/bar-chart-2w.svg"> Rapportage</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
-						<a class="dropdown-item" href="#"><img src="img/user.svg">
-							Persoonlijk</a> <a class="dropdown-item" href="#"><img
-							src="img/users.svg"> Afdeling</a>
+						<a class="dropdown-item" href="#"><img src="img/user.svg"> Persoonlijk</a> <a
+							class="dropdown-item" href="#"><img src="img/users.svg"> Afdeling</a>
 					</div></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="dropdown02"
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="dropdown02"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
 						src="img/settingsw.svg"> Beheer</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown02">
-						<a class="dropdown-item" href="/projecten.html"><img
-							src="img/folder-plus.svg"> Projecten</a> <a
-							class="dropdown-item" href="/medewerkers.html"><img
-							src="img/user-plus.svg"> Medewerkers</a>
+						<a class="dropdown-item" href="/projecten.html"><img src="img/folder-plus.svg">
+							Projecten</a> <a class="dropdown-item" href="/medewerkers.html"><img src="img/user-plus.svg">
+							Medewerkers</a>
 					</div></li>
 			</ul>
-
 		</div>
 	</nav>
 	<div role="main" class="container-fluid">
@@ -89,7 +78,6 @@
 				<div class="col-2">Startdatum</div>
 				<div class="col-2">Einddatum</div>
 			</div>
-
 			<div class="row" id="newProjTbody">
 				<div class="col-1">
 					<select class="form-control" id="categorie">
@@ -99,16 +87,13 @@
 					</select>
 				</div>
 				<div class="col-2">
-					<input class="form-control" id="naam" type="text" required
-						maxlength="45">
+					<input class="form-control" id="naam" type="text" required maxlength="45">
 				</div>
 				<div class="col-2">
-					<input class="form-control" id="opdrachtgever" type="text" required
-						maxlength="45">
+					<input class="form-control" id="opdrachtgever" type="text" required maxlength="45">
 				</div>
 				<div class="col-2">
-					<input class="form-control" id="directie" type="text" required
-						maxlength="45">
+					<input class="form-control" id="directie" type="text" required maxlength="45">
 				</div>
 				<div class="col-2">
 					<input class="form-control" id="startdatum" type="date" required>
@@ -122,26 +107,28 @@
 			</div>
 			<div class="row">
 				<div class="col-2">
-					<button id="btnNewProject" class="btn btn-lg btn-primary btn-block">Voeg
-						project toe</button>
+					<button id="btnNewProject" class="btn btn-lg btn-primary btn-block">Voeg project toe</button>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="jumbotron">
-		<div class="row">
-			<div>#</div>
-			<div class="col-1">Categorie</div>
-			<div class="col-2">Naam</div>
-			<div class="col-2">Opdrachtgever</div>
-			<div class="col-2">Directie</div>
-			<div class="col-2">Startdatum</div>
-			<div class="col-2">Einddatum</div>
+		<div class="jumbotron">
+			<div class="row">
+				<div>#</div>
+				<div class="col-1">Categorie</div>
+				<div class="col-2">Naam</div>
+				<div class="col-2">Opdrachtgever</div>
+				<div class="col-2">Directie</div>
+				<div class="col-2">Startdatum</div>
+				<div class="col-2">Einddatum</div>
+			</div>
+			<div id="projTbody"></div>
 		</div>
-		<div id="projTbody">
-		</div>
+		<footer class="footer">
+			<div class="container">
+				<div id="submitResult"></div>
+			</div>
+		</footer>
 	</div>
-
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS 
     Standaard start Bootstrap met een minimale versie van jquery. Daar zit ajax niet bij in!!!!-->

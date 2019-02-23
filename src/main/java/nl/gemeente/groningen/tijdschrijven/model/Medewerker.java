@@ -24,6 +24,9 @@ public class Medewerker implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date einddatum;
 
+    @Column(name = "emailadres", length = 50, nullable = false, unique = true)
+    private String emailadres;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idmedewerker")
@@ -31,9 +34,6 @@ public class Medewerker implements Serializable {
 
     @Column(length = 45, nullable = false)
     private String naam;
-
-    @Column(name = "emailadres", length = 50, nullable = false, unique = true)
-    private String emailadres;
 
     @Column(length = 45, nullable = false)
     private String rol;
@@ -52,68 +52,68 @@ public class Medewerker implements Serializable {
 	return contracturen;
     }
 
-    public void setContracturen(double contracturen) {
-	this.contracturen = contracturen;
-    }
-
     public Date getEinddatum() {
 	return einddatum;
-    }
-
-    public void setEinddatum(Date einddatum) {
-	this.einddatum = einddatum;
-    }
-
-    public int getIdmedewerker() {
-	return idmedewerker;
-    }
-
-    public void setIdmedewerker(int idmedewerker) {
-	this.idmedewerker = idmedewerker;
-    }
-
-    public String getNaam() {
-	return naam;
-    }
-
-    public void setNaam(String naam) {
-	this.naam = naam;
     }
 
     public String getEmailadres() {
 	return emailadres;
     }
 
-    public void setEmailadres(String emailadres) {
-	this.emailadres = emailadres;
+    public int getIdmedewerker() {
+	return idmedewerker;
+    }
+
+    public String getNaam() {
+	return naam;
     }
 
     public String getRol() {
 	return rol;
     }
 
-    public void setRol(String rol) {
-	this.rol = rol;
-    }
-
     public Date getStartdatum() {
 	return startdatum;
-    }
-
-    public void setStartdatum(Date startdatum) {
-	this.startdatum = startdatum;
     }
 
     public String getTeam() {
 	return team;
     }
 
-    public void setTeam(String team1) {
-	team = team1;
-    }
-
     public String getWachtwoord() {
 	return wachtwoord;
+    }
+
+    public void setContracturen(double contracturen) {
+	this.contracturen = contracturen;
+    }
+
+    public void setEinddatum(Date einddatum) {
+	this.einddatum = einddatum;
+    }
+
+    public void setEmailadres(String emailadres) {
+	this.emailadres = emailadres;
+    }
+
+    public void setIdmedewerker(int idmedewerker) {
+	this.idmedewerker = idmedewerker;
+    }
+
+    public void setNaam(String naam) {
+	this.naam = naam;
+    }
+
+    public void setRol(String rol) {
+	this.rol = rol;
+    }
+
+    public void setStartdatum(Date startdatum) {
+	this.startdatum = startdatum;
+    }
+
+    public void setTeam(String team1) {
+	team = team1;
     }
 
     public void setWachtwoord(String wachtwoord) {
