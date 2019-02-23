@@ -1,12 +1,12 @@
 /*
-Dit script bestaat nu uit 3 delen:
-1) Berekening van de start en einddatum van de weekstaat o.b.v. gekozen jaar- en weeknummer
-2) berekening kolomtotalen (per dag)
-3) berekening rijtotalen
+Het script is opgedeeld in blokken:
+1) Declaratie globale variabelen
+2) Geschreven functies
+3) Events
 
 */
 
-// DECLARATIE GLOBALE VARIABELEN
+// 1) DECLARATIE GLOBALE VARIABELEN
 
 var projecten = [];
 var medewerkerid;
@@ -18,120 +18,10 @@ var day2; // woensdag
 var day3; // donderdag
 var day4; // vrijdag
 
-/*
-BLOK BEREKENING VAN KOLOMTOTALEN
-
-
-// Bereken totaal voor maandag
-//$('#regform1').on('keyup', '.monday', function() {
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.monday').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totMonday').val(sum);
-})
-
-// Bereken totaal voor dinsdag
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.tuesday').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totTuesday').val(sum);
-})
-
-// Bereken totaal voor woensdag
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.wednesday').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totWednesday').val(sum);
-})
-
-// Bereken totaal voor donderdag
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.thursday').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totThursday').val(sum);
-})
-
-// Bereken totaal voor vrijdag
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.friday').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totFriday').val(sum);
-})
+// GESCHREVEN FUNCTIES
 
 /*
-BLOK BEREKENING VAN RIJTOTALEN
-
-// Bereken totaal voor rij0
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row0').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r0total').val(sum);
-})
-// Bereken totaal voor rij1
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row1').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r1total').val(sum);
-})
-
-// Bereken totaal voor rij2
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row2').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r2total').val(sum);
-})
-
-// Bereken totaal voor rij3
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row3').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r3total').val(sum);
-})
-
-// Bereken totaal voor rij4
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row4').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r4total').val(sum);
-})
-
-// Bereken totaal voor rij5
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.row5').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#r5total').val(sum);
-})
-
-// Bereken totaal voor totalen
-$('#regform1').keyup(function () {
-    var sum = 0;
-    $('.rowtotals').each(function () {
-        sum += Number($(this).val());
-    });
-    $('#totTotal').val(sum);
-})
+Algemene functie voor het uitlezen van aanwezige cookies
 */
 
 function getCookie(cname) {
@@ -181,15 +71,6 @@ function berekenTotalen() { // eerst de rijtotalen
 
 
 
-/* Event voor wijzigen data na aanpassing jaar en/of datum
- */
-$('.periodSelect').change(function () {
-    haalDatums();
-    // en bouw vervolgens het formulier op.... Ook hier moet ik iets met callbacks... die setTimeouts werken vertragend...
-    setTimeout(bouwFormulierOp, 500);
-    setTimeout(haalRegistratie, 750);
-    setTimeout(berekenTotalen, 1000);
-})
 
 function checkCookie() {
     var user = getCookie("user");
@@ -239,6 +120,9 @@ function haalDatums() {
     return false;
 }
 
+/*
+Met deze functie worden de projecten uit de database gehaald. We kiezen ervoor om alle projecten te tonen.
+*/
 function haalProjecten() {
     $.ajax({
         url: "/projecten",
@@ -266,6 +150,9 @@ function haalProjecten() {
     return false;
 }
 
+/*
+Met deze functies worden op basis van de medewerker ID en de startdatum van de week de aanwezige tijdregistraties in de database opgezocht.
+*/
 function haalRegistratie() {
     $.ajax({
         url: "/registraties/dezeweek",
@@ -358,17 +245,6 @@ function bouwTabelOp() {
     document.getElementById("tabelruimte").innerHTML = s;
 }
 
-/*
-Een probeersel om de tabel met gevulde waarden om te zetten in JSON formaat. Gaat hier nu even  
-via de invoeg toepassing: jquery.tabeltojson.min.js >> kan uiteraard ook anders. Ook afhankelijk
-van keuze op welke wijze invoer formulier wordt opgebouwd (ErRe 13-2-2019, 20:16).
-*/
-$('#run').click(function () {
-    var table = $('#test').tableToJSON();
-    console.log(table);
-    alert(JSON.stringify(table));
-});
-
 
 /*
 Onderstaand script bouwt een formulier op op basis van de projectenquery
@@ -459,6 +335,23 @@ function bouwFormulierOp() {
     document.getElementById("regform1").innerHTML = s;
 }
 
+/*
+EVENTS
+*/
+
+/* 
+Event voor wijzigen data na aanpassing jaar en/of datum
+*/
+$('.periodSelect').change(function () {
+    haalDatums();
+    // en bouw vervolgens het formulier op.... Ook hier moet ik iets met callbacks... die setTimeouts werken vertragend...
+    setTimeout(bouwFormulierOp, 500);
+    setTimeout(haalRegistratie, 750);
+    setTimeout(berekenTotalen, 1000);
+})
+/* 
+Event bij de eerste keer laden van de pagina
+*/
 
 $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
