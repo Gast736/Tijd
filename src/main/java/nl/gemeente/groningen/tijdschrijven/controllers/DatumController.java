@@ -24,28 +24,28 @@ public class DatumController {
     private int maandNummer;
     private int weekNummer;
 
+    @GetMapping("/daysOfWeek")
+    public Map<Integer, LocalDate> getDatesOfWeek(@RequestParam(name = "jaar") String jaar,
+	    @RequestParam(name = "week") String week) {
+	return DatumRepository.getDatesOfWeek(jaar, week);
+    }
+
     @GetMapping("/datum")
     public Map<String, Object> getDatums(@RequestParam(name = "jaar") String jaar,
 	    @RequestParam(name = "week") String week) {
 	return DatumRepository.getDatums(jaar, week);
     }
 
-    @GetMapping("/daysInWeek")
-    public Map<Integer, Object> getDaysInWeek(@RequestParam(name = "jaar") String jaar,
-	    @RequestParam(name = "week") String week) {
-	return DatumRepository.getDaysInWeek(jaar, week);
-    }
-
-    @GetMapping("/daysOfWeek")
-    public Map<Integer, LocalDate> getDatesOfWeek(@RequestParam(name = "jaar") String jaar,
-	    @RequestParam(name = "week") String week) {
-	return DatumRepository.getDatesOfWeek(jaar, week);
-    }
-    
     @GetMapping("/daysBetweenDates")
     public Map<Integer, Object> getDaysBetweenDates(@RequestParam(name = "begindatum") String begindatum,
 	    @RequestParam(name = "einddatum") String einddatum) {
 	return DatumRepository.getDaysBetweenDates(begindatum, einddatum);
+    }
+    
+    @GetMapping("/daysInWeek")
+    public Map<Integer, Object> getDaysInWeek(@RequestParam(name = "jaar") String jaar,
+	    @RequestParam(name = "week") String week) {
+	return DatumRepository.getDaysInWeek(jaar, week);
     }
 
     public Calendar stringToDate(String datum) {

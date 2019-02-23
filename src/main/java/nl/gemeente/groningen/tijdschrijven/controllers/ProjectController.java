@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import nl.gemeente.groningen.tijdschrijven.model.Project;
-import nl.gemeente.groningen.tijdschrijven.repositories.MedewerkerRepository;
 import nl.gemeente.groningen.tijdschrijven.repositories.ProjectRepository;
 
 @RestController

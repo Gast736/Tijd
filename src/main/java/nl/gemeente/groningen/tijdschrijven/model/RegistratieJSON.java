@@ -19,32 +19,32 @@ public class RegistratieJSON {
 	this.setUren(uren);
     }
 
-    public int getidProject() {
-	return idproject;
-    }
-
-    public void setidProject(int idproject) {
-	this.idproject = idproject;
-    }
-
     public int getidMedewerker() {
 	return idmedewerker;
     }
 
-    public void setidMedewerker(int idmedewerker) {
-	this.idmedewerker = idmedewerker;
+    public int getidProject() {
+	return idproject;
     }
 
     public Date getStartdatum() {
 	return startdatum;
     }
 
-    public void setStartdatum(Date startdatum) {
-	this.startdatum = startdatum;
-    }
-
     public double getUren() {
 	return uren;
+    }
+
+    public void setidMedewerker(int idmedewerker) {
+	this.idmedewerker = idmedewerker;
+    }
+
+    public void setidProject(int idproject) {
+	this.idproject = idproject;
+    }
+
+    public void setStartdatum(Date startdatum) {
+	this.startdatum = startdatum;
     }
 
     public void setUren(double uren) {

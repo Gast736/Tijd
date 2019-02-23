@@ -18,19 +18,19 @@ public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idproject")
-    private int idproject;
-    
     @Column(length = 45)
     private String categorie;
-
+    
     @Column(length = 45)
     private String directie;
 
     @Temporal(TemporalType.DATE)
     private Date einddatum;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idproject")
+    private int idproject;
 
     @Column(length = 45)
     private String naam;
