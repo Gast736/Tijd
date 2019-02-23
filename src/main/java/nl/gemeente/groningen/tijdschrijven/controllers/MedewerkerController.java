@@ -44,9 +44,9 @@ public class MedewerkerController {
     }
 
     @GetMapping("/medewerker/wachtwoord")
-    public Medewerker isWachtwoordCorrectNew(@RequestParam(name = "naam") String emailadres,
+    public Medewerker isWachtwoordCorrect(@RequestParam(name = "naam") String emailadres,
 	    @RequestParam(name = "wachtwoord") String wachtwoord) throws SQLException {
-	return MedewerkerRepository.isWachtwoordCorrectNew(emailadres, wachtwoord);
+	return MedewerkerRepository.isWachtwoordCorrect(emailadres, wachtwoord);
     }
 
     @PutMapping("/changeMedewerker")

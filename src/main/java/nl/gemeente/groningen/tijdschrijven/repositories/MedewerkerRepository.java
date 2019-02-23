@@ -141,7 +141,7 @@ public class MedewerkerRepository {
 
     }
 
-    public static Medewerker isWachtwoordCorrectNew(String emailadres, String wachtwoord) throws SQLException {
+    public static Medewerker isWachtwoordCorrect(String emailadres, String wachtwoord) throws SQLException {
 	String sql = "select idmedewerker, emailadres, contracturen, rol, wachtwoord from tblmedewerker where emailadres = ?";
 	ResultSet result = null;
 
@@ -178,40 +178,6 @@ public class MedewerkerRepository {
 	    }
 	}
 	return null;
-    }
-
-    public static int isWachtwoordCorrect(String emailadres, String wachtwoord) throws SQLException {
-	String sql = "select idmedewerker, emailadres, wachtwoord from tblmedewerker where emailadres = ?";
-	ResultSet result = null;
-
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
-
-	    stmt.setString(1, emailadres);
-	    result = stmt.executeQuery();
-
-	    result.next();
-
-	    Medewerker medewerker = new Medewerker();
-	    medewerker.setWachtwoord(result.getString("wachtwoord"));
-	    int id = result.getInt("idmedewerker");
-
-	    result.close();
-
-	    String wachtwoordCheck = medewerker.getWachtwoord();
-	    if (wachtwoordCheck.equals(wachtwoord)) {
-		logger.info("wachtwoord is correct en het id dat teruggegeven wordt = " + id);
-		return id;
-	    } else {
-		return 0;
-	    }
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	} finally {
-	    if (result != null) {
-		result.close();
-	    }
-	}
-	return 0;
     }
 
     public static int updateMedewerker(int idmedewerker, String emailadres, String naam, String wachtwoord,
