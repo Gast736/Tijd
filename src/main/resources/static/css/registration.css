@@ -9,6 +9,10 @@ body {
     float: left;
 }
 
+.form-control {
+    text-align: right;
+}
+
 #regform {
     float: left;
 }
@@ -17,6 +21,6 @@ h1 {
     text-align: center
 }
 
-.coltotals, .rowtotals {
+.coltotals, .rowtotals, .restant {
     font-weight: bold;
 }

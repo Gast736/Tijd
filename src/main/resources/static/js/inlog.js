@@ -1,20 +1,26 @@
 /* 
 ALGEMENE TOELICHTING OP DE CODE
 
-Dit javasscript zorgt voor de functionaliteit op de inlogpagina.
-1) Ophalen medewerkersnamen
-2) Tonen in het selectieveld inputName
-3) Checken of het ingevoerde wachtwoord overeenkomt met het geregistreerde wachtwoord
+Het script is opgedeeld in blokken:
+1) Declaratie globale variabelen
+2) Geschreven functies
+3) Events
+
+
 */
 
 
-// GLOBALE VARIABELEN
+// 1) DECLARATIE GLOBALE VARIABELEN
 
-function toonMedewerkers(jsonrecordset) {
-    /* Deze functie toont alle medewerkers:
+// 2) GESCHREVEN FUNCTIES
+
+/* Deze functie toont alle medewerkers:
     - doorloopt het json object
     - pakt daaruit de namen
-    - en plaatst deze in het div-element ophalenMdw.*/
+    - en plaatst deze in het div-element ophalenMdw.
+*/
+function toonMedewerkers(jsonrecordset) {
+
     var s = "";
     // LOGGING AAN
     console.log("Het JSON object met " + jsonrecordset.length + " records, is ontvangen.");
@@ -28,7 +34,10 @@ function toonMedewerkers(jsonrecordset) {
     document.getElementById("ophalenMdw").innerHTML = s;
     return false;
 }
-/* Deze functie zorgt dat er een cookie geplaatst*/
+
+/* 
+Deze functie zorgt dat er een cookie geplaatst
+*/
 function setCookie(cname, cvalue) {
     var d = new Date();
     d.setTime(d.getTime() + (60 * 60 * 1000)); //  cookie verloopt na één uur
@@ -36,11 +45,11 @@ function setCookie(cname, cvalue) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-
+/*
+Deze functie begeleidt de aanroep van de restcontroller. Er moet nog wel wat aan exception handling worden toegevoegd.
+*/
 function getData(surl, callback) {
-    /*
-    Deze functie begeleidt de aanroep van de restcontroller. Er moet nog wel wat aan exception handling worden toegevoegd.
-    */
+
     $.ajax({
         url: surl,
 
@@ -57,6 +66,10 @@ function getData(surl, callback) {
 }
 
 
+
+
+// 3) EVENTS
+
 // De code die bij het gereed zijn van de pagina wordt uitgevoerd. Maakt gebruik van de twee hierboven gedefinieerde functies
 $(document).ready(function () {
 
@@ -67,20 +80,6 @@ $(document).ready(function () {
     console.log("document is ready");
 });
 
-/* OUD CODEBLOK DAT NIET WERKTE.
-Dit gaf de volgende error: Uncaught ReferenceError: Invalid left-hand side in assignment op de regel waarin het id submitResult wordt gevuld
-$('#submitBtn').click(function (e) {
-    e.preventDefault();
-    $.ajax('/medewerker/wachtwoord', {
-        data: {
-            naam: $('#inputName').val(),
-            wachtwoord: $('#inputPassword').val()
-        }
-    }).done(function (data) {
-        $('#submitResult') = text(data);
-    });
-});
-*/
 
 $('#submitBtn').click(function (e) {
     console.log("Er is geklikt op de Submit button");
@@ -97,8 +96,7 @@ $('#submitBtn').click(function (e) {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
-            alert(JSON.stringify(data));
-            if (data!=null) {
+            if (data != null) {
                 setCookie("user", $('#inputName').val());
                 setCookie("id", data.idmedewerker);
                 setCookie("rol", data.rol);

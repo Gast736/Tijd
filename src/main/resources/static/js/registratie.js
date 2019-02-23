@@ -10,6 +10,8 @@ Het script is opgedeeld in blokken:
 
 var projecten = [];
 var medewerkerid;
+var contracturen;
+var rol;
 var begindatum;
 var einddatum;
 var day0; // maandag
@@ -21,9 +23,25 @@ var day4; // vrijdag
 // GESCHREVEN FUNCTIES
 
 /*
+Deze functie checkt of er een cookie is. Zo niet, dan zorgt deze voor een redirect naar index.html. Zo ja, dan worden medewerkerID, rol en contracturen opgeslagen als globale variabelen.
+*/
+function checkCookie() {
+    var user = getCookie("user");
+
+    if (user != "") {
+        medewerkerid = getCookie("id");
+        rol = getCookie("rol");
+        contracturen = getCookie("contracturen");
+        console.log("De id van ingelogde medewerker is: " + medewerkerid);
+        $('#employeeName').text(user);
+    } else {
+        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+        window.location.href = "index.html"
+    }
+}
+/*
 Algemene functie voor het uitlezen van aanwezige cookies
 */
-
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -43,7 +61,6 @@ function getCookie(cname) {
 /*
 Functie voor het berekenen van alle rij- en kolomtotalen. Kolommen zijn vast, projecten zijn variabel
 */
-
 function berekenTotalen() { // eerst de rijtotalen
     for (var i = 0; i < projecten.length; i++) {
         var sum = 0;
@@ -64,27 +81,13 @@ function berekenTotalen() { // eerst de rijtotalen
         sum += Number($(this).val());
     });
     $('#totTotal').val(sum);
+    $('#resterend').val(contracturen-sum);
     console.log("Totalen zijn berekend...");
 }
 
-
-
-
-
-
-function checkCookie() {
-    var user = getCookie("user");
-
-    if (user != "") {
-        medewerkerid = getCookie("id");
-        console.log("De id van ingelogde medewerker is: " + medewerkerid);
-        $('#employeeName').text(user);
-    } else {
-        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
-        window.location.href = "index.html"
-    }
-}
-
+/*
+Deze functie vult de weken 1 t/m 53 voor het selectieveld op het registratieformulier
+*/
 function vulWeken() {
     var w = "";
     for (var i = 1; i < 54; i++) {
@@ -92,7 +95,9 @@ function vulWeken() {
         $('#selWeek').html(w);
     }
 }
-
+/*
+Deze functie haalt de datums op die horen bij de geselecteerde week
+*/
 function haalDatums() {
     $.ajax({
         url: "/daysOfWeek",
@@ -233,20 +238,6 @@ $('#submitBtn').click(function (e) {
 });
 
 /*
-Onderstaand script bouwt een editable table op op basis van de projectenquery
-*/
-function bouwTabelOp() {
-    var s = "<table id=test><tr><th>Project</th><th>Maandag</th><th>Dinsdag</th><th>Woensdag</th><th>Donderdag</th><th>Vrijdag</th></tr>";
-    for (var i = 0; i < projecten.length; i++) {
-        s = s + "<tr><td>" + projecten[i].naam + "</td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td><td><div contenteditable>0</div></td></tr>";
-    }
-    s = s + "</table>";
-    console.log(s);
-    document.getElementById("tabelruimte").innerHTML = s;
-}
-
-
-/*
 Onderstaand script bouwt een formulier op op basis van de projectenquery
 */
 function bouwFormulierOp() {
@@ -277,7 +268,7 @@ function bouwFormulierOp() {
         // per project een rij aanmaken d.m.v. lus
         s = s + `<div id="row` + i + `" class="row">
                 <div class="col-sm-3">
-                    <strong>` + projecten[i].naam + `</strong>
+                    ` + projecten[i].naam + `
                 </div>
                 <div style="display: none;">
                     <input type="hidden" class="form-control row` + i + ` hidden" id="r` + i + `hidden"` + projecten[i].id + `>
@@ -310,7 +301,7 @@ function bouwFormulierOp() {
                     <strong>Totaal</strong>
                 </div>
                 <div class="col-sm">
-                    <input type="text" class="form-control coltotals" id="totcol0" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totcol0" placeholder="0">
                 </div>
                 <div class="col-sm">
                     <input type="number" class="form-control coltotals" id="totcol1" placeholder="0">
@@ -329,6 +320,15 @@ function bouwFormulierOp() {
                 </div>
             </div>
             <br>
+            <div class="row justify-content-between">
+                <div class="col-sm-3">
+                    <strong>Nog te schrijven</strong>
+                </div>
+                <div class="col-sm-2">
+                    <input type="number" class="form-control restant" id="resterend" placeholder="0">
+                </div>
+             </div>   
+            <br>
             <div class="row" id ="submitResult">
             </div>`;
     //console.log(s);
@@ -338,6 +338,13 @@ function bouwFormulierOp() {
 /*
 EVENTS
 */
+
+/* 
+Event voor wijzigingen in het formulier
+*/
+$('#regform1').keyup(function () {
+    berekenTotalen();
+})
 
 /* 
 Event voor wijzigen data na aanpassing jaar en/of datum
