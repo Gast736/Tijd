@@ -47,7 +47,7 @@ function nieuwProject() {
 	$.ajax('/nieuwProject', {
 		data: {
 			naam: $('#naam').val(),
-			catgorie: $('#categorie').val(),
+			categorie: $('#categorie').val(),
 			opdrachtgever: $('#opdrachtgever').val(),
 			directie: $('#directie').val(),
 			startdatum: $('#startdatum').val(),
