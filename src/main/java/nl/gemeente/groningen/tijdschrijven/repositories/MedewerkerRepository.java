@@ -109,23 +109,36 @@ public class MedewerkerRepository {
 	return medewerker;
     }
 
-    public static boolean insertMedewerker(Medewerker medewerker) throws SQLException {
-	String sql = "insert into tblMedewerker(naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) "
-		+ "values(?, ?, ?, ?, ?, ?, ?,)";
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
-	    stmt.setString(1, medewerker.getNaam());
-	    stmt.setString(2, medewerker.getWachtwoord());
-	    stmt.setString(3, medewerker.getTeam());
-	    stmt.setString(4, medewerker.getRol());
-	    stmt.setDouble(5, medewerker.getContracturen());
-	    stmt.setDate(6, (Date) medewerker.getStartdatum());
-	    stmt.setDate(7, (Date) medewerker.getEinddatum());
+    public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol,
+	    double contracturen, String startdatum, String einddatum) {
+	String sql = "insert into tblMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) values (?, ?, ?, ?, ?, ?, ?, ?)";
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
+	LocalDate start = LocalDate.parse(startdatum, formatter);
+	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
+		java.sql.Statement.RETURN_GENERATED_KEYS)) {
+	    stmt.setString(1, emailadres);
+	    stmt.setString(2, naam);
+	    stmt.setString(3, wachtwoord);
+	    stmt.setString(4, team);
+	    stmt.setString(5, rol);
+	    stmt.setDouble(6, contracturen);
+	    stmt.setDate(7, Date.valueOf(start));
+	    stmt.setDate(8, Date.valueOf(eind));
 
-	    stmt.executeQuery();
+	    stmt.executeUpdate();
+
+	    try (ResultSet key = stmt.getGeneratedKeys()) {
+		key.next();
+
+		return key.getInt(1);
+	    }
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + ": " + e.getMessage());
 	}
-	return false;
+
+	return -1;
+
     }
 
     public static int isWachtwoordCorrect(String emailadres, String wachtwoord) throws SQLException {
@@ -162,60 +175,6 @@ public class MedewerkerRepository {
 	return 0;
     }
 
-    public static boolean updateMedewerker(Medewerker medewerker) throws SQLException {
-	String sql = "update tblMedewerker " + "set naam = ?" + ", wachtwoord = ?" + ", team = ?" + ", rol = ?"
-		+ ", contracturen = ?" + ", startdatum = ?" + ", einddatum = ?";
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
-	    stmt.setString(1, medewerker.getNaam());
-	    stmt.setString(2, medewerker.getWachtwoord());
-	    stmt.setString(3, medewerker.getTeam());
-	    stmt.setString(4, medewerker.getRol());
-	    stmt.setDouble(5, medewerker.getContracturen());
-	    stmt.setDate(6, (Date) medewerker.getStartdatum());
-	    stmt.setDate(7, (Date) medewerker.getEinddatum());
-
-	    stmt.executeQuery();
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	}
-	return false;
-    }
-
-    private MedewerkerRepository() {
-    }
-
-    public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol,
-	    double contracturen, String startdatum, String einddatum) {
-	String sql = "insert into tblMedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) values (?, ?, ?, ?, ?, ?, ?, ?)";
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
-	LocalDate start = LocalDate.parse(startdatum, formatter);
-	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql,
-		java.sql.Statement.RETURN_GENERATED_KEYS)) {
-	    stmt.setString(1, emailadres);
-	    stmt.setString(2, naam);
-	    stmt.setString(3, wachtwoord);
-	    stmt.setString(4, team);
-	    stmt.setString(5, rol);
-	    stmt.setDouble(6, contracturen);
-	    stmt.setDate(7, Date.valueOf(start));
-	    stmt.setDate(8, Date.valueOf(eind));
-
-	    stmt.executeUpdate();
-
-	    try (ResultSet key = stmt.getGeneratedKeys()) {
-		key.next();
-
-		return key.getInt(1);
-	    }
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	}
-
-	return -1;
-
-    }
-
     public static int updateMedewerker(int idmedewerker, String emailadres, String naam, String wachtwoord,
 	    String team, String rol, double contracturen, Date startdatum, Date einddatum) {
 	String sql = "update tblMedewerker set emailadres=?, naam=?, wachtwoord=?, team=?, rol=?, contracturen=?, startdatum=?, einddatum=? where idmedewerker=?";
@@ -242,4 +201,5 @@ public class MedewerkerRepository {
 
 	return -1;
     }
+
 }
