@@ -20,7 +20,7 @@ var day4; // vrijdag
 
 /*
 BLOK BEREKENING VAN KOLOMTOTALEN
-*/
+
 
 // Bereken totaal voor maandag
 //$('#regform1').on('keyup', '.monday', function() {
@@ -70,7 +70,7 @@ $('#regform1').keyup(function () {
 
 /*
 BLOK BEREKENING VAN RIJTOTALEN
-*/
+
 // Bereken totaal voor rij0
 $('#regform1').keyup(function () {
     var sum = 0;
@@ -132,7 +132,7 @@ $('#regform1').keyup(function () {
     });
     $('#totTotal').val(sum);
 })
-
+*/
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -149,12 +149,46 @@ function getCookie(cname) {
     return "";
 }
 
+
+/*
+Functie voor het berekenen van alle rij- en kolomtotalen. Kolommen zijn vast, projecten zijn variabel
+*/
+
+function berekenTotalen() { // eerst de rijtotalen
+    for (var i = 0; i < projecten.length; i++) {
+        var sum = 0;
+        $('.row' + i).each(function () {
+            sum += Number($(this).val());
+        });
+        $('#r' + i + 'total').val(sum);
+    }; // en voor de kolomtotalen
+    for (var i = 0; i < 5; i++) {
+        var sum = 0;
+        $('.col' + i).each(function () {
+            sum += Number($(this).val());
+        });
+        $('#totcol' + i).val(sum);
+    }; // en voor het eindtotaal
+    var sum = 0;
+    $('.rowtotals').each(function () {
+        sum += Number($(this).val());
+    });
+    $('#totTotal').val(sum);
+    console.log("Totalen zijn berekend...");
+}
+
+
+
+
+
 /* Event voor wijzigen data na aanpassing jaar en/of datum
  */
 $('.periodSelect').change(function () {
     haalDatums();
     // en bouw vervolgens het formulier op.... Ook hier moet ik iets met callbacks... die setTimeouts werken vertragend...
-    setTimeout(bouwFormulierOp, 1500);
+    setTimeout(bouwFormulierOp, 500);
+    setTimeout(haalRegistratie, 750);
+    setTimeout(berekenTotalen, 1000);
 })
 
 function checkCookie() {
@@ -171,12 +205,13 @@ function checkCookie() {
 }
 
 function vulWeken() {
-    var w= "";
-    for (var i=1; i<54; i++) {
-        w = w + "<option>"+i+"</option>";
+    var w = "";
+    for (var i = 1; i < 54; i++) {
+        w = w + "<option>" + i + "</option>";
         $('#selWeek').html(w);
     }
 }
+
 function haalDatums() {
     $.ajax({
         url: "/daysOfWeek",
@@ -218,7 +253,7 @@ function haalProjecten() {
                     projectid: data[i].idProject,
                     naam: data[i].naam
 
-                }; 
+                };
                 projecten.push(project); // Met push voeg je het element toe aan de array projecten
             }
         },
@@ -246,9 +281,9 @@ function haalRegistratie() {
             console.log(data);
             for (var i = 0; i < data.length; i++) {
                 // Hier vormen we de JSON om naar de velden uit het formulier. Het projectid wordt omgerekend (-1).
-                var veldId = "r" + (data[i].idProject-1) + data[i].startdatum;
+                var veldId = "r" + (data[i].idProject - 1) + data[i].startdatum;
                 console.log("We schrijven naar veld " + veldId + " het volgende aantal uren: " + data[i].uren);
-                $('#'+veldId).val(data[i].uren);
+                $('#' + veldId).val(data[i].uren);
             }
         },
         error: function (requestObject, error, errorThrown) {
@@ -372,19 +407,19 @@ function bouwFormulierOp() {
                     <input type="hidden" class="form-control row` + i + ` hidden" id="r` + i + `hidden"` + projecten[i].id + `>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` monday" id="r` + i + day0 + `" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` monday col0" id="r` + i + day0 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` tuesday" id="r` + i + day1 + `" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` tuesday col1" id="r` + i + day1 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` wednesday" id="r` + i + day2 + `" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` wednesday col2" id="r` + i + day2 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` thursday" id="r` + i + day3 + `" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` thursday col3" id="r` + i + day3 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` friday" id="r` + i + day4 + `" placeholder="0">
+                    <input type="number" class="form-control inputfield` + i + ` row` + i + ` friday col4" id="r` + i + day4 + `" placeholder="0">
                 </div>
                 <div class="col-sm">
                     <input type="number" class="form-control rowtotals" id="r` + i + `total" placeholder="0">
@@ -399,19 +434,19 @@ function bouwFormulierOp() {
                     <strong>Totaal</strong>
                 </div>
                 <div class="col-sm">
-                    <input type="text" class="form-control coltotals" id="totMonday" placeholder="0">
+                    <input type="text" class="form-control coltotals" id="totcol0" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control coltotals" id="totTuesday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totcol1" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control coltotals" id="totWednesday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totcol2" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control coltotals" id="totThursday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totcol3" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control coltotals" id="totFriday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totcol4" placeholder="0">
                 </div>
                 <div class="col-sm">
                     <input type="number" class="form-control coltotals" id="totTotal" placeholder="0">
@@ -433,5 +468,6 @@ $(document).ready(function () {
     haalProjecten();
     setTimeout(bouwFormulierOp, 500);
     console.log(projecten);
-    setTimeout(haalRegistratie,1000);
+    setTimeout(haalRegistratie, 750);
+    setTimeout(berekenTotalen, 1000);
 });
