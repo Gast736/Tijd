@@ -218,7 +218,7 @@ function haalProjecten() {
                     projectid: data[i].idProject,
                     naam: data[i].naam
 
-                }; // we maken een project object. De ID mist nog in de controller
+                }; 
                 projecten.push(project); // Met push voeg je het element toe aan de array projecten
             }
         },
@@ -244,6 +244,12 @@ function haalRegistratie() {
             // LOGGING AAN
             console.log("HaalRegistratie: Het JSON object met " + data.length + " records, is ontvangen.");
             console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                // Hier vormen we de JSON om naar de velden uit het formulier. Het projectid wordt omgerekend (-1).
+                var veldId = "r" + (data[i].idProject-1) + data[i].startdatum;
+                console.log("We schrijven naar veld " + veldId + " het volgende aantal uren: " + data[i].uren);
+                $('#'+veldId).val(data[i].uren);
+            }
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -276,11 +282,6 @@ $('#submitBtn').click(function (e) {
                 };
                 registratie.push(model);
 
-
-                /* DIT WERKTE NIET
-                var o = '{"idmedewerker":"'+ medewerkerid + '","idproject":"' + projecten[i].projectid + '","startdatum":"' + $(this).attr("id").substring(2, 13) + '","uren":"' + $(this).val() +'"}';
-                registratie.push(o);
-                */
             }
         });
     }
