@@ -211,7 +211,7 @@ function haalProjecten() {
         dataType: 'json',
         success: function (data) {
             // LOGGING AAN
-            console.log("Het JSON object met " + data.length + " records, is ontvangen.");
+            console.log("haalProjecten: Het JSON object met " + data.length + " records, is ontvangen.");
             console.log(data);
             for (var i = 0; i < data.length; i++) {
                 var project = {
@@ -233,7 +233,7 @@ function haalProjecten() {
 
 function haalRegistratie() {
     $.ajax({
-        url: "/registraties/perweek",
+        url: "/registraties/dezeweek",
         method: 'GET',
         data: {
             datum: day0,
@@ -242,7 +242,7 @@ function haalRegistratie() {
         dataType: 'json',
         success: function (data) {
             // LOGGING AAN
-            console.log("Het JSON object met " + data.length + " records, is ontvangen.");
+            console.log("HaalRegistratie: Het JSON object met " + data.length + " records, is ontvangen.");
             console.log(data);
         },
         error: function (requestObject, error, errorThrown) {
@@ -392,29 +392,31 @@ function bouwFormulierOp() {
 
     }
     // totaalrij toevoegen
-    s = s + `<div id="coltotals" class="row">
+    s = s + `<br>
+            <div id="coltotal" class="row">
                 <div class="col-sm-3">
                     <strong>Totaal</strong>
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totMonday" placeholder="0">
+                    <input type="text" class="form-control coltotals" id="totMonday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totTuesday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totTuesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totWednesday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totWednesday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totThursday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totThursday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totFriday" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totFriday" placeholder="0">
                 </div>
                 <div class="col-sm">
-                    <input type="number" class="form-control" id="totTotal" placeholder="0">
+                    <input type="number" class="form-control coltotals" id="totTotal" placeholder="0">
                 </div>
             </div>
+            <br>
             <div class="row" id ="submitResult">
             </div>`;
     //console.log(s);
