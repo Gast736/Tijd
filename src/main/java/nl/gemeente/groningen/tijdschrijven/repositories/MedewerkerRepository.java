@@ -141,6 +141,45 @@ public class MedewerkerRepository {
 
     }
 
+    public static Medewerker isWachtwoordCorrectNew(String emailadres, String wachtwoord) throws SQLException {
+	String sql = "select idmedewerker, emailadres, contracturen, rol, wachtwoord from tblmedewerker where emailadres = ?";
+	ResultSet result = null;
+
+	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
+
+	    stmt.setString(1, emailadres);
+	    result = stmt.executeQuery();
+
+	    result.next();
+
+	    Medewerker medewerker = new Medewerker();
+	    Medewerker medewerkerReturn = new Medewerker();
+	    medewerker.setWachtwoord(result.getString("wachtwoord"));
+	    medewerkerReturn.setIdmedewerker(result.getInt("idmedewerker"));
+	    medewerkerReturn.setEmailadres(result.getString("emailadres"));
+	    medewerkerReturn.setRol(result.getString("rol"));
+	    medewerkerReturn.setContracturen(result.getDouble("contracturen"));
+//	    int id = result.getInt("idmedewerker");
+
+	    result.close();
+
+	    String wachtwoordCheck = medewerker.getWachtwoord();
+	    if (wachtwoordCheck.equals(wachtwoord)) {
+		logger.info("wachtwoord is correct en het object dat teruggegeven wordt = " + medewerkerReturn);
+		return medewerkerReturn;
+	    } else {
+		return null;
+	    }
+	} catch (SQLException e) {
+	    logger.error(e.getErrorCode() + ": " + e.getMessage());
+	} finally {
+	    if (result != null) {
+		result.close();
+	    }
+	}
+	return null;
+    }
+
     public static int isWachtwoordCorrect(String emailadres, String wachtwoord) throws SQLException {
 	String sql = "select idmedewerker, emailadres, wachtwoord from tblmedewerker where emailadres = ?";
 	ResultSet result = null;

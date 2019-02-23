@@ -97,10 +97,12 @@ $('#submitBtn').click(function (e) {
         method: 'GET',
         dataType: 'json',
         success: function (data) {
-            if (data>=1) {
-                console.log("het medewerker is: " + data);
+            alert(JSON.stringify(data));
+            if (data!=null) {
                 setCookie("user", $('#inputName').val());
-                setCookie("id", data);
+                setCookie("id", data.idmedewerker);
+                setCookie("rol", data.rol);
+                setCookie("contracturen", data.contracturen);
                 window.location.href = "registratie.html";
             } else {
                 $('#submitResult').addClass("alert alert-danger");
