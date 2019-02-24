@@ -433,7 +433,7 @@ public class RegistratieRepository {
 		"where\r\n" + 
 		"	r.idmedewerker = ?\r\n" + 
 		"and\r\n" + 
-		"	startdatum between ? and ?\r\n" + 
+		"	r.startdatum between ? and ?\r\n" + 
 		"group by \r\n" + 
 		"	m.naam \r\n" + 
 		",	p.naam \r\n" + 
@@ -448,7 +448,7 @@ public class RegistratieRepository {
 		Totaaloverzicht t = new Totaaloverzicht();
 		t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
 		t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
-		t.setPeriode(result.getInt("jaarweek"));
+		t.setPeriode(result.getInt("jaarmaand"));
 		t.setAantal(result.getInt("uren"));
 
 		totalen.add(t);

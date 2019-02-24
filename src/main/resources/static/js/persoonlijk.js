@@ -12,13 +12,6 @@ var projecten = [];
 var medewerkerid;
 var contracturen;
 var rol;
-var begindatum;
-var einddatum;
-var day0; // maandag
-var day1; // dinsdag
-var day2; // woensdag
-var day3; // donderdag
-var day4; // vrijdag
 
 // GESCHREVEN FUNCTIES
 
@@ -77,6 +70,32 @@ function addBeheerMenu() {
 }
 
 
+
+function haalUrenPerProjectPerMaand() {
+    $.ajax({
+        url: "/registraties/TotaalUrenPerMedewerkerPerProjectPerMaand",
+        method: 'GET',
+        data: {
+            idmedewerker: medewerkerid,
+            begindatum: "2019-01-01",
+            einddatum: "2019-12-31",
+        },
+        dataType: 'json',
+        success: function (data) {
+            // LOGGING AAN
+            console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
+            alert(JSON.stringify(data));
+        },
+        error: function (requestObject, error, errorThrown) {
+
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+}
+
+
 /* 
 Event bij de eerste keer laden van de pagina
 */
@@ -85,4 +104,5 @@ $(document).ready(function () {;
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     addBeheerMenu();
+    setTimeout(haalUrenPerProjectPerMaand, 500);
 });
