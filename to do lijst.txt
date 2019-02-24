@@ -22,9 +22,11 @@ database en of controller gedaan moet worden.
 DATABASE
 --------------------------------------------------------------------------
 1) Meer vulling in database om mooie grafieken te krijgen. (ERWIN / MAARTEN)
-2) Toevoegen Beheerder: het snelst is om een user met naam beheerder toe 
-   te voegen (dan hoeven we niet apart iets met rollen te doen)
-   (ERWIN / MAARTEN)
+
+
+DONE: Op basis van rol. Toevoegen Beheerder: het snelst is om een user met naam beheerder toe 
+te voegen (dan hoeven we niet apart iets met rollen te doen)
+(ERWIN / MAARTEN)
  
 --------------------------------------------------------------------------
 LOGICA / API
@@ -36,59 +38,61 @@ LOGICA / API
 --------------------------------------------------------------------------
 WEBPAGINA'S ALGEMEEN
 --------------------------------------------------------------------------
-1) NICE-TO-HAVE: Alleen beheerder krijgt resultaat als hij op de knop 
-   'Beheer' drukt(ARJAN)
+DONE: Alleen beheerder krijgt resultaat als hij op de knop 
+'Beheer' drukt(ARJAN)
 
 --------------------------------------------------------------------------
 REGISTRATIE.HTML
 --------------------------------------------------------------------------
 1) Creëren JSON o.b.v ingevuld formulier en verzending met POST (ARJAN)
-2) Ophalen JSON en invullen in formulier met GET. (ARJAN)
-3) NICE-TO-HAVE: Versnellen paginacreatie door callbacks te gebruiken
-   (ARJAN)
+   (Opm: geeft nu weer een foutmelding)
+2) NICE-TO-HAVE: Versnellen paginacreatie door callbacks te gebruiken
+   (ARJAN). (Opm: ik krijg dit nog niet werkend.)
+
+DONE: Ophalen JSON en invullen in formulier met GET. (ARJAN)
 
 --------------------------------------------------------------------------
 PROJECTEN.HTML
 --------------------------------------------------------------------------
-1) Aanmaken pagina met daarin een tabel voor het beheer van de projecten
-2) Hoe zien we zo'n pagina voor ons? Het lijkt me dat je raadplegen,
-   toevoegen en muteren in één pagina wilt doen. Zie je dan eerst alle
-   records (obv GET) en heb je daaronder een aparte regel voor muteren en
-   toevoegen? Zijn alle controllers hiervoor aanwezig?   (ERWIN / MAARTEN)
+DONE: Aanmaken pagina met daarin een tabel voor het beheer van de projecten
+DONE: Hoe zien we zo'n pagina voor ons? Het lijkt me dat je raadplegen,
+toevoegen en muteren in één pagina wilt doen. Zie je dan eerst alle
+records (obv GET) en heb je daaronder een aparte regel voor muteren en
+toevoegen? Zijn alle controllers hiervoor aanwezig?   (ERWIN / MAARTEN)
 
 --------------------------------------------------------------------------
 MEDEWERKERS.HTML
 --------------------------------------------------------------------------
-1) Aanmaken pagina met daarin een tabel voor het beheer van de projecten
-   (ARJAN)
-2) Hoe zien we zo'n pagina voor ons? Het lijkt me dat je raadplegen,
-   toevoegen en muteren in één pagina wilt doen. Zie je dan eerst alle
-   records (obv GET) en heb je daaronder een aparte regel voor muteren en
-   toevoegen? Zijn alle controllers hiervoor aanwezig?   (ERWIN / MAARTEN)
+DONE: Aanmaken pagina met daarin een tabel voor het beheer van de projecten
+(MAARTEN)
+DONE: Hoe zien we zo'n pagina voor ons? Het lijkt me dat je raadplegen,
+toevoegen en muteren in één pagina wilt doen. Zie je dan eerst alle
+records (obv GET) en heb je daaronder een aparte regel voor muteren en
+toevoegen? Zijn alle controllers hiervoor aanwezig?   (ERWIN / MAARTEN)
 
 --------------------------------------------------------------------------
-RAPPORTAGEPERSOONLIJK.HTML
+PERSOONLIJK.HTML (RAPPORTAGE)
 --------------------------------------------------------------------------
-1) Aanmaken pagina (ARJAN)
-2) Bepalen inhoud grafieken en tabellen (ERWIN / MAARTEN)
-3) Schrijven controller(s) daarvoor. Voor de grafieken geldt ook dat hier
+
+1) Bepalen inhoud grafieken en tabellen (ERWIN / MAARTEN)
+2) Schrijven controller(s) daarvoor. Voor de grafieken geldt ook dat hier
    een JSON object ontvangen moet worden met daarin de labels en waarden
    per dataset   (ERWIN / MAARTEN)
-4) Ophalen data en tonen in tabellen (ARJAN)
-5) NICE-TO-HAVE: Implementatie grafiek met chart.js (ARJAN)
+3) Ophalen data en tonen in tabellen (ARJAN)
+4) NICE-TO-HAVE: Implementatie grafiek met chart.js (ARJAN)
    
+DONE: Aanmaken pagina (ARJAN)
 --------------------------------------------------------------------------
-RAPPORTAGEAFDELING.HTML
+AFDELING.HTML (RAPPORTAGE)
 --------------------------------------------------------------------------
-1) Aanmaken pagina (ARJAN)
-2) Bepalen inhoud grafieken en tabellen (ERWIN / MAARTEN)
-3) Schrijven controller(s) daarvoor. Voor de grafieken geldt ook dat hier
+1) Bepalen inhoud grafieken en tabellen (ERWIN / MAARTEN)
+2) Schrijven controller(s) daarvoor. Voor de grafieken geldt ook dat hier
    een JSON object ontvangen moet worden met daarin de labels en waarden
    per dataset   (ERWIN / MAARTEN)
-4) Ophalen data en tonen in tabellen (ARJAN)
-5) NICE-TO-HAVE: Implementatie grafiek met chart.js (ARJAN)
+3) Ophalen data en tonen in tabellen (ARJAN)
+4) NICE-TO-HAVE: Implementatie grafiek met chart.js (ARJAN)
 
-
+DONE: Aanmaken pagina (ARJAN)
 
 
 
