@@ -59,7 +59,7 @@ public class RegistratieController {
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerJaar")
     public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerJaar(
-	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="idmedewerker") int idmedewerker, 
 	    @RequestParam(name="begindatum") String begindatum, 
 	    @RequestParam(name="einddatum") String einddatum)
 	    throws SQLException {
@@ -68,7 +68,7 @@ public class RegistratieController {
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerKwartaal")
     public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerKwartaal(
-	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="idmedewerker") int idmedewerker, 
 	    @RequestParam(name="begindatum") String begindatum, 
 	    @RequestParam(name="einddatum") String einddatum)
 	    throws SQLException {
@@ -77,7 +77,7 @@ public class RegistratieController {
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerMaand")
     public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerMaand(
-	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="idmedewerker") int idmedewerker, 
 	    @RequestParam(name="begindatum") String begindatum, 
 	    @RequestParam(name="einddatum") String einddatum)
 	    throws SQLException {
@@ -86,7 +86,7 @@ public class RegistratieController {
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerWeek")
     public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerWeek(
-	    @RequestParam(name="idmedewerker") String idmedewerker, 
+	    @RequestParam(name="idmedewerker") int idmedewerker, 
 	    @RequestParam(name="begindatum") String begindatum, 
 	    @RequestParam(name="einddatum") String einddatum)
 	    throws SQLException {
@@ -125,6 +125,13 @@ public class RegistratieController {
 	    @RequestParam(name="idmedewerker") int idmedewerker)
 	    throws SQLException {
 	return RegistratieRepository.getTotaalUrenVerlofPerMedewerkerPerMaand(idmedewerker);
+    }
+
+    @GetMapping("/registraties/EersteOnvolledigeWeekPerMedewerker")
+    public String getEersteOnvolledigeWeekPerMedewerker(
+	    @RequestParam(name="idmedewerker") int idmedewerker)
+	    throws SQLException {
+	return RegistratieRepository.getEersteOnvolledigeWeekPerMedewerker(idmedewerker);
     }
 
     @PostMapping("/registratieUpdate")
