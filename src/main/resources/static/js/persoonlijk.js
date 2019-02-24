@@ -161,7 +161,7 @@ window.onload = function () {
         options: {
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart - Stacked'
+                text: 'Uren per maand per project'
             },
             tooltips: {
                 mode: 'index',
