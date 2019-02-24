@@ -1,3 +1,18 @@
+function checkCookie() {
+    var user = getCookie("user");
+
+    if (user != "") {
+        medewerkerid = getCookie("id");
+        rol = getCookie("rol");
+        contracturen = getCookie("contracturen");
+        console.log("De id van ingelogde medewerker is: " + medewerkerid);
+        $('#employeeName').text(user);
+    } else {
+        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+        window.location.href = "index.html"
+    }
+}
+
 function createSelectCategorie(idproject, categorie) {
     let options = ["Project", "Intern project", "Afwezigheid"];
     let select = `<td><select class='form-control' id='categorie-` + idproject +`'>`;
@@ -106,5 +121,6 @@ $('#projTbody').on('click', '.btnOpslaan', function(e){
 })
 
 $("document").ready(function() {
+    checkCookie();
     haalProjecten();
 });

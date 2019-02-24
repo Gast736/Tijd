@@ -93,6 +93,40 @@ public class RegistratieController {
 	return RegistratieRepository.getTotaalUrenPerMedewerkerPerProjectPerWeek(idmedewerker, begindatum, einddatum);
     }
 
+    @GetMapping("/registraties/TotaalUrenPerProjectPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenPerProjectPerMaand(
+	    @RequestParam(name="idproject") int idproject)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerProjectPerMaand(idproject);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerOpdrachtgeverPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenPerOpdrachtgeverPerMaand(
+	    @RequestParam(name="opdrachtgever") String opdrachtgever)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerOpdrachtgeverPerMaand(opdrachtgever);
+    }
+
+    @GetMapping("/registraties/TotaalUrenPerMedewerkerPerOpdrachtgeverPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerOpdrachtgeverPerMaand(
+	    @RequestParam(name="idmedewerker") int idmedewerker)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenPerMedewerkerPerOpdrachtgeverPerMaand(idmedewerker);
+    }
+
+    @GetMapping("/registraties/TotaalUrenVerlofPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenVerlofPerMaand()
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenVerlofPerMaand();
+    }
+
+    @GetMapping("/registraties/TotaalUrenVerlofPerMedewerkerPerMaand")
+    public List<Totaaloverzicht> getTotaalUrenVerlofPerMedewerkerPerMaand(
+	    @RequestParam(name="idmedewerker") int idmedewerker)
+	    throws SQLException {
+	return RegistratieRepository.getTotaalUrenVerlofPerMedewerkerPerMaand(idmedewerker);
+    }
+
     @PostMapping("/registratieUpdate")
     public boolean registratieUpdate(@RequestBody List<RegistratieJSON> registraties) throws SQLException {
 	System.out.println("Postcontroller is aangeroepen");

@@ -1,5 +1,20 @@
 var medewerkers = [];
 
+function checkCookie() {
+    var user = getCookie("user");
+
+    if (user != "") {
+        medewerkerid = getCookie("id");
+        rol = getCookie("rol");
+        contracturen = getCookie("contracturen");
+        console.log("De id van ingelogde medewerker is: " + medewerkerid);
+        $('#employeeName').text(user);
+    } else {
+        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+        window.location.href = "index.html"
+    }
+}
+
 function vulMedewerkers(m) {
     medewerkers.push(m);
 }
@@ -135,5 +150,6 @@ function getResult(res) {
     return res;
 }
 $("document").ready(function() {
+    checkCookie();
     haalMedewerkers();
 });
