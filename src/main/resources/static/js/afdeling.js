@@ -12,19 +12,66 @@ var projecten = [];
 var medewerkerid;
 var contracturen;
 var rol;
-var begindatum;
-var einddatum;
-var day0; // maandag
-var day1; // dinsdag
-var day2; // woensdag
-var day3; // donderdag
-var day4; // vrijdag
+var json = {
+    "dataset": [{
+        "project": "Migratie Cognos",
+        "uren": 400
+   }, {
+        "project": "Financiële Managementinfo",
+        "uren": 800
+   }, {
+        "project": "DMO Indicatiewaarden",
+        "uren": 500
+   }, {
+        "project": "Verlof",
+        "uren": 100
+   }, {
+        "project": "Ziekte",
+        "uren": 0
+   }]
+};
+
 
 // GESCHREVEN FUNCTIES
 
 /*
 Deze functie checkt of er een cookie is. Zo niet, dan zorgt deze voor een redirect naar index.html. Zo ja, dan worden medewerkerID, rol en contracturen opgeslagen als globale variabelen.
 */
+function maakGrafiekUitJson() {
+    var labels = json.dataset.map(function (e) {
+        return e.project;
+    });
+    var data = json.dataset.map(function (e) {
+        return e.uren;
+    });;
+
+    var ctx = canvas.getContext('2d');
+    var config = {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Uren per project',
+                data: data,
+                backgroundColor: '#007bff'
+      }],
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+        }]
+                }
+            }
+        }
+    };
+
+
+    var chart = new Chart(ctx, config);
+}
+
+
 function checkCookie() {
     var user = getCookie("user");
 
@@ -63,7 +110,7 @@ function getCookie(cname) {
 Deze functie zorgt voor toevoeging van het beheerdersmenu als de gebruiker de juiste rol heeft
 */
 function addBeheerMenu() {
-    if (rol=="beheerder") {
+    if (rol == "beheerder") {
         $('#navbarList').append(`<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Beheer</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown02">
@@ -77,6 +124,34 @@ function addBeheerMenu() {
 }
 
 
+
+function haalUrenPerProjectPerMaand() {
+    $.ajax({
+        url: "/registraties/TotaalUrenPerMedewerkerPerProjectPerMaand",
+        method: 'GET',
+        data: {
+            idmedewerker: medewerkerid,
+            begindatum: "2019-01-01",
+            einddatum: "2019-12-31",
+        },
+        dataType: 'json',
+        success: function (data) {
+            // LOGGING AAN
+            console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
+            //alert(JSON.stringify(data));
+        },
+        error: function (requestObject, error, errorThrown) {
+
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+}
+
+
+
+
 /* 
 Event bij de eerste keer laden van de pagina
 */
@@ -85,4 +160,6 @@ $(document).ready(function () {;
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     addBeheerMenu();
+    setTimeout(haalUrenPerProjectPerMaand, 500);
+    maakGrafiekUitJson();
 });
