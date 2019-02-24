@@ -43,7 +43,7 @@ function maakGrafiekUitJson() {
     });
     var data = json.dataset.map(function (e) {
         return e.uren;
-    });;
+    })
 
     var ctx = canvas.getContext('2d');
     var config = {
@@ -156,7 +156,7 @@ function haalUrenPerProjectPerMaand() {
 Event bij de eerste keer laden van de pagina
 */
 
-$(document).ready(function () {;
+$(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     addBeheerMenu();

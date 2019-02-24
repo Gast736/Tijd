@@ -68,14 +68,14 @@ function berekenTotalen() { // eerst de rijtotalen
             sum += Number($(this).val());
         });
         $('#r' + i + 'total').val(sum);
-    }; // en voor de kolomtotalen
+    } // en voor de kolomtotalen
     for (var i = 0; i < 5; i++) {
         var sum = 0;
         $('.col' + i).each(function () {
             sum += Number($(this).val());
         });
         $('#totcol' + i).val(sum);
-    }; // en voor het eindtotaal
+    } // en voor het eindtotaal
     var sum = 0;
     $('.rowtotals').each(function () {
         sum += Number($(this).val());
@@ -387,7 +387,7 @@ $('.periodSelect').change(function () {
 Event bij de eerste keer laden van de pagina
 */
 
-$(document).ready(function () {;
+$(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     vulWeken();

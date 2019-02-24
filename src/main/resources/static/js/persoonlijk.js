@@ -185,7 +185,7 @@ window.onload = function () {
 Event bij de eerste keer laden van de pagina
 */
 
-$(document).ready(function () {;
+$(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     addBeheerMenu();

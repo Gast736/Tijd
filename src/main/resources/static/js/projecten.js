@@ -2,9 +2,9 @@ function checkCookie() {
     var user = getCookie("user");
 
     if (user != "") {
-        medewerkerid = getCookie("id");
-        rol = getCookie("rol");
-        contracturen = getCookie("contracturen");
+        let medewerkerid = getCookie("id");
+        let rol = getCookie("rol");
+        let contracturen = getCookie("contracturen");
         console.log("De id van ingelogde medewerker is: " + medewerkerid);
         $('#employeeName').text(user);
     } else {

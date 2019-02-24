@@ -159,7 +159,6 @@ public class MedewerkerRepository {
 	    medewerkerReturn.setEmailadres(result.getString("emailadres"));
 	    medewerkerReturn.setRol(result.getString("rol"));
 	    medewerkerReturn.setContracturen(result.getDouble("contracturen"));
-//	    int id = result.getInt("idmedewerker");
 
 	    result.close();
 
@@ -183,9 +182,6 @@ public class MedewerkerRepository {
     public static int updateMedewerker(int idmedewerker, String emailadres, String naam, String wachtwoord,
 	    String team, String rol, double contracturen, Date startdatum, Date einddatum) {
 	String sql = "update tblMedewerker set emailadres=?, naam=?, wachtwoord=?, team=?, rol=?, contracturen=?, startdatum=?, einddatum=? where idmedewerker=?";
-//	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
-//	LocalDate start = LocalDate.parse(startdatum, formatter);
-//	LocalDate eind = LocalDate.parse((einddatum.isEmpty() ? "9999-12-31" : einddatum), formatter);
 	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
 	    stmt.setString(1, emailadres);
 	    stmt.setString(2, naam);
