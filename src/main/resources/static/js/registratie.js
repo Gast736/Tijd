@@ -81,7 +81,7 @@ function berekenTotalen() { // eerst de rijtotalen
         sum += Number($(this).val());
     });
     $('#totTotal').val(sum);
-    $('#resterend').val(contracturen-sum);
+    $('#resterend').val(contracturen - sum);
     console.log("Totalen zijn berekend...");
 }
 
@@ -89,7 +89,7 @@ function berekenTotalen() { // eerst de rijtotalen
 Deze functie zorgt voor toevoeging van het beheerdersmenu als de gebruiker de juiste rol heeft
 */
 function addBeheerMenu() {
-    if (rol=="beheerder") {
+    if (rol == "beheerder") {
         $('#navbarList').append(`<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Beheer</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown02">
@@ -132,6 +132,31 @@ function haalDatums() {
             day4 = data[4].substring(0, 10);
             var d = "Van " + day0 + " tot " + day4;
             $('#fromUntil').text(d);
+        },
+        error: function (requestObject, error, errorThrown) {
+
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+}
+
+/*
+Met deze functie wordt de eerste onvolledige week opgehaald. Deze wordt gebruikt bij het opstarten van registratie.html
+*/
+function haalEersteOpenRegistratie() {
+    $.ajax({
+        url: "/registraties/EersteOnvolledigeWeekPerMedewerker",
+        method: 'GET',
+        data: {
+            idmedewerker: medewerkerid,
+        },
+        dataType: 'text',
+        success: function (data) {
+            // LOGGING AAN
+            console.log("haalEersteOpenRegistratie: We krijgen: " + data+ " terug.");
+            console.log(data);
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -390,12 +415,13 @@ Event bij de eerste keer laden van de pagina
 $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
+    haalEersteOpenRegistratie();
     vulWeken();
     addBeheerMenu();
-    haalDatums();
+    setTimeout(haalDatums,250);
+    vulWeken();
     haalProjecten();
     setTimeout(bouwFormulierOp, 500);
-    console.log(projecten);
     setTimeout(haalRegistratie, 750);
     setTimeout(berekenTotalen, 1000);
 });
