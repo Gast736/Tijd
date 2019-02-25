@@ -1,3 +1,18 @@
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function checkCookie() {
     var user = getCookie("user");
 
@@ -43,10 +58,10 @@ function haalProjecten() {
 	    let row = `
 		<div class="row"  id='rij-` + project.idproject +`'>
 		<div>` + project.idproject + `</div>
-		<div class="col-1">` + createSelectCategorie(project.idproject, project.categorie) + `</div>
+		<div class="col-2">` + createSelectCategorie(project.idproject, project.categorie) + `</div>
 		<div class="col-2"><input class="form-control" id="naam-` + project.idproject + `" type="text" required maxlength="45" value="` + project.naam + `"></div>
 		<div class="col-2"><input class="form-control" id="opdrachtgever-` + project.idproject + `" type="text" required maxlength="45" value="` + project.opdrachtgever + `"></div>
-		<div class="col-2"><input class="form-control" id="directie-` + project.idproject + `" type="text" required maxlength="45" value="` + project.directie + `"></div>
+		<div class="col-1"><input class="form-control" id="directie-` + project.idproject + `" type="text" required maxlength="45" value="` + project.directie + `"></div>
 		<div class="col-2"><input class="form-control" id="startdatum-` + project.idproject + `" type="date" required value="` + project.startdatum + `"></div>
 		<div class="col-2"><input class="form-control" id="einddatum-` + project.idproject + `" type="date" value="` + project.einddatum + `"></div>
 		<div><button type="button" class="btn btn-primary btnOpslaan" id='` + project.idproject + `'>Opslaan</button></div>

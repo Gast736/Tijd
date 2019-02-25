@@ -1,17 +1,32 @@
 var medewerkers = [];
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function checkCookie() {
     var user = getCookie("user");
 
     if (user != "") {
-        medewerkerid = getCookie("id");
-        rol = getCookie("rol");
-        contracturen = getCookie("contracturen");
-        console.log("De id van ingelogde medewerker is: " + medewerkerid);
-        $('#employeeName').text(user);
+	medewerkerid = getCookie("id");
+	rol = getCookie("rol");
+	contracturen = getCookie("contracturen");
+	console.log("De id van ingelogde medewerker is: " + medewerkerid);
+	$('#employeeName').text(user);
     } else {
-        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
-        window.location.href = "index.html"
+	alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+	window.location.href = "index.html"
     }
 }
 
@@ -103,7 +118,7 @@ function nieuweMedewerker() {
 	    einddatum: $('#einddatum').val()
 	},
 	method: 'POST'
-    }).done(getResult(res)
+    }).done(getResult(res))
 }
 
 $('#btnNewMdw').click(function(){
@@ -137,18 +152,20 @@ $('#mdwTbody').on('click', '.btnOpslaan', function(e){
 })
 
 function getResult(res) {
-	console.log('res', res);
-	if (!res) {
-	    $('#submitResult').addClass("alert alert-danger");
-	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens konden niet worden verzonden.");
-	} else {
-	    location.reload();
-	    $('#submitResult').addClass("alert alert-success");
-	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens zijn opgeslagen");
-    return res;
+    console.log('res', res);
+    if (!res) {
+	$('#submitResult').addClass("alert alert-danger");
+	$('#submitResult').attr("role", "alert");
+	$('#submitResult').text("De gegevens konden niet worden verzonden.");
+    } else {
+	location.reload();
+	$('#submitResult').addClass("alert alert-success");
+	$('#submitResult').attr("role", "alert");
+	$('#submitResult').text("De gegevens zijn opgeslagen");
+	return res;
+    }
 }
+
 $("document").ready(function() {
     checkCookie();
     haalMedewerkers();
