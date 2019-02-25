@@ -2,11 +2,11 @@ package nl.gemeente.groningen.tijdschrijven.controllers;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -135,7 +135,7 @@ public class RegistratieController {
     }
 
     @PostMapping("/registratieUpdate")
-    public boolean registratieUpdate(@RequestBody List<RegistratieJSON> registraties) throws SQLException {
+    public boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
     	return RegistratieRepository.registratieUpdate(registraties);
 
     }
