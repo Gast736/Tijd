@@ -19,6 +19,7 @@ var day1; // dinsdag
 var day2; // woensdag
 var day3; // donderdag
 var day4; // vrijdag
+var eersteopenweek;
 
 // GESCHREVEN FUNCTIES
 
@@ -108,7 +109,11 @@ Deze functie vult de weken 1 t/m 53 voor het selectieveld op het registratieform
 function vulWeken() {
     var w = "";
     for (var i = 1; i < 54; i++) {
+        if (i!=eersteopenweek) {
         w = w + "<option>" + i + "</option>";
+        } else {
+            w = w + "<option selected>" + i + "</option>";
+        }
         $('#selWeek').html(w);
     }
 }
@@ -154,9 +159,7 @@ function haalEersteOpenRegistratie() {
         },
         dataType: 'text',
         success: function (data) {
-            // LOGGING AAN
-            console.log("haalEersteOpenRegistratie: We krijgen: " + data+ " terug.");
-            console.log(data);
+            eersteopenweek = parseInt(data.substring(5, 7), 10); // Converteer de laatste twee tekens van string '2019-01' naar getal
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -416,10 +419,9 @@ $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     haalEersteOpenRegistratie();
-    vulWeken();
     addBeheerMenu();
-    setTimeout(haalDatums,250);
     vulWeken();
+    setTimeout(haalDatums, 250);
     haalProjecten();
     setTimeout(bouwFormulierOp, 500);
     setTimeout(haalRegistratie, 750);
