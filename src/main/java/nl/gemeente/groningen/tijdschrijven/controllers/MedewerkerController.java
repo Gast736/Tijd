@@ -4,11 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
 import nl.gemeente.groningen.tijdschrijven.repositories.MedewerkerRepository;
@@ -19,12 +15,6 @@ public class MedewerkerController {
     @GetMapping("/medewerkers")
     public List<Medewerker> getAllMedewerkers() throws SQLException {
 	return MedewerkerRepository.getAlleMedewerkers();
-
-    }
-
-    @GetMapping("/medewerker")
-    public Medewerker getMedewerkerByNaam(@RequestParam(name = "naam") String naam) throws SQLException {
-	return MedewerkerRepository.getMedewerkerByNaam(naam);
 
     }
 

@@ -44,64 +44,11 @@ public class ProjectRepository {
 	return projecten;
     }
 
-    public static Project getProjectById(String idproject) throws SQLException {
-	String sql = "select * " + "from tblproject " + "where naam = ?";
-	ResultSet result = null;
-	Project project = new Project();
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
-
-	    stmt.setString(1, idproject);
-	    result = stmt.executeQuery();
-
-	    result.next();
-
-	    project.setIdProject(result.getInt("idproject"));
-	    project.setNaam(result.getString("naam"));
-	    project.setCategorie(result.getString("categorie"));
-	    project.setOpdrachtgever(result.getString("opdrachtgever"));
-	    project.setDirectie(result.getString("directie"));
-	    project.setStartdatum(result.getDate("startdatum"));
-	    project.setEinddatum(result.getDate("einddatum"));
-
-	    result.close();
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	} finally {
-	    if (result != null) {
-		result.close();
-	    }
-	}
-	return project;
-    }
-
-    public static Project getProjectByNaam(String naam) throws SQLException {
-	String sql = "select * " + "from tblproject " + "where naam = ?";
-	ResultSet result = null;
-	Project project = new Project();
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
-
-	    stmt.setString(1, naam);
-	    result = stmt.executeQuery();
-
-	    result.next();
-
-	    project.setIdProject(result.getInt("idproject"));
-	    project.setNaam(result.getString("naam"));
-	    project.setCategorie(result.getString("categorie"));
-	    project.setOpdrachtgever(result.getString("opdrachtgever"));
-	    project.setDirectie(result.getString("directie"));
-	    project.setStartdatum(result.getDate("startdatum"));
-	    project.setEinddatum(result.getDate("einddatum"));
-
-	    result.close();
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	} finally {
-	    if (result != null) {
-		result.close();
-	    }
-	}
-	return project;
+    public static Project getProjectById(int idproject) throws SQLException {
+	return getAlleProjecten().stream()
+		.filter(p -> idproject == p.getIdProject())
+		.findAny()
+		.orElse(null);
     }
 
     public static int insertProject(String naam, String categorie, String opdrachtgever, String directie, Date startdatum, Date einddatum) throws SQLException {

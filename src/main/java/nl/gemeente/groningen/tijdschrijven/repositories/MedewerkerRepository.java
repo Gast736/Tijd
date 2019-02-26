@@ -50,63 +50,10 @@ public class MedewerkerRepository {
     }
 
     public static Medewerker getMedewerkerById(int idMedewerker) throws SQLException {
-	String sql = "select * " + "from tblmedewerker " + "where idMedewerker = ?";
-	Medewerker medewerker = new Medewerker();
-	ResultSet result = null;
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
-	    stmt.setInt(1, idMedewerker);
-	    result = stmt.executeQuery();
-
-	    result.next();
-
-	    medewerker.setIdmedewerker(result.getInt("idmedewerker"));
-	    medewerker.setNaam(result.getString("naam"));
-	    medewerker.setWachtwoord(result.getString("wachtwoord"));
-	    medewerker.setTeam(result.getString("team"));
-	    medewerker.setRol(result.getString("rol"));
-	    medewerker.setContracturen(result.getDouble("contracturen"));
-	    medewerker.setStartdatum(result.getDate("startdatum"));
-	    medewerker.setEinddatum(result.getDate("einddatum"));
-
-	    result.close();
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	} finally {
-	    if (result != null) {
-		result.close();
-	    }
-	}
-	return medewerker;
-    }
-
-    public static Medewerker getMedewerkerByNaam(String naam) throws SQLException {
-	String sql = "select * " + "from tblmedewerker " + "where naam = ?";
-	Medewerker medewerker = new Medewerker();
-	ResultSet result = null;
-	try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql);) {
-	    stmt.setString(1, naam);
-	    result = stmt.executeQuery();
-
-	    result.next();
-
-	    medewerker.setIdmedewerker(result.getInt("idmedewerker"));
-	    medewerker.setNaam(result.getString("naam"));
-	    medewerker.setWachtwoord(result.getString("wachtwoord"));
-	    medewerker.setTeam(result.getString("team"));
-	    medewerker.setRol(result.getString("rol"));
-	    medewerker.setContracturen(result.getDouble("contracturen"));
-	    medewerker.setStartdatum(result.getDate("startdatum"));
-	    medewerker.setEinddatum(result.getDate("einddatum"));
-
-	    result.close();
-	} catch (SQLException e) {
-	    logger.error(e.getErrorCode() + ": " + e.getMessage());
-	} finally {
-	    if (result != null) {
-		result.close();
-	    }
-	}
-	return medewerker;
+	return getAlleMedewerkers().stream()
+		.filter(m -> m.getIdmedewerker() == idMedewerker)
+		.findAny()
+		.orElse(null);
     }
 
     public static int insertMedewerker(String emailadres, String naam, String wachtwoord, String team, String rol,

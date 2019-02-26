@@ -1,17 +1,10 @@
 package nl.gemeente.groningen.tijdschrijven.controllers;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import nl.gemeente.groningen.tijdschrijven.model.Project;
 import nl.gemeente.groningen.tijdschrijven.model.Registratie;
 import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
 import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository;
@@ -31,38 +24,11 @@ public class RegistratieController {
 	return RegistratieRepository.getAlleRegistratiesByMedewerker(idMedewerker);
     }
 
-    @GetMapping("/registraties/permaand")
-    public List<Registratie> getAlleRegistratiesByMedewerkerByMaand(
-	    @RequestParam(name = "idmedewerker") int idMedewerker, @RequestParam(name = "datum") Date datum)
-	    throws SQLException {
-	return RegistratieRepository.getAlleRegistratiesByMedewerkerByMaand(idMedewerker, datum);
-    }
-
-    @GetMapping("/registraties/perweek")
-    public List<Registratie> getAlleRegistratiesByMedewerkerByWeek(
-	    @RequestParam(name = "idmedewerker") int idMedewerker, @RequestParam(name = "datum") Date datum)
-	    throws SQLException {
-	return RegistratieRepository.getAlleRegistratiesByMedewerkerByWeek(idMedewerker, datum);
-    }
-
-    @GetMapping("/registraties/dezeweek")
-    public List<RegistratieJSON> getAlleRegistratiesDezeMedewerkerDezeWeek(
-	    @RequestParam(name = "idmedewerker") int idmedewerker, @RequestParam(name = "datum") Date datum)
-	    throws SQLException {
-	return RegistratieRepository.getAlleRegistratiesDezeMedewerkerDezeWeek(idmedewerker, datum);
-    }
-    
     @GetMapping("/registraties/EersteOnvolledigeWeekPerMedewerker")
     public String getEersteOnvolledigeWeekPerMedewerker(
 	    @RequestParam(name="idmedewerker") int idmedewerker)
 	    throws SQLException {
 	return RegistratieRepository.getEersteOnvolledigeWeekPerMedewerker(idmedewerker);
-    }
-
-    @GetMapping("/registraties/perproject")
-    public List<Registratie> getRegistratiesByProject(@RequestParam(name = "project") Project project)
-	    throws SQLException {
-	return RegistratieRepository.getRegistratiesByProject(project);
     }
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerOpdrachtgeverPerMaand")
