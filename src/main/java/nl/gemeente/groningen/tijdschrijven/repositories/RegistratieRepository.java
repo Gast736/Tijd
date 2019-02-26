@@ -11,10 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
-import nl.gemeente.groningen.tijdschrijven.model.Medewerker;
-import nl.gemeente.groningen.tijdschrijven.model.Project;
-import nl.gemeente.groningen.tijdschrijven.model.Registratie;
-import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
+import nl.gemeente.groningen.tijdschrijven.model.*;
 
 public class RegistratieRepository {
 
