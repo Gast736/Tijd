@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import nl.gemeente.groningen.tijdschrijven.model.Project;
-import nl.gemeente.groningen.tijdschrijven.model.Registratie;
-import nl.gemeente.groningen.tijdschrijven.model.RegistratieJSON;
+import nl.gemeente.groningen.tijdschrijven.model.*;
 import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository;
 import nl.gemeente.groningen.tijdschrijven.repositories.RegistratieRepository.Totaaloverzicht;
 
@@ -90,7 +88,7 @@ public class RegistratieController {
     }
 
     @GetMapping("/registraties/TotaalUrenPerMedewerkerPerProjectPerMaand")
-    public List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerMaand(
+    public List<Response> getTotaalUrenPerMedewerkerPerProjectPerMaand(
 	    @RequestParam(name="idmedewerker") int idmedewerker, 
 	    @RequestParam(name="begindatum") String begindatum, 
 	    @RequestParam(name="einddatum") String einddatum)

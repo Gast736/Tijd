@@ -485,8 +485,8 @@ public class RegistratieRepository {
 	return Collections.emptyList();
     }
 
-    public static List<Totaaloverzicht> getTotaalUrenPerMedewerkerPerProjectPerMaand(int idmedewerker, String begindatum, String einddatum) throws SQLException {
-	List<Totaaloverzicht> totalen = new ArrayList<>();
+    public static List<Response> getTotaalUrenPerMedewerkerPerProjectPerMaand(int idmedewerker, String begindatum, String einddatum) throws SQLException {
+	List<Response> totalen = new ArrayList<>();
 	String sql = "SELECT " + 
 		"	m.naam medewerker " + 
 		",	p.naam project " + 
@@ -510,9 +510,9 @@ public class RegistratieRepository {
 
 	    try (ResultSet result = stmt.executeQuery()) {
 		while (result.next()) {
-		    Totaaloverzicht t = new Totaaloverzicht();
-		    t.setProject(ProjectRepository.getProjectByNaam(result.getString("project")));
-		    t.setMedewerker(MedewerkerRepository.getMedewerkerByNaam(result.getString("medewerker")));
+		    Response t = new Response();
+		    t.setProject(result.getString("project"));
+		    t.setMedewerker(result.getString("medewerker"));
 		    t.setPeriode(result.getString("jaarmaand"));
 		    t.setAantal(result.getInt("uren"));
 
