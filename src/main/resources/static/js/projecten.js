@@ -57,14 +57,13 @@ function haalProjecten() {
 	    };
 	    let row = `
 		<div class="row"  id='rij-` + project.idproject +`'>
-		<div>` + project.idproject + `</div>
 		<div class="col-2">` + createSelectCategorie(project.idproject, project.categorie) + `</div>
 		<div class="col-2"><input class="form-control" id="naam-` + project.idproject + `" type="text" required maxlength="45" value="` + project.naam + `"></div>
 		<div class="col-2"><input class="form-control" id="opdrachtgever-` + project.idproject + `" type="text" required maxlength="45" value="` + project.opdrachtgever + `"></div>
 		<div class="col-1"><input class="form-control" id="directie-` + project.idproject + `" type="text" required maxlength="45" value="` + project.directie + `"></div>
 		<div class="col-2"><input class="form-control" id="startdatum-` + project.idproject + `" type="date" required value="` + project.startdatum + `"></div>
 		<div class="col-2"><input class="form-control" id="einddatum-` + project.idproject + `" type="date" value="` + project.einddatum + `"></div>
-		<div><button type="button" class="btn btn-primary btnOpslaan" id='` + project.idproject + `'>Opslaan</button></div>
+		<div class="col"><button type="button" class="btn btn-primary btnOpslaan" id='` + project.idproject + `'>Opslaan</button></div>
 		</div>
 		`;
 	    $("#projTbody").html($("#projTbody").html() + row);

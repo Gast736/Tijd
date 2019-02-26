@@ -65,7 +65,6 @@ function haalMedewerkers() {
 	    };
 	    let row = `
 		<div class="row"  id='rij-` + medewerker.idmedewerker +`'>
-		<div  id='medewerker-` + medewerker.idmedewerker +`'>` + medewerker.idmedewerker + `</div>
 		<div class="col-2">
 		<input class="form-control" type="text" required maxlength="45"
 		value="` + medewerker.emailadres + `" id='emailadres-` + medewerker.idmedewerker +`'>
@@ -96,7 +95,7 @@ function haalMedewerkers() {
 		<input class="form-control" type="date" required maxlength="45"
 		value="` + medewerker.einddatum + `" id='einddatum-` + medewerker.idmedewerker +`'>
 		</div>
-		<div><button type="button" class="btn btn-primary btnOpslaan" id='` + medewerker.idmedewerker + `'>Opslaan</button></div>
+		<div class="col"><button type="button" class="btn btn-primary btnOpslaan" id='` + medewerker.idmedewerker + `'>Opslaan</button></div>
 		</div>
 		`;
 	    $("#mdwTbody").html($("#mdwTbody").html() + row);
