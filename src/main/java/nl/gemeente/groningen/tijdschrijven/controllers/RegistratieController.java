@@ -2,7 +2,6 @@ package nl.gemeente.groningen.tijdschrijven.controllers;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
