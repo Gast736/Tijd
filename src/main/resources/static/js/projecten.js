@@ -2,13 +2,13 @@ function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+	var c = ca[i];
+	while (c.charAt(0) == ' ') {
+	    c = c.substring(1);
+	}
+	if (c.indexOf(name) == 0) {
+	    return c.substring(name.length, c.length);
+	}
     }
     return "";
 }
@@ -17,14 +17,14 @@ function checkCookie() {
     var user = getCookie("user");
 
     if (user != "") {
-        let medewerkerid = getCookie("id");
-        let rol = getCookie("rol");
-        let contracturen = getCookie("contracturen");
-        console.log("De id van ingelogde medewerker is: " + medewerkerid);
-        $('#employeeName').text(user);
+	let medewerkerid = getCookie("id");
+	let rol = getCookie("rol");
+	let contracturen = getCookie("contracturen");
+	console.log("De id van ingelogde medewerker is: " + medewerkerid);
+	$('#employeeName').text(user);
     } else {
-        alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
-        window.location.href = "index.html"
+	alert("U bent nog niet ingelogd en wordt teruggeleid naar de inlogpagina");
+	window.location.href = "index.html"
     }
 }
 
@@ -89,18 +89,19 @@ function nieuwProject() {
 	if (!res) {
 	    $('#submitResult').addClass("alert alert-danger");
 	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens konden niet worden verzonden.");
+	    $('#submitResult').text("De data kon niet worden verzonden.");
 	} else {
+	    location.reload();
 	    $('#submitResult').addClass("alert alert-success");
 	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens zijn opgeslagen");
+	    $('#submitResult').text("De ingevulde data is opgeslagen");
 	}
     })
 }
 
 $('#btnNewProject').click(function(){
     nieuwProject();
-});
+})
 
 $('#projTbody').on('click', '.btnOpslaan', function(e){
     let idproject = e.target.id;
@@ -126,11 +127,12 @@ $('#projTbody').on('click', '.btnOpslaan', function(e){
 	if (!res) {
 	    $('#submitResult').addClass("alert alert-danger");
 	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens konden niet worden verzonden.");
+	    $('#submitResult').text("De data kon niet worden verzonden.");
 	} else {
+	    location.reload();
 	    $('#submitResult').addClass("alert alert-success");
 	    $('#submitResult').attr("role", "alert");
-	    $('#submitResult').text("De gegevens zijn opgeslagen");
+	    $('#submitResult').text("De ingevulde data is opgeslagen");
 	}
     })
 })

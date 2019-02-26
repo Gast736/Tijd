@@ -4,13 +4,13 @@ function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+	var c = ca[i];
+	while (c.charAt(0) == ' ') {
+	    c = c.substring(1);
+	}
+	if (c.indexOf(name) == 0) {
+	    return c.substring(name.length, c.length);
+	}
     }
     return "";
 }
@@ -118,9 +118,20 @@ function nieuweMedewerker() {
 	    einddatum: $('#einddatum').val()
 	},
 	method: 'POST'
-    }).done(getResult(res))
+    }).done(function (res) {
+	console.log('res', res);
+	if (!res) {
+	    $('#submitResult').addClass("alert alert-danger");
+	    $('#submitResult').attr("role", "alert");
+	    $('#submitResult').text("De data kon niet worden verzonden.");
+	} else {
+	    location.reload();
+	    $('#submitResult').addClass("alert alert-success");
+	    $('#submitResult').attr("role", "alert");
+	    $('#submitResult').text("De ingevulde data is opgeslagen");
+	}
+    })
 }
-
 $('#btnNewMdw').click(function(){
     nieuweMedewerker();
 });
@@ -148,23 +159,20 @@ $('#mdwTbody').on('click', '.btnOpslaan', function(e){
 	    einddatum: einddatum
 	},
 	method: 'PUT'
-    }).done(getResult(res))
+    }).done(function (res) {
+	console.log('res', res);
+	if (!res) {
+	    $('#submitResult').addClass("alert alert-danger");
+	    $('#submitResult').attr("role", "alert");
+	    $('#submitResult').text("De data kon niet worden verzonden.");
+	} else {
+	    location.reload();
+	    $('#submitResult').addClass("alert alert-success");
+	    $('#submitResult').attr("role", "alert");
+	    $('#submitResult').text("De ingevulde data is opgeslagen");
+	}
+    })
 })
-
-function getResult(res) {
-    console.log('res', res);
-    if (!res) {
-	$('#submitResult').addClass("alert alert-danger");
-	$('#submitResult').attr("role", "alert");
-	$('#submitResult').text("De gegevens konden niet worden verzonden.");
-    } else {
-	location.reload();
-	$('#submitResult').addClass("alert alert-success");
-	$('#submitResult').attr("role", "alert");
-	$('#submitResult').text("De gegevens zijn opgeslagen");
-	return res;
-    }
-}
 
 $("document").ready(function() {
     checkCookie();

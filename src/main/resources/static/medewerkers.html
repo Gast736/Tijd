@@ -103,6 +103,7 @@
 		<hr>
 		<div class="container-fluid">
 			<div class="jumbotron">
+				<div id="submitResult"></div>
 				<div class="row">
 					<div class="col-2">Emailadres</div>
 					<div class="col-2">Naam</div>
@@ -141,7 +142,7 @@
 						<input class="form-control" id="startdatum" type="date" required>
 					</div>
 					<div class="col-1">
-						<input class="form-control" id="einddatum" type="date">
+						<input class="form-control" id="einddatum" type="date" required value="9999-12-31">
 					</div>
 				</div>
 				<div class="row">
@@ -168,11 +169,6 @@
 			</div>
 			<div id="mdwTbody"></div>
 		</div>
-		<footer class="footer">
-			<div class="container">
-				<div id="submitResult"></div>
-			</div>
-		</footer>
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS 
