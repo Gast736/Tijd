@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import nl.gemeente.groningen.tijdschrijven.connectionmanager.ConnectionManager;
@@ -299,6 +302,9 @@ public class RegistratieRepository {
     }
 
     public static String getEersteOnvolledigeWeekPerMedewerker(int idmedewerker) {
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(Date.valueOf(LocalDate.now()));
+	String huidigeWeek = cal.get(Calendar.YEAR) + "-" + StringUtils.leftPad(String.valueOf(cal.get(Calendar.WEEK_OF_YEAR)), 2, "0");
 	String sql = "SELECT min(jaarweek) as jaarweek " + 
 		"FROM ( " + 
 		"SELECT	m.idmedewerker " + 
@@ -325,7 +331,8 @@ public class RegistratieRepository {
 	    logger.error(e.getErrorCode() + " - " + e.getMessage());
 	}
 
-	return "";
+	logger.info("Er is geen onvolledige week, dus huidige week = " + huidigeWeek);
+	return huidigeWeek;
 
     }
 
