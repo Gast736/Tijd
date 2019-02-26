@@ -287,10 +287,6 @@ public class RegistratieRepository {
 			result.getInt("idproject"),
 			result.getDate("startdatum"),
 			result.getDouble("uren"));
-//		j.setidMedewerker(result.getInt("idmedewerker"));
-//		j.setidProject(result.getInt("idproject"));
-//		j.setStartdatum(result.getDate("startdatum"));
-//		j.setUren(result.getDouble("uren"));
 
 		registraties.add(j);
 
@@ -309,13 +305,13 @@ public class RegistratieRepository {
 	String sql = "SELECT min(jaarweek) as jaarweek " + 
 		"FROM ( " + 
 		"SELECT	m.idmedewerker " + 
-		",	date_format(r.startdatum, '%Y-%u') as jaarweek " + 
+		",	date_format(r.startdatum, '%x-%v') as jaarweek " + 
 		",	sum(r.uren) as uren " + 
 		"FROM	tblregistratie r " + 
 		"join	tblmedewerker m using (idmedewerker) " + 
 		"group by m.idmedewerker " + 
 		",	m.contracturen " + 
-		",	date_format(r.startdatum, '%Y-%u') " + 
+		",	date_format(r.startdatum, '%x-%v') " + 
 		"having sum(r.uren) < m.contracturen " + 
 		") a "
 		+ "where idmedewerker = ? " + 
