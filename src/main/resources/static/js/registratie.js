@@ -247,8 +247,8 @@ $('#submitBtn').click(function (e) {
                 console.log(rs);
 
                 var model = {
-                    idmedewerker: medewerkerid,
-                    idproject: projecten[i].projectid,
+                    idmedewerker: medewerkerid.toString(),
+                    idproject: projecten[i].projectid.toString(),
                     startdatum: $(this).attr('id').substring(2, 13),
                     uren: $(this).val()
                 };

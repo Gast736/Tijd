@@ -697,7 +697,7 @@ public class RegistratieRepository {
      * aanwezige data van die medewerker in week verwijderd en weer gevuld met de
      * nieuwe data van de medewerker in die week.
      **/
-    public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
+    public static boolean registratieUpdate(List<RegistratieJSON> registraties) throws SQLException {
 	String sql = "delete from tblregistratie where (idmedewerker=? and startdatum=?)";
 
 	for (RegistratieJSON d : registraties) {

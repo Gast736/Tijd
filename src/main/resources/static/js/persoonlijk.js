@@ -85,6 +85,16 @@ function haalUrenPerProjectPerMaand() {
             // LOGGING AAN
             console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
             alert(JSON.stringify(data));
+            /*
+            volgens mij kun je hier loopen en de benodigde onderdelen benaderen door:
+            for (var i = 0; i < data.length; i++) {
+            data[i].uren;
+            data[i].periode;
+            data[i].medewerker.naam;
+            data[i].project.naam;
+            data[i].project.opdrachtgever;
+            }
+            */
         },
         error: function (requestObject, error, errorThrown) {
 
