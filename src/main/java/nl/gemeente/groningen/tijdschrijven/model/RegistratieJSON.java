@@ -9,9 +9,6 @@ public class RegistratieJSON {
     private Date startdatum;
     private double uren;
     
-    public RegistratieJSON() {
-    }
-    
     public RegistratieJSON(int idmedewerker, int idproject, Date startdatum, double uren) {
 	this.setidMedewerker(idmedewerker);
 	this.setidProject(idproject);

@@ -282,11 +282,15 @@ public class RegistratieRepository {
 
 	    while (result.next()) {
 
-		RegistratieJSON j = new RegistratieJSON();
-		j.setidMedewerker(result.getInt("idmedewerker"));
-		j.setidProject(result.getInt("idproject"));
-		j.setStartdatum(result.getDate("startdatum"));
-		j.setUren(result.getDouble("uren"));
+		RegistratieJSON j = new RegistratieJSON(
+			result.getInt("idmedewerker"), 
+			result.getInt("idproject"),
+			result.getDate("startdatum"),
+			result.getDouble("uren"));
+//		j.setidMedewerker(result.getInt("idmedewerker"));
+//		j.setidProject(result.getInt("idproject"));
+//		j.setStartdatum(result.getDate("startdatum"));
+//		j.setUren(result.getDouble("uren"));
 
 		registraties.add(j);
 
@@ -320,8 +324,9 @@ public class RegistratieRepository {
 	    stmt.setInt(1, idmedewerker);
 
 	    try (ResultSet result = stmt.executeQuery()) {
-		result.next();
+		if (result.next()) {
 		return result.getString("jaarweek");
+		}
 	    }
 	} catch (SQLException e) {
 	    logger.error(e.getErrorCode() + " - " + e.getMessage());
@@ -697,7 +702,7 @@ public class RegistratieRepository {
      * aanwezige data van die medewerker in week verwijderd en weer gevuld met de
      * nieuwe data van de medewerker in die week.
      **/
-    public static boolean registratieUpdate(ArrayList<RegistratieJSON> registraties) throws SQLException {
+    public static boolean registratieUpdate(List<RegistratieJSON> registraties) throws SQLException {
 	String sql = "delete from tblregistratie where (idmedewerker=? and startdatum=?)";
 
 	for (RegistratieJSON d : registraties) {
