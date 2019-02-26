@@ -108,11 +108,14 @@ Deze functie vult de weken 1 t/m 53 voor het selectieveld op het registratieform
 */
 function vulWeken() {
     var w = "";
+    console.log("Vulweken start met variabele eersteopenweek: " + eersteopenweek)
     for (var i = 1; i < 54; i++) {
-        if (i!=eersteopenweek) {
-        w = w + "<option>" + i + "</option>";
-        } else {
+        if (i==eersteopenweek) {
+            console.log("vulweken: zet veld op: " + i);
             w = w + "<option selected>" + i + "</option>";
+
+        } else {
+            w = w + "<option>" + i + "</option>";
         }
         $('#selWeek').html(w);
     }
@@ -158,7 +161,9 @@ function haalEersteOpenRegistratie() {
             idmedewerker: medewerkerid,
         },
         dataType: 'text',
+        async: false,
         success: function (data) {
+            console.log("Haal eerste onvolledige week: " +data)
             eersteopenweek = parseInt(data.substring(5, 7), 10); // Converteer de laatste twee tekens van string '2019-01' naar getal
         },
         error: function (requestObject, error, errorThrown) {
