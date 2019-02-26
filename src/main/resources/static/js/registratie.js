@@ -132,6 +132,7 @@ function haalDatums() {
             jaar: $('#selYear').val(),
         },
         dataType: 'json',
+        async: false,
         success: function (data) {
             day0 = data[0].substring(0, 10);
             day1 = data[1].substring(0, 10);
@@ -183,6 +184,7 @@ function haalProjecten() {
         url: "/projecten",
         method: 'GET',
         dataType: 'json',
+        async: false,
         success: function (data) {
             // LOGGING AAN
             console.log("haalProjecten: Het JSON object met " + data.length + " records, is ontvangen.");
@@ -217,6 +219,7 @@ function haalRegistratie() {
             idmedewerker: medewerkerid,
         },
         dataType: 'json',
+        async: false,
         success: function (data) {
             // LOGGING AAN
             console.log("HaalRegistratie: Het JSON object met " + data.length + " records, is ontvangen.");
@@ -412,9 +415,9 @@ Event voor wijzigen data na aanpassing jaar en/of datum
 $('.periodSelect').change(function () {
     haalDatums();
     // en bouw vervolgens het formulier op.... Ook hier moet ik iets met callbacks... die setTimeouts werken vertragend...
-    setTimeout(bouwFormulierOp, 500);
-    setTimeout(haalRegistratie, 750);
-    setTimeout(berekenTotalen, 1000);
+    bouwFormulierOp();
+    haalRegistratie();
+    berekenTotalen();
 })
 /* 
 Event bij de eerste keer laden van de pagina
@@ -426,9 +429,9 @@ $(document).ready(function () {
     haalEersteOpenRegistratie();
     addBeheerMenu();
     vulWeken();
-    setTimeout(haalDatums, 250);
+    haalDatums();
     haalProjecten();
-    setTimeout(bouwFormulierOp, 500);
-    setTimeout(haalRegistratie, 750);
-    setTimeout(berekenTotalen, 1000);
+    bouwFormulierOp();
+    haalRegistratie();
+    berekenTotalen();
 });
