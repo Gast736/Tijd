@@ -269,6 +269,7 @@ public class RegistratieRepository {
 	List<Response> totalen = new ArrayList<>();
 	String sql = "SELECT " + 
 		"	m.naam medewerker " + 
+		",	p.idproject idproject " +
 		",	p.naam project " + 
 		",	p.opdrachtgever opdrachtgever " + 
 		",	date_format(r.startdatum, \"%Y%m\") as jaarmaand " + 
@@ -293,6 +294,7 @@ public class RegistratieRepository {
 		while (result.next()) {
 		    Response t = new Response();
 		    t.setProject(result.getString("project"));
+		    t.setProjectid(result.getString("idproject"));
 		    t.setMedewerker(result.getString("medewerker"));
 		    t.setOpdrachtgever(result.getString("opdrachtgever"));
 		    t.setPeriode(result.getString("jaarmaand"));

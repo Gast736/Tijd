@@ -12,6 +12,28 @@ var projecten = [];
 var medewerkerid;
 var contracturen;
 var rol;
+var periodes = ['201901','201902','201903','201904','201905','201906','201907','201908','201909','201910','201911','201912'];
+var kleuren = ['#007bff','#6610f2','#6f42c1','#e83e8c','#dc3545','#fd7e14','#ffc107','#28a745','#20c997','#17a2b8','#6c757d','#343a40'];
+var mydata1 = {
+labels : ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
+datasets : [
+    {
+        fillColor : "rgba(220,220,220,0.5)",
+        strokeColor : "rgba(220,220,220,1)",
+        data : [0,0,0,0,0,0,0,0,0,0,0,0],
+        title : "2014"
+    },
+    {
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        data : [35,43,59,31,50,66,55],
+        title : "2013"
+    }
+ ]
+}
+
+
+
 
 // GESCHREVEN FUNCTIES
 
@@ -84,17 +106,11 @@ function haalUrenPerProjectPerMaand() {
         success: function (data) {
             // LOGGING AAN
             console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
-            alert(JSON.stringify(data));
-            /*
-            volgens mij kun je hier loopen en de benodigde onderdelen benaderen door:
-            for (var i = 0; i < data.length; i++) {
-            data[i].uren;
-            data[i].periode;
-            data[i].medewerker.naam;
-            data[i].project.naam;
-            data[i].project.opdrachtgever;
-            }
-            */
+            console.log(JSON.stringify(data));
+            // Haal maximum projectnr
+            var res = Math.max.apply(Math,data.map(function(o){return o.projectid;}))
+            console.log("het maximum projectnummer is: " +res);
+            
         },
         error: function (requestObject, error, errorThrown) {
 
