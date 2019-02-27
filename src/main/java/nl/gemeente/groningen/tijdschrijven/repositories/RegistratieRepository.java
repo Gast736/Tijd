@@ -268,8 +268,9 @@ public class RegistratieRepository {
     public static List<Response> getTotaalUrenPerMedewerkerPerProjectPerMaand(int idmedewerker, String begindatum, String einddatum) throws SQLException {
 	List<Response> totalen = new ArrayList<>();
 	String sql = "SELECT " + 
-		"	m.idmedewerker medewerker " + 
-		",	p.idproject project " + 
+		"	m.naam medewerker " + 
+		",	p.naam project " + 
+		",	p.opdrachtgever opdrachtgever " + 
 		",	date_format(r.startdatum, \"%Y%m\") as jaarmaand " + 
 		",	sum(uren) as uren " + 
 		"FROM tijd.tblregistratie r " + 
@@ -293,6 +294,7 @@ public class RegistratieRepository {
 		    Response t = new Response();
 		    t.setProject(result.getString("project"));
 		    t.setMedewerker(result.getString("medewerker"));
+		    t.setOpdrachtgever(result.getString("opdrachtgever"));
 		    t.setPeriode(result.getString("jaarmaand"));
 		    t.setAantal(result.getInt("uren"));
 
