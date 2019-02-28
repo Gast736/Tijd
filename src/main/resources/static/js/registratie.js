@@ -110,7 +110,7 @@ function vulWeken() {
     var w = "";
     console.log("Vulweken start met variabele eersteopenweek: " + eersteopenweek)
     for (var i = 1; i < 54; i++) {
-        if (i==eersteopenweek) {
+        if (i == eersteopenweek) {
             console.log("vulweken: zet veld op: " + i);
             w = w + "<option selected>" + i + "</option>";
 
@@ -164,7 +164,7 @@ function haalEersteOpenRegistratie() {
         dataType: 'text',
         async: false,
         success: function (data) {
-            console.log("Haal eerste onvolledige week: " +data)
+            console.log("Haal eerste onvolledige week: " + data)
             eersteopenweek = parseInt(data.substring(5, 7), 10); // Converteer de laatste twee tekens van string '2019-01' naar getal
         },
         error: function (requestObject, error, errorThrown) {
@@ -243,51 +243,62 @@ function haalRegistratie() {
 Met onderstaand script wordt het ingevulde formulier in JSON format naar de controller gestuurd.
 */
 $('#submitBtn').click(function (e) {
-    var rs = "";
-    var registratie = [];
     console.log("Er is geklikt op de Submit button van het formulier");
     e.preventDefault();
-    console.log("Start loop...");
-    for (var i = 0; i < projecten.length; i++) {
-        $('.inputfield' + i).each(function () {
-            if ($(this).val()) {
-                rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
-                console.log(rs);
+    if ($('#totTotal').val() > contracturen) {
+        $('#submitResult').addClass("alert alert-danger");
+        $('#submitResult').attr("role", "alert");
+        $('#submitResult').text("Het is niet mogelijk om meer dan " + contracturen + " (contracturen) te schrijven. Pas de registratie aan, eventueel met negatief verlof (overuren).");
+    } else {
 
-                var model = {
-                    idmedewerker: medewerkerid.toString(),
-                    idproject: projecten[i].projectid.toString(),
-                    startdatum: $(this).attr('id').substring(2, 13),
-                    uren: $(this).val()
-                };
-                registratie.push(model);
+        var rs = "";
+        var registratie = [];
 
+
+
+        console.log("Start loop...");
+        for (var i = 0; i < projecten.length; i++) {
+            $('.inputfield' + i).each(function () {
+                if ($(this).val()) {
+                    rs = rs + "Onder project " + projecten[i].naam + " met id " + projecten[i].projectid + ", zijn door medewerker met id " + medewerkerid + " op veld met id " + $(this).attr('id').substring(2, 13) + ", " + $(this).val() + " uren geschreven.\n";
+                    console.log(rs);
+
+                    var model = {
+                        idmedewerker: medewerkerid.toString(),
+                        idproject: projecten[i].projectid.toString(),
+                        startdatum: $(this).attr('id').substring(2, 13),
+                        uren: $(this).val()
+                    };
+                    registratie.push(model);
+
+                }
+            });
+        }
+
+        var regJson = JSON.stringify(registratie);
+        console.log("We gaan versturen: " + regJson);
+
+        $.ajax({
+            type: 'POST',
+            data: regJson,
+            url: "/registratieUpdate",
+            contentType: "application/json"
+        }).done(function (res) {
+            console.log('res', res);
+            if (!res) {
+                $('#submitResult').removeClass("alert alert-success");
+                $('#submitResult').addClass("alert alert-danger");
+                $('#submitResult').attr("role", "alert");
+                $('#submitResult').text("De data kon niet worden verzonden.");
+            } else {
+                $('#submitResult').removeClass("alert alert-danger");
+                $('#submitResult').addClass("alert alert-success");
+                $('#submitResult').attr("role", "alert");
+                $('#submitResult').text("De ingevulde data is opgeslagen");
             }
         });
+
     }
-
-    var regJson = JSON.stringify(registratie);
-    console.log("We gaan versturen: " + regJson);
-
-    $.ajax({
-        type: 'POST',
-        data: regJson,
-        url: "/registratieUpdate",
-        contentType: "application/json"
-    }).done(function (res) {
-        console.log('res', res);
-        if (!res) {
-            $('#submitResult').addClass("alert alert-danger");
-            $('#submitResult').attr("role", "alert");
-            $('#submitResult').text("De data kon niet worden verzonden.");
-        } else {
-            $('#submitResult').addClass("alert alert-success");
-            $('#submitResult').attr("role", "alert");
-            $('#submitResult').text("De ingevulde data is opgeslagen");
-        }
-    });
-
-
 });
 
 /*

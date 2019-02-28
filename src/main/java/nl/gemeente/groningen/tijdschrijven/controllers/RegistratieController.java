@@ -2,6 +2,7 @@ package nl.gemeente.groningen.tijdschrijven.controllers;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.sql.Date;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,13 @@ public class RegistratieController {
     public List<Registratie> getAlleRegistraties() {
 	return RegistratieRepository.getAlleRegistraties();
     }
-
+    @GetMapping("/registraties/dezeweek")
+    public List<RegistratieJSON> getAlleRegistratiesDezeMedewerkerDezeWeek(
+	    @RequestParam(name = "idmedewerker") int idmedewerker, @RequestParam(name = "datum") Date datum)
+	    throws SQLException {
+	return RegistratieRepository.getAlleRegistratiesDezeMedewerkerDezeWeek(idmedewerker, datum);
+    }
+    
     @GetMapping("/registraties/permedewerker")
     public List<Registratie> getAlleRegistratiesByMedewerker(@RequestParam(name = "idmedewerker") int idMedewerker)
 	    throws SQLException {
