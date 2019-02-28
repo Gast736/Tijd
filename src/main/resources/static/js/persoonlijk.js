@@ -165,7 +165,7 @@ function maakChartArray() {
         chartArray.push(chartObject);
 
     }
-    alert(JSON.stringify(chartArray));
+    //alert(JSON.stringify(chartArray));
 }
 
 function haalUrenPerProjectPerMaand() {
