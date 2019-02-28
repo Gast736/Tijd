@@ -10,10 +10,10 @@ INSERT INTO `tijd`.tblproject(naam, categorie, opdrachtgever, directie, startdat
 INSERT INTO `tijd`.tblproject(naam, categorie, opdrachtgever, directie, startdatum, einddatum) VALUES ("opleiding", "afwezigheid", "Jeanine Vosselman", "I&S", "2001-01-01", "2050-12-31");
 
 /* medewerkers */
-INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("erwin.reinders@groningen.nl", "Erwin", "welkom", "reporting", "medewerker", 40.00, "2009-04-01", null);
-INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("arjan.hegge@groningen.nl", "Arjan", "welkom", "reporting", "beheerder", 40.00, "2008-01-01", null);
-INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("maarten.millaard@groningen.nl", "Maarten", "welkom", "datawarehouse", "medewerker", 40.00, "1998-03-15", null);
-INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("jeanine.vosselman@groningen.nl", "Jeanine", "welkom", "reporting", "afdelingshoofd", 40.00, "1994-02-19", null);
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("erwin.reinders@groningen.nl", "Erwin", "welkom", "reporting", "medewerker", 40.00, "2009-04-01", "9999-12-31");
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("arjan.hegge@groningen.nl", "Arjan", "welkom", "reporting", "beheerder", 40.00, "2008-01-01", "9999-12-31");
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("maarten.millaard@groningen.nl", "Maarten", "welkom", "datawarehouse", "medewerker", 40.00, "1998-03-15", "9999-12-31");
+INSERT INTO `tijd`.tblmedewerker(emailadres, naam, wachtwoord, team, rol, contracturen, startdatum, einddatum) VALUES ("jeanine.vosselman@groningen.nl", "Jeanine", "welkom", "reporting", "afdelingshoofd", 40.00, "1994-02-19", "9999-12-31");
 
 /* uren eerste 8 weken, medewerker 1 */
 INSERT INTO `tijd`.tblregistratie(idmedewerker, idproject, startdatum, uren) VALUES (1 , 7, "2018-12-31", 8);
