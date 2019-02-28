@@ -160,21 +160,7 @@ function maakChartArray() {
         var chartObject = {
             label: projecten[i].naam,
             backgroundColor: kleuren[i],
-            data: [
-					0,
-					0,
-					0,
-					50,
-					0,
-					150,
-					0,
-					0,
-                    100,
-					0,
-					0,
-                    0
-				]
-
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
         chartArray.push(chartObject);
 
@@ -192,6 +178,7 @@ function haalUrenPerProjectPerMaand() {
             einddatum: "2019-12-31",
         },
         dataType: 'json',
+        async: false,
         success: function (data) {
             // LOGGING AAN
             console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
@@ -201,7 +188,20 @@ function haalUrenPerProjectPerMaand() {
                 return o.projectid;
             }))
             console.log("het maximum projectnummer is: " + res);
-
+            for (var i = 0; i < data.length; i++) {
+                console.log('we zoeken naar project: ' + data[i].project);
+                for (j=0;j<projecten.length;j++) {
+                    if (projecten[j].naam === data[i].project) {
+                        p=j;
+                    }
+                }
+                console.log("we hebben uren voor projectindex: " + p);
+                var q = periodes.indexOf(data[i].periode);
+                console.log("deze uren moeten naar periodeindex: " + q);
+                var u = data[i].aantal;
+                console.log("en het betreft " + u + " uren");
+                chartArray[p].data[q] = u;
+            };
         },
         error: function (requestObject, error, errorThrown) {
 
