@@ -12,27 +12,63 @@ var projecten = [];
 var medewerkerid;
 var contracturen;
 var rol;
-var periodes = ['201901','201902','201903','201904','201905','201906','201907','201908','201909','201910','201911','201912'];
-var kleuren = ['#007bff','#6610f2','#6f42c1','#e83e8c','#dc3545','#fd7e14','#ffc107','#28a745','#20c997','#17a2b8','#6c757d','#343a40'];
-var mydata1 = {
-labels : ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
-datasets : [
-    {
-        fillColor : "rgba(220,220,220,0.5)",
-        strokeColor : "rgba(220,220,220,1)",
-        data : [0,0,0,0,0,0,0,0,0,0,0,0],
-        title : "2014"
-    },
-    {
-        fillColor : "rgba(151,187,205,0.5)",
-        strokeColor : "rgba(151,187,205,1)",
-        data : [35,43,59,31,50,66,55],
-        title : "2013"
-    }
- ]
-}
+var periodes = ['201901', '201902', '201903', '201904', '201905', '201906', '201907', '201908', '201909', '201910', '201911', '201912'];
+var kleuren = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#6c757d', '#343a40'];
+var chartArray = [];
 
+var arjan = [{
+    label: 'Verlof',
+    backgroundColor: '#d9e6f2',
+    data: [
+					0,
+					40,
+					0,
+					0,
+					0,
+					40,
+					0,
+					120,
+                    0,
+					0,
+					0,
+                    40
+				]
 
+            }, {
+    label: 'Financiële Managementinfo',
+    backgroundColor: '#4080bf',
+    data: [
+					40,
+					0,
+					40,
+					20,
+					20,
+					40,
+					40,
+					0,
+                    40,
+					40,
+					60,
+                    40
+				]
+			}, {
+    label: 'DMO',
+    backgroundColor: '#264d73',
+    data: [
+					80,
+					80,
+					80,
+					100,
+					100,
+					40,
+					80,
+					0,
+                    80,
+					80,
+					60,
+                    40
+				]
+			}];
 
 
 // GESCHREVEN FUNCTIES
@@ -91,7 +127,60 @@ function addBeheerMenu() {
     }
 }
 
+function haalProjecten() {
+    $.ajax({
+        url: "/projecten",
+        method: 'GET',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            // LOGGING AAN
+            console.log("haalProjecten: Het JSON object met " + data.length + " records, is ontvangen.");
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                var project = {
+                    projectid: data[i].idProject,
+                    naam: data[i].naam
 
+                };
+                projecten.push(project); // Met push voeg je het element toe aan de array projecten
+            }
+        },
+        error: function (requestObject, error, errorThrown) {
+
+            console.log("error thrown, add handler to exit gracefully");
+        },
+        timeout: 3000 //to do: research and develop further in combination with error handling
+    });
+    return false;
+}
+
+function maakChartArray() {
+    for (var i = 0; i < projecten.length; i++) {
+        var chartObject = {
+            label: projecten[i].naam,
+            backgroundColor: kleuren[i],
+            data: [
+					0,
+					0,
+					0,
+					50,
+					0,
+					150,
+					0,
+					0,
+                    100,
+					0,
+					0,
+                    0
+				]
+
+        }
+        chartArray.push(chartObject);
+
+    }
+    alert(JSON.stringify(chartArray));
+}
 
 function haalUrenPerProjectPerMaand() {
     $.ajax({
@@ -108,9 +197,11 @@ function haalUrenPerProjectPerMaand() {
             console.log("HaalUrenPerProjectPerMaand: Het JSON object met " + data.length + " records, is ontvangen.");
             console.log(JSON.stringify(data));
             // Haal maximum projectnr
-            var res = Math.max.apply(Math,data.map(function(o){return o.projectid;}))
-            console.log("het maximum projectnummer is: " +res);
-            
+            var res = Math.max.apply(Math, data.map(function (o) {
+                return o.projectid;
+            }))
+            console.log("het maximum projectnummer is: " + res);
+
         },
         error: function (requestObject, error, errorThrown) {
 
@@ -123,63 +214,11 @@ function haalUrenPerProjectPerMaand() {
 
 var barChartData = {
     labels: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
-    datasets: [{
-        label: 'Verlof',
-        backgroundColor: '#d9e6f2',
-        data: [
-					0,
-					40,
-					0,
-					0,
-					0,
-					40,
-					0,
-					120,
-                    0,
-					0,
-					0,
-                    40
-				]
-
-            }, {
-        label: 'Financiële Managementinfo',
-        backgroundColor: '#4080bf',
-        data: [
-					40,
-					0,
-					40,
-					20,
-					20,
-					40,
-					40,
-					0,
-                    40,
-					40,
-					60,
-                    40
-				]
-			}, {
-        label: 'DMO',
-        backgroundColor: '#264d73',
-        data: [
-					80,
-					80,
-					80,
-					100,
-					100,
-					40,
-					80,
-					0,
-                    80,
-					80,
-					60,
-                    40
-				]
-			}]
+    datasets: chartArray
 
 };
 
-window.onload = function () {
+function maakGrafiek() {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myBar = new Chart(ctx, {
         type: 'bar',
@@ -215,5 +254,15 @@ $(document).ready(function () {
     console.log("pagina opnieuw geladen (document.ready)");
     checkCookie();
     addBeheerMenu();
-    setTimeout(haalUrenPerProjectPerMaand, 500);
+    haalProjecten();
+    maakChartArray();
+    haalUrenPerProjectPerMaand();
+    maakGrafiek();
 });
+
+
+/* OPLOSSING
+- We halen eerst alle projecten op via HaalProjecten()
+- Voor alle projecten maken we objecten aan in de array chartArray
+- We loopen door de met haalUrenPerProjectPerMaand() opgehaalde JSON en vullen de uren in arjan
+*/
